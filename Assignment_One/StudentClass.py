@@ -49,10 +49,3 @@ class Student:
 
 
 studentOne = Student("Nathan", "777777777", "Nate@aol.com", "134 Home St", 4.0, 150)
-# print(studentOne.name)
-# print(studentOne.redId)
-# print(studentOne.email)
-# print(studentOne.address)
-# print(studentOne.gpa)
-# print(studentOne.numberOfUnitsTaken)
-# print(studentOne.studentPriority)
