@@ -1,6 +1,20 @@
+#Class definition reference
+#https://stackoverflow.com/questions/9195455/how-to-document-a-method-with-parameters
+#Variable names reference
+#https://www.python.org/dev/peps/pep-0008/#class-names
+
 class Student:
-    'This is the base class for all students'
+    """This is the base class for all students"""
     def __init__(self, name, redId, email, address, gpa, numberOfUnitsTaken):
+        """
+        Constructor
+        :param str name: The name of the student
+        :param str redId: The redID of the student
+        :param str email: The email of the student
+        :param str address: The address of the student
+        :param float gpa: The gpa of the student, must be between 0 and 4.0
+        :param int numberOfUnitsTaken: The number of units that the student has taken, must be between 0 and 150
+        """
         self.name = str(name)
         self.redId = str(redId)
         self.email = str(email)
