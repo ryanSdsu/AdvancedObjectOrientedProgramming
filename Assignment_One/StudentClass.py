@@ -48,7 +48,7 @@ class Student:
             print("The number of units taken is not an actual number.".format(self.name))
 
         # In this try block we will attempt to create the studentPriority for the student.
-        # In order to do this both the gpa and numberOfUnits variables must have been instantiated
+        # In order to do this both the gpa and numberOfUnits variables must have been instantiated.
         try:
             if self.gpa >= 0 and self.numberOfUnitsTaken >= 0:
                 self.studentPriority = float(0.7*self.numberOfUnitsTaken + 0.3*self.gpa)
