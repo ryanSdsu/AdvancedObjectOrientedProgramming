@@ -26,8 +26,7 @@ class PriorityQueue:
         # we can simply compute this by shifting the bits of the newly added objects index to the right.
         self.priorityQueue.append(studentObject)
         newObjectLocation = len(self.priorityQueue) - 1
-        newObjectParentLocation = len(self.priorityQueue) - 1
-        newObjectParentLocation = newObjectParentLocation >> 1
+        newObjectParentLocation = newObjectLocation >> 1
 
         # If the newly added object has parents we can now check the 'studentPriority'.
         # If the newly added objects 'studentPriority' is lower than that of it's parents, we will traverse it upwards
