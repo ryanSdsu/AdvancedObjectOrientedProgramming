@@ -1,3 +1,7 @@
+#Ryan Ragasa
+#Red ID: 817560426
+#I am currently enrolled in this class => CS 635 Advanced Object-Oriented Design & Programming.
+
 from Assignment_One import StudentClass
 from Assignment_One import PriorityQueueClass
 
