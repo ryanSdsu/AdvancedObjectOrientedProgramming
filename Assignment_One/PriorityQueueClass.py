@@ -20,7 +20,6 @@ class PriorityQueue:
         :return: The priorityQueue
         :rtype: []
         """
-
         # To begin we will confirm if the newly added object has any "parents".
         # Since the parents location of the newly added object is the "floor" of the newly added objects index / 2,
         # we can simply compute this by shifting the bits of the newly added objects index to the right.
@@ -38,6 +37,16 @@ class PriorityQueue:
             else:
                 newObjectParentLocation = newObjectParentLocation >> 1
         return self.priorityQueue
+
+    def printPriorityQueue(self):
+        """
+        This definition prints out the objects in the 'priorityQueue' via priority order, displaying the name and redId.
+        :return:
+        """
+        iteratorPriorityQueue = iter(self.priorityQueue)
+        next(iteratorPriorityQueue)
+        for studentObject in iteratorPriorityQueue:
+            print("{} {}".format(studentObject.name, studentObject.redId))
 
     def removeHighestPriorityObject(self):
         """
@@ -62,7 +71,7 @@ class PriorityQueue:
         # Now we need confirm if the new root object has any "children". If so we need to traverse downwards should they
         # happen to have a higher 'studentPriority'. The location of the children can be found via index * 2 and
         # index * 2 + 1. With this in mind, if the length of the 'priorityQueue' is 3 there is only 1 child and
-        # anything else that is bigger it has more.
+        # anything else that is bigger than 4 has more.
         self.rootObjectCurrentIndex = 1
         childOfRootObject = self.rootObjectCurrentIndex + 1
         if len(self.priorityQueue) == 3:
