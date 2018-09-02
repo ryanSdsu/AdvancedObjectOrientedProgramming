@@ -31,9 +31,9 @@ class Student:
                 self.gpa = float(gpa)
             self.gpa
         except AttributeError:
-            print("The gpa of {} is not between 0 and 4.0.".format(self.name))
+            raise AttributeError("The gpa of {} is not between 0 and 4.0.".format(self.name))
         except TypeError:
-            print("The gpa is not an actual number.".format(self.name))
+            raise TypeError("The gpa is not an actual number.".format(self.name))
 
         # In this try block we will attempt to create the numberOfUnits taken for the student.
         # The number of units taken must be between 0 and 150.
@@ -42,9 +42,9 @@ class Student:
                 self.numberOfUnitsTaken = int(numberOfUnitsTaken)
             self.numberOfUnitsTaken
         except AttributeError:
-            print("The number of units taken from {} is not between 0 and 150.".format(self.name))
+            raise  AttributeError("The number of units taken from {} is not between 0 and 150.".format(self.name))
         except TypeError:
-            print("The number of units taken is not an actual number.".format(self.name))
+            raise TypeError("The number of units taken is not an actual number.".format(self.name))
 
         # In this try block we will attempt to create the studentPriority for the student.
         # The requirement for this is that total be 70% numberOfUnitsTaken and 30% gpa.
