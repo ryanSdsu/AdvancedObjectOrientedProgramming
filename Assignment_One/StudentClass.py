@@ -24,7 +24,6 @@ class Student:
         self.email = str(email)
         self.address = str(address)
 
-
         # In this try block we will attempt to create the gpa for the student.
         # The gpa must be between 0 and 4.0.
         try:
@@ -54,5 +53,3 @@ class Student:
                 self.studentPriority = float(0.7*self.numberOfUnitsTaken + 0.3*self.gpa)
         except AttributeError:
             print("Both the gpa and number of units taken for {} are not valid.".format(self.name))
-
-studentOne = Student("Nathan", "777777777", "Nate@aol.com", "134 Home St", 4.0, 150)
