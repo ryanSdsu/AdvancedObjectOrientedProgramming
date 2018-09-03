@@ -1,98 +1,156 @@
+import unittest
+import sys
 from Assignment_One import PriorityQueueClass
 from Assignment_One import StudentClass
 
-#Unit Test for addNewObject and returnHighestPriorityObject
-studentDavid = StudentClass.Student("David", "111111111", "David@aol.com", "134 Yolo St", 2.0, 75)
-studentEric = StudentClass.Student("Eric", "777777777", "Nate@aol.com", "134 Home St", 3.0, 100)
-studentNathan = StudentClass.Student("Nathan", "777777777", "Nate@aol.com", "134 Home St", 3.5, 120)
-studentPaul = StudentClass.Student("Paul", "777777777", "Nate@aol.com", "134 Home St", 3.8, 148)
-studentChris = StudentClass.Student("Chris", "777777777", "Nate@aol.com", "134 Home St", 3.6, 121)
-studentBob = StudentClass.Student("Bob", "777777777", "Nate@aol.com", "134 Home St", 2.5, 7.6)
-studentLarissa = StudentClass.Student("Larissa", "777777777", "Nate@aol.com", "134 Home St", 3.25, 110)
-studentMark = StudentClass.Student("Mark", "777777777", "Nate@aol.com", "134 Home St", 3.65, 122)
-studentHeath = StudentClass.Student("Heath", "777777777", "Nate@aol.com", "134 Home St", 0, 0)
-studentSarah = StudentClass.Student("Sarah", "777777777", "Nate@aol.com", "134 Home St", 3.7, 123)
-studentAshley = StudentClass.Student("Ashley", "777777777", "Nate@aol.com", "134 Home St", 3.9, 149)
-studentRyan = StudentClass.Student("Ryan", "777777777", "Nate@aol.com", "134 Home St", 4, 150)
-studentJake = StudentClass.Student("Jake", "777777777", "Nate@aol.com", "134 Home St", 1, 1)
-studentDrake = StudentClass.Student("Drake", "777777777", "Nate@aol.com", "134 Home St", 1, 1)
-studentBlake = StudentClass.Student("Blake", "777777777", "Nate@aol.com", "134 Home St", 1, 1)
+class TestPriorityQueueClass(unittest.TestCase):
 
-myPriorityQueue = PriorityQueueClass.PriorityQueue()
-print(myPriorityQueue.returnHighestPriorityObject())
-myPriorityQueue.addNewObject(studentDavid)
-myPriorityQueue.addNewObject(studentEric)
-myPriorityQueue.addNewObject(studentNathan)
-myPriorityQueue.addNewObject(studentPaul)
-myPriorityQueue.addNewObject(studentChris)
-myPriorityQueue.addNewObject(studentBob)
-myPriorityQueue.addNewObject(studentLarissa)
-myPriorityQueue.addNewObject(studentMark)
-myPriorityQueue.addNewObject(studentHeath)
-myPriorityQueue.addNewObject(studentSarah)
-myPriorityQueue.addNewObject(studentAshley)
-myPriorityQueue.addNewObject(studentRyan)
-myPriorityQueue.addNewObject(studentJake)
-myPriorityQueue.addNewObject(studentDrake)
-myPriorityQueue.addNewObject(studentBlake)
+    def setUp(self):
+        """
+        This sets up the instances of the 'StudentClass' via student objects which are set to be added and tested via
+        the 'PriorityQueueClass'.
+        :return:
+        """
+        self.studentDavid = StudentClass.Student("David", "111111111", "David@aol.com", "134 Red St", 2.0, 75)
+        self.studentEric = StudentClass.Student("Eric", "222222222", "Eric@aol.com", "135 Yolo St", 3.0, 100)
+        self.studentNathan = StudentClass.Student("Nathan", "333333333", "Nathan@aol.com", "136 Welp St", 3.5, 120)
+        self.studentPaul = StudentClass.Student("Paul", "444444444", "Paul@aol.com", "137 Uinx St", 3.8, 148)
+        self.studentChris = StudentClass.Student("Chris", "555555555", "Chris@aol.com", "138 Down St", 3.6, 121)
+        self.studentBob = StudentClass.Student("Bob", "666666666", "Bob@aol.com", "139 Up St", 2.5, 7.6)
+        self.studentLarissa = StudentClass.Student("Larissa", "777777777", "Larissa@aol.com", "140 Cool St", 3.25, 110)
+        self.studentMark = StudentClass.Student("Mark", "888888888", "Mark@aol.com", "141 Pole St", 3.65, 122)
+        self.studentHeath = StudentClass.Student("Heath", "999999999", "Heath@aol.com", "142 Red St", 0, 0)
+        self.studentSarah = StudentClass.Student("Sarah", "100000000", "Sarah@aol.com", "143 Oil St", 3.7, 123)
+        self.studentAshley = StudentClass.Student("Ashley", "110000000", "Ashley@aol.com", "144 Far St", 3.9, 149)
+        self.studentRyan = StudentClass.Student("Ryan", "120000000", "Ryan@aol.com", "145 Guard St", 4, 150)
+        self.studentJake = StudentClass.Student("Jake", "130000000", "Jake@aol.com", "146 Palace St", 1, 1)
+        self.studentDrake = StudentClass.Student("Drake", "140000000", "Drake@aol.com", "147 Nom St", 1, 1)
+        self.studentBlake = StudentClass.Student("Blake", "150000000", "Blake@aol.com", "148 Lol St", 1, 1)
 
-for idx in range(1, 16):
-    print(myPriorityQueue.priorityQueue[idx].name)
+    def test_Constructor(self):
+        """
+        This unit test is testing the instantiation of the 'PriorityQueue' object based on the 'PriorityQueueClass' via the
+        default constructor (there are no arguments).
+        :return:
+        """
+        cs635PriorityQueue = PriorityQueueClass.PriorityQueue()
+        self.assertIsInstance(cs635PriorityQueue, PriorityQueueClass.PriorityQueue)
 
-print(myPriorityQueue.priorityQueue)
-myPriorityQueue.priorityQueue.pop()
-print(myPriorityQueue.priorityQueue)
+    def test_addNewObject(self):
+        """
+        This unit test is testing the PriorityQueue class definition 'addNewObject'.  This test passes if all 15 'student'
+        objects which were instantiated in the 'setUp' definition are successfully added to the 'priorityQueue' and are in
+        priority order.
+        :return:
+        """
+        cs635PriorityQueue = PriorityQueueClass.PriorityQueue()
+        cs635PriorityQueue.addNewObject(self.studentDavid)
+        cs635PriorityQueue.addNewObject(self.studentEric)
+        cs635PriorityQueue.addNewObject(self.studentNathan)
+        cs635PriorityQueue.addNewObject(self.studentPaul)
+        cs635PriorityQueue.addNewObject(self.studentChris)
+        cs635PriorityQueue.addNewObject(self.studentBob)
+        cs635PriorityQueue.addNewObject(self.studentLarissa)
+        cs635PriorityQueue.addNewObject(self.studentMark)
+        cs635PriorityQueue.addNewObject(self.studentHeath)
+        cs635PriorityQueue.addNewObject(self.studentSarah)
+        cs635PriorityQueue.addNewObject(self.studentAshley)
+        cs635PriorityQueue.addNewObject(self.studentRyan)
+        cs635PriorityQueue.addNewObject(self.studentJake)
+        cs635PriorityQueue.addNewObject(self.studentDrake)
+        cs635PriorityQueue.addNewObject(self.studentBlake)
+        self.assertListEqual(cs635PriorityQueue.priorityQueue, [None, self.studentRyan, self.studentPaul, self.studentAshley,
+                                                                self.studentChris,self.studentSarah, self.studentLarissa,
+                                                                self.studentEric, self.studentDavid, self.studentHeath,
+                                                                self.studentNathan, self.studentMark, self.studentBob,
+                                                                self.studentJake, self.studentDrake, self.studentBlake])
 
-print(myPriorityQueue.returnHighestPriorityObject().name)
+    def test_printPriorityQueue(self):
+        """
+        This unit test is testing the PriorityQueue class definition 'printPriorityQueue'.  This test passes
+        if all 1 'student' object (Ryan) which was instantiated in the 'setUp' definition is successfully added to the
+        'priorityQueue' and then the 'student' object Ryan is printed once the definition 'printPriorityQueue'
+        is called.
+        :return:
+        """
+        cs635PriorityQueue = PriorityQueueClass.PriorityQueue()
+        cs635PriorityQueue.addNewObject(self.studentRyan)
+        self.assertEquals(cs635PriorityQueue.printPriorityQueue(), sys.stdout.write("Ryan 120000000"))
+
+    def test_removeHighestPriorityObject(self):
+        """
+        This unit test is testing the PriorityQueue class definition 'removeHighestPriorityObject'.  This test passes
+        if all 15 'student' objects which were instantiated in the 'setUp' definition are successfully added to the
+        'priorityQueue' and then the 'student' object Ryan is removed once the definition 'removeHighestPriorityObject'
+        is called. The 'priorityQueue' must maintain priority order at all times with the 'student' object having the
+        highest priority be on the top of the list since the structure is based on a max heap.
+        :return:
+        """
+        cs635PriorityQueue = PriorityQueueClass.PriorityQueue()
+        cs635PriorityQueue.addNewObject(self.studentDavid)
+        cs635PriorityQueue.addNewObject(self.studentEric)
+        cs635PriorityQueue.addNewObject(self.studentNathan)
+        cs635PriorityQueue.addNewObject(self.studentPaul)
+        cs635PriorityQueue.addNewObject(self.studentChris)
+        cs635PriorityQueue.addNewObject(self.studentBob)
+        cs635PriorityQueue.addNewObject(self.studentLarissa)
+        cs635PriorityQueue.addNewObject(self.studentMark)
+        cs635PriorityQueue.addNewObject(self.studentHeath)
+        cs635PriorityQueue.addNewObject(self.studentSarah)
+        cs635PriorityQueue.addNewObject(self.studentAshley)
+        cs635PriorityQueue.addNewObject(self.studentRyan)
+        cs635PriorityQueue.addNewObject(self.studentJake)
+        cs635PriorityQueue.addNewObject(self.studentDrake)
+        cs635PriorityQueue.addNewObject(self.studentBlake)
+        cs635PriorityQueue.removeHighestPriorityObject()
+        self.assertListEqual(cs635PriorityQueue.priorityQueue, [None, self.studentAshley, self.studentPaul, self.studentLarissa,
+                                                                self.studentChris,self.studentSarah, self.studentBob,
+                                                                self.studentEric, self.studentDavid, self.studentHeath,
+                                                                self.studentNathan, self.studentMark, self.studentBlake,
+                                                                self.studentJake, self.studentDrake])
+
+    def test_returnHighestPriorityObject(self):
+        """
+        This unit test is testing the PriorityQueue class definition 'returnHighestPriorityObject'. This test passes
+        if all 15 'student' objects which were instantiated in the 'setUp' definition are successfully added to the
+        'priorityQueue' and then the 'student' object Ryan (which has the highest 'studentPriority') is returned
+        once the definition 'returnHighestPriorityObject' is called.
+        :return:
+        """
+        cs635PriorityQueue = PriorityQueueClass.PriorityQueue()
+        cs635PriorityQueue.addNewObject(self.studentDavid)
+        cs635PriorityQueue.addNewObject(self.studentEric)
+        cs635PriorityQueue.addNewObject(self.studentNathan)
+        cs635PriorityQueue.addNewObject(self.studentPaul)
+        cs635PriorityQueue.addNewObject(self.studentChris)
+        cs635PriorityQueue.addNewObject(self.studentBob)
+        cs635PriorityQueue.addNewObject(self.studentLarissa)
+        cs635PriorityQueue.addNewObject(self.studentMark)
+        cs635PriorityQueue.addNewObject(self.studentHeath)
+        cs635PriorityQueue.addNewObject(self.studentSarah)
+        cs635PriorityQueue.addNewObject(self.studentAshley)
+        cs635PriorityQueue.addNewObject(self.studentRyan)
+        cs635PriorityQueue.addNewObject(self.studentJake)
+        cs635PriorityQueue.addNewObject(self.studentDrake)
+        cs635PriorityQueue.addNewObject(self.studentBlake)
+        self.assertEqual(cs635PriorityQueue.returnHighestPriorityObject(), self.studentRyan)
+
+    def test_swapObjectIndexInPriorityQueue(self):
+        """
+        This unit test is testing the PriorityQueue class definition 'swapObjectIndexInPriorityQueue'. This test passes
+        if 2 of 'student' objects (David and Eric) which were instantiated in the 'setUp' definition are successfully added to the
+        'priorityQueue' and then they swap places once the definition 'swapObjectIndexInPriorityQueue' is called.
+        :return:
+        """
+        cs635PriorityQueue = PriorityQueueClass.PriorityQueue()
+        cs635PriorityQueue.addNewObject(self.studentEric)
+        indexEric = 1
+        cs635PriorityQueue.addNewObject(self.studentDavid)
+        indexDavid =2
+        cs635PriorityQueue.swapObjectIndexInPriorityQueue(1,2,1)
+        self.assertListEqual(cs635PriorityQueue.priorityQueue, [None, self.studentDavid, self.studentEric])
+
+if __name__ == '__main__':
+    unittest.main()
 
 
-#Unit Test for removeNewObject
-studentA = StudentClass.Student("A", "111111111", "David@aol.com", "134 Yolo St", 1.0, 10)
-studentB = StudentClass.Student("B", "277777777", "Nate@aol.com", "134 Home St", 1.1, 15)
-studentC = StudentClass.Student("C", "377777777", "Nate@aol.com", "134 Home St", 1.2, 20)
-studentD = StudentClass.Student("D", "477777777", "Nate@aol.com", "134 Home St", 1.3, 25)
-studentE = StudentClass.Student("E", "577777777", "Nate@aol.com", "134 Home St", 1.4, 30)
-studentF = StudentClass.Student("F", "677777777", "Nate@aol.com", "134 Home St", 1.5, 35)
-studentG = StudentClass.Student("G", "777777777", "Nate@aol.com", "134 Home St", 1.6, 40)
-studentH = StudentClass.Student("H", "877777777", "Nate@aol.com", "134 Home St", 1.7, 45)
-studentI = StudentClass.Student("I", "977777777", "Nate@aol.com", "134 Home St", 1.8, 50)
-studentJ = StudentClass.Student("J", "107777777", "Nate@aol.com", "134 Home St", 1.9, 55)
-studentK = StudentClass.Student("K", "117777777", "Nate@aol.com", "134 Home St", 2.0, 60)
-studentL = StudentClass.Student("L", "127777777", "Nate@aol.com", "134 Home St", 2.5, 65)
-studentM = StudentClass.Student("M", "137777777", "Nate@aol.com", "134 Home St", 3.0, 70)
-studentN = StudentClass.Student("N", "147777777", "Nate@aol.com", "134 Home St", 3.5, 75)
-studentO = StudentClass.Student("O", "157777777", "Nate@aol.com", "134 Home St", 4.0, 80)
-
-myPriorityQueue = PriorityQueueClass.PriorityQueue()
-myPriorityQueue.addNewObject(studentA)
-myPriorityQueue.addNewObject(studentB)
-myPriorityQueue.addNewObject(studentC)
-myPriorityQueue.addNewObject(studentD)
-myPriorityQueue.addNewObject(studentE)
-myPriorityQueue.addNewObject(studentF)
-myPriorityQueue.addNewObject(studentG)
-myPriorityQueue.addNewObject(studentH)
-myPriorityQueue.addNewObject(studentI)
-myPriorityQueue.addNewObject(studentJ)
-myPriorityQueue.addNewObject(studentK)
-myPriorityQueue.addNewObject(studentL)
-myPriorityQueue.addNewObject(studentM)
-myPriorityQueue.addNewObject(studentN)
-myPriorityQueue.addNewObject(studentO)
-
-print(myPriorityQueue.priorityQueue)
-print("\n")
-
-print("Before the removal we have:")
-for i in range(1,16):
-    print(myPriorityQueue.priorityQueue[i].name)
-
-print("\n")
-myPriorityQueue.removeHighestPriorityObject()
-
-print("After the removal we have:")
-for i in range(1,15):
-    print(myPriorityQueue.priorityQueue[i].name)
-
-print("\n")
-myPriorityQueue.printPriorityQueue()
