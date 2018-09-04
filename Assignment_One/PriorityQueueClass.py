@@ -44,12 +44,8 @@ class PriorityQueue:
         :return: the last student name and redId
         :rtype: str
         """
-        iteratorPriorityQueue = iter(self.priorityQueue)
-        next(iteratorPriorityQueue)
-        for studentObject in iteratorPriorityQueue:
-            student = studentObject.name + " " + studentObject.redId
-            print(student)
-        return student
+        for studentObject in self.priorityQueue[1:]:
+            print("{} {}".format(studentObject.name, studentObject.redId))
 
     def removeHighestPriorityObject(self):
         """
