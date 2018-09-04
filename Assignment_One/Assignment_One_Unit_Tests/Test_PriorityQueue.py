@@ -76,7 +76,7 @@ class TestPriorityQueueClass(unittest.TestCase):
         cs635PriorityQueue = PriorityQueueClass.PriorityQueue()
         cs635PriorityQueue.addNewObject(self.studentRyan)
         self.assertEquals(cs635PriorityQueue.printPriorityQueue(),
-                          sys.stdout.write("{} {}".format(self.studentRyan.name, self.studentRyan.redId)))
+                          "{} {}".format(self.studentRyan.name, self.studentRyan.redId))
 
     def test_removeHighestPriorityObject(self):
         """
