@@ -1,5 +1,6 @@
 import unittest
-import sys
+import io
+from contextlib import redirect_stdout
 from Assignment_One import PriorityQueueClass
 from Assignment_One import StudentClass
 
@@ -68,15 +69,38 @@ class TestPriorityQueueClass(unittest.TestCase):
     def test_printPriorityQueue(self):
         """
         This unit test is testing the PriorityQueue class definition 'printPriorityQueue'.  This test passes
-        if all 1 'student' object (Ryan) which was instantiated in the 'setUp' definition is successfully added to the
-        'priorityQueue' and then the 'student' object Ryan is printed once the definition 'printPriorityQueue'
-        is called.
+        if all 15 'student' objects which were instantiated in the 'setUp' definition are successfully added to the
+        'priorityQueue' and then the 'student' objects are printed/stored into a list which is compared to the
+        original once the definition 'printPriorityQueue' is called.
         :return:
         """
         cs635PriorityQueue = PriorityQueueClass.PriorityQueue()
+        cs635PriorityQueue.addNewObject(self.studentDavid)
+        cs635PriorityQueue.addNewObject(self.studentEric)
+        cs635PriorityQueue.addNewObject(self.studentNathan)
+        cs635PriorityQueue.addNewObject(self.studentPaul)
+        cs635PriorityQueue.addNewObject(self.studentChris)
+        cs635PriorityQueue.addNewObject(self.studentBob)
+        cs635PriorityQueue.addNewObject(self.studentLarissa)
+        cs635PriorityQueue.addNewObject(self.studentMark)
+        cs635PriorityQueue.addNewObject(self.studentHeath)
+        cs635PriorityQueue.addNewObject(self.studentSarah)
+        cs635PriorityQueue.addNewObject(self.studentAshley)
         cs635PriorityQueue.addNewObject(self.studentRyan)
-        self.assertEquals(cs635PriorityQueue.printPriorityQueue(),
-                          "{} {}".format(self.studentRyan.name, self.studentRyan.redId))
+        cs635PriorityQueue.addNewObject(self.studentJake)
+        cs635PriorityQueue.addNewObject(self.studentDrake)
+        cs635PriorityQueue.addNewObject(self.studentBlake)
+
+        with io.StringIO() as buffer, redirect_stdout(buffer):
+            cs635PriorityQueue.printPriorityQueue()
+            lastPrintStatement = buffer.getvalue()
+
+        namesAndRedIdsOfPrintStatement = lastPrintStatement.splitlines()
+        namesAndRedIdsOfPriorityQueue = []
+        for student in cs635PriorityQueue.priorityQueue[1:]:
+            namesAndRedIdsOfPriorityQueue.append("{} {}".format(student.name, student.redId))
+
+        self.assertListEqual(namesAndRedIdsOfPrintStatement, namesAndRedIdsOfPriorityQueue)
 
     def test_removeHighestPriorityObject(self):
         """
