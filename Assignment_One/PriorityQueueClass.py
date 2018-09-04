@@ -41,12 +41,15 @@ class PriorityQueue:
     def printPriorityQueue(self):
         """
         This definition prints out the objects in the 'priorityQueue' via priority order, displaying the name and redId.
-        :return:
+        :return: the last student name and redId
+        :rtype: str
         """
         iteratorPriorityQueue = iter(self.priorityQueue)
         next(iteratorPriorityQueue)
         for studentObject in iteratorPriorityQueue:
-            print("{} {}".format(studentObject.name, studentObject.redId))
+            student = studentObject.name + " " + studentObject.redId
+            print(student)
+        return student
 
     def removeHighestPriorityObject(self):
         """
