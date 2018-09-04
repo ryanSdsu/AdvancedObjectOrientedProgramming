@@ -75,7 +75,8 @@ class TestPriorityQueueClass(unittest.TestCase):
         """
         cs635PriorityQueue = PriorityQueueClass.PriorityQueue()
         cs635PriorityQueue.addNewObject(self.studentRyan)
-        self.assertEquals(cs635PriorityQueue.printPriorityQueue(), sys.stdout.write("Ryan 120000000"))
+        self.assertEquals(cs635PriorityQueue.printPriorityQueue(),
+                          sys.stdout.write("{} {}".format(self.studentRyan.name, self.studentRyan.redId)))
 
     def test_removeHighestPriorityObject(self):
         """
@@ -144,10 +145,10 @@ class TestPriorityQueueClass(unittest.TestCase):
         """
         cs635PriorityQueue = PriorityQueueClass.PriorityQueue()
         cs635PriorityQueue.addNewObject(self.studentEric)
-        indexEric = 1
+        indexEric = len(cs635PriorityQueue.priorityQueue) - 1
         cs635PriorityQueue.addNewObject(self.studentDavid)
-        indexDavid =2
-        cs635PriorityQueue.swapObjectIndexInPriorityQueue(1,2,1)
+        indexDavid =len(cs635PriorityQueue.priorityQueue) - 1
+        cs635PriorityQueue.swapObjectIndexInPriorityQueue(indexDavid, indexEric, indexDavid)
         self.assertListEqual(cs635PriorityQueue.priorityQueue, [None, self.studentDavid, self.studentEric])
 
 if __name__ == '__main__':
