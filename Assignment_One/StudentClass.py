@@ -13,17 +13,15 @@ class Student:
         """
 
         # In this try block we will attempt to create the name for the student.
-        # The name must be a string.
+        # The name must be a string with no numbers in it.
         try:
             if name.isalpha():
                 self.__name = name
-            else:
-                raise AttributeError("A student email must be in a string format.")
         except AttributeError:
             raise AttributeError("A student name can only contain letters.")
 
         # In this try block we will attempt to create the redId for the student.
-        # The redId must be or have int(s).
+        # The redId must be or have only int(s).
         try:
             if int(redId):
                 self.__redId = redId
@@ -80,7 +78,7 @@ class Student:
         # In order to do this both the gpa and numberOfUnits variables must have been instantiated.
         try:
             if self.gpa >= 0 and self.numberOfUnitsTaken >= 0:
-                self.studentPriority = float(0.7*self.numberOfUnitsTaken + 0.3*self.gpa)
+                self.__studentPriority = float(0.7*self.numberOfUnitsTaken + 0.3*self.gpa)
         except AttributeError:
             raise  AttributeError("Both the gpa and number of units taken for {} are not valid.".format(self.name))
 
@@ -93,8 +91,6 @@ class Student:
         try:
             if newName.isalpha():
                 self.__name = newName
-            else:
-                raise AttributeError("A student email must be in a string format.")
         except AttributeError:
             raise AttributeError("A student name can only contain letters.")
 
@@ -152,7 +148,7 @@ class Student:
         try:
             if newGpa >= 0 and newGpa <= 4.0:
                 self.__gpa = float(newGpa)
-                self.studentPriority = float(0.7*self.numberOfUnitsTaken + 0.3*self.gpa)
+                self.__studentPriority = float(0.7*self.numberOfUnitsTaken + 0.3*self.gpa)
         except AttributeError:
             raise AttributeError("The gpa of {} is not between 0 and 4.0.".format(self.name))
         except TypeError:
@@ -167,8 +163,12 @@ class Student:
         try:
             if newNumberOfUnitsTaken >= 0 and newNumberOfUnitsTaken <= 150:
                 self.__numberOfUnitsTaken = int(newNumberOfUnitsTaken)
-                self.studentPriority = float(0.7*self.numberOfUnitsTaken + 0.3*self.gpa)
+                self.__studentPriority = float(0.7*self.numberOfUnitsTaken + 0.3*self.gpa)
         except AttributeError:
             raise  AttributeError("The number of units taken from {} is not between 0 and 150.".format(self.name))
         except TypeError:
             raise TypeError("The number of units taken is not an actual number.".format(self.name))
+
+    @property
+    def studentPriority(self):
+        return self.__studentPriority
