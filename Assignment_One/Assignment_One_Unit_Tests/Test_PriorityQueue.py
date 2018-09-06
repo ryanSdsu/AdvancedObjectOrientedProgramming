@@ -90,7 +90,7 @@ class TestPriorityQueueClass(unittest.TestCase):
         This unit test is testing the PriorityQueue class definition 'printPriorityQueue'.  This test passes
         if all 15 'student' objects which were instantiated in the 'setUp' definition are successfully added to the
         'priorityQueue' and then the 'student' objects are printed/stored into a list which is compared to the
-        original once the definition 'printPriorityQueue' is called.
+        original 'priorityQueue' once the definition 'printPriorityQueue' is called.
         :return:
         """
         cs635PriorityQueue = PriorityQueueClass.PriorityQueue()
@@ -213,7 +213,7 @@ class TestPriorityQueueClass(unittest.TestCase):
         indexEric = len(cs635PriorityQueue.priorityQueue) - 1
         cs635PriorityQueue.addNewObject(self.studentDavid)
         indexDavid =len(cs635PriorityQueue.priorityQueue) - 1
-        cs635PriorityQueue.swapObjectIndexInPriorityQueue(indexDavid, indexEric, indexDavid)
+        cs635PriorityQueue.traverseObjectIndexInPriorityQueue(indexDavid, indexEric, indexDavid)
         self.assertListEqual(cs635PriorityQueue.priorityQueue, [None, self.studentDavid, self.studentEric])
 
 if __name__ == '__main__':

@@ -6,7 +6,7 @@ class TestStudentClass(unittest.TestCase):
     def test_ChangeAddress(self):
         """
         This unit test is testing the changing of the 'address' variable. It passes when a student's 'address' variable
-        is changed by means of its setter and cross-referenced to the new desried 'address'.
+        is changed by means of its setter and cross-referenced to the 'newDesiredAddress'.
         :return:
         """
         newDesiredAddress = "132 New St."
@@ -17,29 +17,29 @@ class TestStudentClass(unittest.TestCase):
     def test_ChangeEmail(self):
         """
         This unit test is testing the changing of the 'email' variable. It passes when a student's 'email' variable
-        is changed by means of its setter and cross-referenced to the new desried 'email'.
+        is changed by means of its setter and cross-referenced to the 'newDesiredEmail'.
         :return:
         """
-        newEmail = "Nathaniel@aol.com"
+        newDesiredEmail = "Nathaniel@aol.com"
         studentOne = StudentClass.Student("Nathan", 777777777, "Nate@aol.com", "134 Home St", 4.0, 150)
-        studentOne.email = newEmail
-        self.assertEquals(studentOne.email, newEmail)
+        studentOne.email = newDesiredEmail
+        self.assertEquals(studentOne.email, newDesiredEmail)
 
     def test_ChangeGpa(self):
         """
         This unit test is testing the changing of the 'gpa' variable. It passes when a student's 'gpa' variable
-        is changed by means of its setter and cross-referenced to the new desried 'gpa'.
+        is changed by means of its setter and cross-referenced to the 'newDesiredGpa'.
         :return:
         """
-        newGpa = 3.5
+        newDesiredGpa = 3.5
         studentOne = StudentClass.Student("Nathan", "777777777", "Nate@aol.com", "134 Home St", 4.0, 150)
-        studentOne.gpa = newGpa
-        self.assertEquals(studentOne.gpa, newGpa)
+        studentOne.gpa = newDesiredGpa
+        self.assertEquals(studentOne.gpa, newDesiredGpa)
 
     def test_ChangeName(self):
         """
         This unit test is testing the changing of the 'name' variable. It passes when a student's 'name' variable
-        is changed by means of its setter and cross-referenced to the new desried 'name'.
+        is changed by means of its setter and cross-referenced to the 'newDesiredName'.
         :return:
         """
         newDesiredName = "David"
@@ -47,16 +47,28 @@ class TestStudentClass(unittest.TestCase):
         studentOne.name = newDesiredName
         self.assertEquals(studentOne.name, newDesiredName)
 
+    def test_ChangeNumberOfUnitsTaken(self):
+        """
+        This unit test is testing the changing of the 'numberOfUnitsTaken' variable. It passes when a
+        student's 'numberOfUnitsTaken' variable is changed by means of its setter and cross-referenced to
+        the 'newDesiredNumberOfUnitsTaken'.
+        :return:
+        """
+        newDesiredNumberOfUnitsTaken = 130
+        studentOne = StudentClass.Student("Nathan", "777777777", "Nate@aol.com", "134 Home St", 4.0, 150)
+        studentOne.numberOfUnitsTaken = newDesiredNumberOfUnitsTaken
+        self.assertEquals(studentOne.numberOfUnitsTaken, newDesiredNumberOfUnitsTaken)
+
     def test_ChangeRedId(self):
         """
         This unit test is testing the changing of the 'redId' variable. It passes when a student's 'redId' variable
-        is changed by means of its setter and cross-referenced to the new desried 'redId'.
+        is changed by means of its setter and cross-referenced to the 'newDesiredRedId'.
         :return:
         """
-        newRedId = 333333333
+        newDesiredRedId = 333333333
         studentOne = StudentClass.Student("Nathan", 777777777, "Nate@aol.com", "134 Home St", 4.0, 150)
-        studentOne.redId = newRedId
-        self.assertEquals(studentOne.redId, newRedId)
+        studentOne.redId = newDesiredRedId
+        self.assertEquals(studentOne.redId, newDesiredRedId)
 
     def test_Constructor(self):
         """
@@ -98,7 +110,7 @@ class TestStudentClass(unittest.TestCase):
     def test_ReturnAddress(self):
         """
         This unit test is testing the return of the 'address' variable. It passes when a student's 'address' variable
-        is returned by means of its property tag and cross-referenced to the original 'address'.
+        is returned by means of its property tag and cross-referenced to the 'originalAddress'.
         :return:
         """
         originalAddress = "132 Original St."
@@ -108,7 +120,7 @@ class TestStudentClass(unittest.TestCase):
     def test_ReturnEmail(self):
         """
         This unit test is testing the return of the 'email' variable. It passes when a student's 'email' variable
-        is returned by means of its property tag and cross-referenced to the original 'email'.
+        is returned by means of its property tag and cross-referenced to the 'originalEmail'.
         :return:
         """
         originalEmail = "Nate@aol.com"
@@ -118,7 +130,7 @@ class TestStudentClass(unittest.TestCase):
     def test_ReturnGpa(self):
         """
         This unit test is testing the return of the 'gpa' variable. It passes when a student's 'gpa' variable
-        is returned by means of its property tag and cross-referenced to the original 'gpa'.
+        is returned by means of its property tag and cross-referenced to the 'originalGpa'.
         :return:
         """
         originalGpa = 4.0
@@ -128,7 +140,7 @@ class TestStudentClass(unittest.TestCase):
     def test_ReturnName(self):
         """
         This unit test is testing the return of the 'name' variable. It passes when a student's 'name' variable
-        is returned by means of its property tag and cross-referenced to the original 'name'.
+        is returned by means of its property tag and cross-referenced to the 'originalName'.
         :return:
         """
         originalName = "David"
@@ -139,7 +151,7 @@ class TestStudentClass(unittest.TestCase):
     def test_ReturnRedId(self):
         """
         This unit test is testing the return of the 'redId' variable. It passes when a student's 'redId' variable
-        is returned by means of its property tag and cross-referenced to the original 'redId'.
+        is returned by means of its property tag and cross-referenced to the 'originalRedId'.
         :return:
         """
         originalRedId = 777777777
@@ -185,7 +197,7 @@ class TestStudentClass(unittest.TestCase):
     def test_WrongTypeEmail(self):
         """
         This unit test is testing the 'TypeError' check of the 'email' variable. It passes when something other than a
-        string is passed 'email'.
+        string is passed into 'email'.
         :return:
         """
         with self.assertRaises(AttributeError):
