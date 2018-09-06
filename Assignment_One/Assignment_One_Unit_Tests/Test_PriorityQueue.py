@@ -12,21 +12,22 @@ class TestPriorityQueueClass(unittest.TestCase):
         the 'PriorityQueueClass'.
         :return:
         """
-        self.studentDavid = StudentClass.Student("David", "111111111", "David@aol.com", "134 Red St", 2.0, 75)
-        self.studentEric = StudentClass.Student("Eric", "222222222", "Eric@aol.com", "135 Yolo St", 3.0, 100)
-        self.studentNathan = StudentClass.Student("Nathan", "333333333", "Nathan@aol.com", "136 Welp St", 3.5, 120)
-        self.studentPaul = StudentClass.Student("Paul", "444444444", "Paul@aol.com", "137 Uinx St", 3.8, 148)
-        self.studentChris = StudentClass.Student("Chris", "555555555", "Chris@aol.com", "138 Down St", 3.6, 121)
-        self.studentBob = StudentClass.Student("Bob", "666666666", "Bob@aol.com", "139 Up St", 2.5, 7.6)
-        self.studentLarissa = StudentClass.Student("Larissa", "777777777", "Larissa@aol.com", "140 Cool St", 3.25, 110)
-        self.studentMark = StudentClass.Student("Mark", "888888888", "Mark@aol.com", "141 Pole St", 3.65, 122)
-        self.studentHeath = StudentClass.Student("Heath", "999999999", "Heath@aol.com", "142 Red St", 0, 0)
-        self.studentSarah = StudentClass.Student("Sarah", "100000000", "Sarah@aol.com", "143 Oil St", 3.7, 123)
-        self.studentAshley = StudentClass.Student("Ashley", "110000000", "Ashley@aol.com", "144 Far St", 3.9, 149)
-        self.studentRyan = StudentClass.Student("Ryan", "120000000", "Ryan@aol.com", "145 Guard St", 4, 150)
-        self.studentJake = StudentClass.Student("Jake", "130000000", "Jake@aol.com", "146 Palace St", 1, 1)
-        self.studentDrake = StudentClass.Student("Drake", "140000000", "Drake@aol.com", "147 Nom St", 1, 1)
-        self.studentBlake = StudentClass.Student("Blake", "150000000", "Blake@aol.com", "148 Lol St", 1, 1)
+        self.studentDavid = StudentClass.Student("David", 111111111, "David@aol.com", "134 Red St", 2.0, 75)
+        self.studentEric = StudentClass.Student("Eric", 222222222, "Eric@aol.com", "135 Yolo St", 3.0, 100)
+        self.studentNathan = StudentClass.Student("Nathan", 333333333, "Nathan@aol.com", "136 Welp St", 3.5, 120)
+        self.studentPaul = StudentClass.Student("Paul", 444444444, "Paul@aol.com", "137 Uinx St", 3.8, 148)
+        self.studentChris = StudentClass.Student("Chris", 555555555, "Chris@aol.com", "138 Down St", 3.6, 121)
+        self.studentBob = StudentClass.Student("Bob", 666666666, "Bob@aol.com", "139 Up St", 2.5, 7.6)
+        self.studentLarissa = StudentClass.Student("Larissa", 777777777, "Larissa@aol.com", "140 Cool St", 3.25, 110)
+        self.studentMark = StudentClass.Student("Mark", 888888888, "Mark@aol.com", "141 Pole St", 3.65, 122)
+        self.studentHeath = StudentClass.Student("Heath", 999999999, "Heath@aol.com", "142 Red St", 0, 0)
+        self.studentSarah = StudentClass.Student("Sarah", 100000000, "Sarah@aol.com", "143 Oil St", 3.7, 123)
+        self.studentAshley = StudentClass.Student("Ashley", 110000000, "Ashley@aol.com", "144 Far St", 3.9, 149)
+        self.studentRyan = StudentClass.Student("Ryan", 120000000, "Ryan@aol.com", "145 Guard St", 4, 150)
+        self.studentJake = StudentClass.Student("Jake", 130000000, "Jake@aol.com", "146 Palace St", 1, 1)
+        self.studentDrake = StudentClass.Student("Drake", 140000000, "Drake@aol.com", "147 Nom St", 1, 1)
+        self.studentBlake = StudentClass.Student("Blake", 150000000, "Blake@aol.com", "148 Lol St", 1, 1)
+
 
     def test_Constructor(self):
         """
@@ -65,6 +66,24 @@ class TestPriorityQueueClass(unittest.TestCase):
                                                                 self.studentEric, self.studentDavid, self.studentHeath,
                                                                 self.studentNathan, self.studentMark, self.studentBob,
                                                                 self.studentJake, self.studentDrake, self.studentBlake])
+
+    def test_addNewObjectPriorityQueueSizeCheck(self):
+        """
+        This unit test is testing the PriorityQueue class definition 'addNewObject'.  This test goes and increments the
+        size and ensures that whenever an object is added to the 'priorityQueue' that the length of the 'priorityQueue'
+        is growing by an index of 1. The number of iterations can be determined by adjusting the 'numberOfStudentsToAdd'
+        variable.
+        :return:
+        """
+        numberOfStudentsToAdd = 5
+        cs635PriorityQueue = PriorityQueueClass.PriorityQueue()
+
+        for index in range(numberOfStudentsToAdd):
+            cs635PriorityQueue.addNewObject(self.studentDavid)
+
+        lengthOfPriotityQueue = len(cs635PriorityQueue.priorityQueue) - 1
+
+        self.assertEquals(numberOfStudentsToAdd, lengthOfPriotityQueue)
 
     def test_printPriorityQueue(self):
         """
@@ -133,6 +152,28 @@ class TestPriorityQueueClass(unittest.TestCase):
                                                                 self.studentEric, self.studentDavid, self.studentHeath,
                                                                 self.studentNathan, self.studentMark, self.studentBlake,
                                                                 self.studentJake, self.studentDrake])
+
+    def test_removeHighestPriorityObjectQueueSizeCheck(self):
+        """
+        This unit test is testing the PriorityQueue class definition 'removeHighestPriorityObject'.  This test passes
+        if a fixed number of 'student' objects which were instantiated in the 'setUp' definition are successfully
+        added to the 'priorityQueue' and then a specified number are removed once the definition
+        'removeHighestPriorityObject' is called. The number of iterations that the definition 'removeHighestPriorityQueue'
+        is called is based on the 'numberOfStudentsToRemove' variable.
+        :return:
+        """
+        cs635PriorityQueue = PriorityQueueClass.PriorityQueue()
+
+        numberOfStudentsToAdd = 15
+        numberOfStudentsToRemove = 10
+
+        for student in range(numberOfStudentsToAdd):
+            cs635PriorityQueue.addNewObject(self.studentDavid)
+
+        for student in range(numberOfStudentsToRemove):
+            cs635PriorityQueue.removeHighestPriorityObject()
+
+        self.assertEquals(numberOfStudentsToAdd-numberOfStudentsToRemove,len(cs635PriorityQueue.priorityQueue)-1)
 
     def test_returnHighestPriorityObject(self):
         """
