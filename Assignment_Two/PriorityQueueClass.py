@@ -1,23 +1,13 @@
-class Priority:
-
-    def __init__(self, data):
-        self.data = data
-        self.priority = 0
-
-    def set_priority(self, value):
-        self.priority = value
-
-    def __str__(self):
-        return str(self.priority)
-
 class PriorityQueue:
     """This is the base class for the PriorityQueue, the main structure is a max heap."""
     def __init__(self):
         """
         This is the constructor for the PriorityQueue class.
         The initial 'None' ensures that students being added to the list start on index 1.
+        Also the counter for the iter definition(s) is instantiated.
         """
         self.__priority_queue = [None]
+        self.__counter_priority_queue = 0
 
     def add_to_priority_queue(self, Node):
         """
@@ -47,7 +37,6 @@ class PriorityQueue:
         # return self.__priority_queue
 
     def __iter__(self):
-        self.__counter_priority_queue = 0
         return self
 
     def __next__(self):
@@ -60,22 +49,3 @@ class PriorityQueue:
 
     def __str__(self):
         return str(list(map(str, self.__priority_queue)))
-
-"""
-This is a test for running the iterator
-"""
-
-
-test_priority_queue = PriorityQueue()
-
-test_priority_queue.add_to_priority_queue(number_one_node)
-test_priority_queue.add_to_priority_queue(number_two_node)
-test_priority_queue.add_to_priority_queue(number_three_node)
-
-for element in test_priority_queue:
-    print(element)
-
-for element in test_priority_queue:
-    print(element)
-
-print(test_priority_queue)
