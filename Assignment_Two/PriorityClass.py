@@ -14,7 +14,7 @@ def faculty(years_of_service):
     return years_of_service
 
 def employee():
-    print("employees")
+    print("employes")
 
 def retiree():
     print("retiree")
