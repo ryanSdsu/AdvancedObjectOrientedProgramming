@@ -12,11 +12,11 @@ class TestNodeClass(unittest.TestCase):
         :return:
         """
         none_node = NodeClass.Node()
-        self.assertEquals(none_node.data, None)
+        self.assertEquals(none_node.node_data, None)
         one_argument_node = NodeClass.Node(1)
-        self.assertEquals(one_argument_node.data, 1)
+        self.assertEquals(one_argument_node.node_data, 1)
         multiple_argument_node = NodeClass.Node("Hi!", "I'm", "a", "Node")
-        self.assertEquals(multiple_argument_node.data, ["Hi!", "I'm", "a", "Node"])
+        self.assertEquals(multiple_argument_node.node_data, ["Hi!", "I'm", "a", "Node"])
 
     def test_init_def(self):
         """
