@@ -7,15 +7,6 @@ class TestPriorityQueueClass(unittest.TestCase):
     def setUp(self):
         self.test_priority_queue = PriorityQueueClass.PriorityQueue()
 
-    def test_init_def(self):
-        """
-        This unit test is testing the __init__ def of a 'PriorityQueue' class. It passes when a 'PriorityQueue'
-        is successfully created.
-        :return:
-        """
-        cs635_priority_queue = PriorityQueueClass.PriorityQueue()
-        self.assertIsInstance(cs635_priority_queue, PriorityQueueClass.PriorityQueue)
-
     def test_add_to_priority_queue(self):
         """
         This unit test is testing the 'PriorityQueue' class definition 'add_to_priority_queue'.  This test passes
@@ -57,6 +48,17 @@ class TestPriorityQueueClass(unittest.TestCase):
         for new_node_value in range(100):
             self.test_priority_queue.add_to_priority_queue(NodeClass.Node(new_node_value))
             self.assertEquals(self.test_priority_queue.get_priority_from_priority_queue_index(0), new_node_value)
+
+    def test_init_def(self):
+        """
+        This unit test is testing the __init__ def of a 'PriorityQueue' class. It passes when a 'PriorityQueue'
+        is successfully created.
+        :return:
+        """
+        cs635_priority_queue = PriorityQueueClass.PriorityQueue()
+        self.assertIsInstance(cs635_priority_queue, PriorityQueueClass.PriorityQueue)
+
+
 
         # def test_iter_next_def(self):
     #     """

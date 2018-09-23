@@ -1,3 +1,5 @@
+from Assignment_Two import StudentClass
+
 class Priority:
     """This is the base class for the Priority Strategy."""
     def __init__(self, input):
@@ -16,7 +18,7 @@ def default(data):
     """
     return (data)
 
-def student(gpa, number_of_units_taken):
+def student(data = StudentClass.Student):
     """
     This is the student strategy used to determine the priority. It is set by creating normalized
     weights on the gpa (30%) as well as the number of units taken (70%).
@@ -24,9 +26,11 @@ def student(gpa, number_of_units_taken):
     :param number_of_units_taken: the number of units taken by the student (range: 0 - 150)
     :return:
     """
-    gpa = gpa / 4.0
+    from Assignment_Two import StudentClass
+
+    gpa = data.gpa / 4.0
     gpa = gpa * 0.3
-    number_of_units_taken = number_of_units_taken / 150
+    number_of_units_taken = data.number_of_units_taken / 150
     number_of_units_taken = number_of_units_taken * 0.7
     priority = gpa + number_of_units_taken
     return priority
