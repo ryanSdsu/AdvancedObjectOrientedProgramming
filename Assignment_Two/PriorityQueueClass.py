@@ -1,16 +1,15 @@
 from Assignment_Two import NodeClass
 from Assignment_Two import PriorityClass
+import copy
 
 class PriorityQueue:
     """This is the base class for the PriorityQueue, the main structure is a max heap."""
     def __init__(self):
         """
         This is the constructor for the PriorityQueue class.
-        The initial 'None' ensures that students being added to the list start on index 1.
-        Also the counter for the iter definition(s) is instantiated.
+        The default Priority strategy is set to default.
         """
         self.__priority_queue = []
-        self.__counter_priority_queue = 0
         self.__priority_strategy = PriorityClass.Priority(PriorityClass.default)
         self.__priority_value = None
 
@@ -56,6 +55,23 @@ class PriorityQueue:
         """
         return self.__priority_queue[priority_queue_index][1]
 
+    def pop_priority_queue(self):
+        """
+        This pops the first element off of the priority queue and then returns it.
+        :return: The highest priority node in the priority queue
+        :rtype: Any
+        """
+        popped = self.__priority_queue.pop(0)
+        return popped
+
+    def get_priority_queue(self):
+        """
+        This returns the priority queue.
+        :return: priority queue
+        :rtype: []
+        """
+        return self.__priority_queue
+
     def get_priority_strategy(self):
         """
         This returns the current priority strategy of the priority queue.
@@ -95,6 +111,22 @@ class PriorityQueue:
             raise TypeError("The data being passed into the priority queue "
                             "is not aligned with a compatible priority strategy.")
 
+    def remove_from_priority_queue(self):
+        """
+        This is where we remove the object with the highest priority in the priority queue.
+        After removing this object we then re-heapify the entire queue in order to ensure that the next
+        object with the highest 'studentPriority' is at the top.
+        :return: priorityQueue
+        :rtype: []
+        """
+
+        if len(self.__priority_queue) <= 0:
+            raise ValueError ("There are no elements in this queue to remove")
+        else:
+            self.__priority_queue[0] = self.__priority_queue[-1]
+            self.__priority_queue.pop(-1)
+            self.max_heapify()
+
     def set_priority_strategy(self, name_of_strategy):
         """
         This modifies the priority strategy to the desired choice.
@@ -116,6 +148,27 @@ class PriorityQueue:
 
     def __iter__(self):
         """
+        This initializes the iterator to be set to the PriorityQueue_iter class.
+        :return: self
+        :rtype: enumerate
+        """
+        return PriorityQueue_iter(self)
+
+    def __str__(self):
+        """
+        :return:
+        """
+        return str(list(map(str, self.__priority_queue)))
+
+class PriorityQueue_iter:
+
+    def __init__(self, priority_queue):
+        self.__temporary_queue = copy.deepcopy(priority_queue)
+        self.size_of_priority_queue = len(self.__temporary_queue.get_all_data_from_priority_queue())
+        self.__counter_temp_queue = 0
+
+    def __iter__(self):
+        """
         This initializes the iterator to be set to the PriorityQueue class itself.
         :return: self
         :rtype: enumerate
@@ -123,15 +176,10 @@ class PriorityQueue:
         return self
 
     def __next__(self):
-        if self.__counter_priority_queue < len(self.__priority_queue):
-            current_node = self.__priority_queue[self.__counter_priority_queue]
-            self.__counter_priority_queue += 1
+        if self.__counter_temp_queue < self.size_of_priority_queue:
+            current_node = self.__temporary_queue.get_priority_queue()[0]
+            self.__temporary_queue.remove_from_priority_queue()
+            self.__counter_temp_queue += 1
             return current_node
         else:
             raise StopIteration
-
-    def __str__(self):
-        """
-        :return:
-        """
-        return str(list(map(str, self.__priority_queue)))

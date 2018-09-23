@@ -126,44 +126,45 @@ class TestPriorityQueueClass(unittest.TestCase):
 
         self.assertEquals(number_of_students_to_add, length_of_priotity_queue)
 
+    def test_iter_next_def(self):
+        """
+        This unit test is testing the __iter__ of a 'PriorityQueue' object. It passes when the '__priority_queue' list
+        and all of its elements are iterated upon via the __next__ definition. Each of the iterations must be with the
+        highest priority.
+        :return:
+        """
+        self.test_priority_queue.set_priority_strategy(PriorityClass.node)
+        int_one_node = NodeClass.Node(1)
+        int_two_node = NodeClass.Node(2)
+        int_three_node = NodeClass.Node(3)
+        int_four_node = NodeClass.Node(4)
 
+        self.test_priority_queue.add_to_priority_queue(int_one_node)
+        self.test_priority_queue.add_to_priority_queue(int_two_node)
+        self.test_priority_queue.add_to_priority_queue(int_three_node)
+        self.test_priority_queue.add_to_priority_queue(int_four_node)
 
-        # def test_iter_next_def(self):
-    #     """
-    #     This unit test is testing the __iter__ of a 'PriorityQueue' object. It passes when the '__priority_queue' list
-    #     and all of its elements are iterated upon via the __next__ definition.
-    #     :return:
-    #     """
-    #     int_one_node = NodeClass.Node(1)
-    #     int_two_node = NodeClass.Node(2)
-    #     int_three_node = NodeClass.Node(3)
-    #     int_four_node = NodeClass.Node(4)
-    #     self.test_priority_queue.add_to_priority_queue(int_one_node)
-    #     self.test_priority_queue.add_to_priority_queue(int_two_node)
-    #     self.test_priority_queue.add_to_priority_queue(int_three_node)
-    #     self.test_priority_queue.add_to_priority_queue(int_four_node)
-    #     self.assertEquals(self.test_priority_queue.__next__().data, 1)
-    #     self.assertEquals(self.test_priority_queue.__next__().data, 2)
-    #     self.assertEquals(self.test_priority_queue.__next__().data, 3)
-    #     self.assertEquals(self.test_priority_queue.__next__().data, 4)
+        iter_priority = self.test_priority_queue.__iter__()
 
-    # def test_str_def(self):
-    #     """
-    #     This unit test is testing the 'str' def of the 'PriorityQueue' class. It passes when upon proceeding with the
-    #     __str__() def that the '__priority_queue' list is being passed to it.
-    #     :return:
-    #     """
-    #     int_one_node = NodeClass.Node(1)
-    #     self.test_priority_queue.add_to_priority_queue(int_one_node)
-    #     self.assertEquals(self.test_priority_queue.__str__(), '[\'1\']')
-    #
-    #     int_two_node = NodeClass.Node(2)
-    #     self.test_priority_queue.add_to_priority_queue(int_two_node)
-    #     self.assertEquals(self.test_priority_queue.__str__(), '[\'1\', \'2\']')
-    #
-    #     int_three_node = NodeClass.Node(3)
-    #     self.test_priority_queue.add_to_priority_queue(int_three_node)
-    #     self.assertEquals(self.test_priority_queue.__str__(), '[\'1\', \'2\', \'3\']')
+        self.assertEquals(iter_priority.__next__()[1], int_four_node.node_data)
+        self.assertEquals(iter_priority.__next__()[1], int_three_node.node_data)
+        self.assertEquals(iter_priority.__next__()[1], int_two_node.node_data)
+        self.assertEquals(iter_priority.__next__()[1], int_one_node.node_data)
+
+    def test_str_def(self):
+        """
+        This unit test is testing the 'str' def of the 'PriorityQueue' class. It passes when upon proceeding with the
+        __str__() def that the '__priority_queue' list is being passed to it.
+        :return:
+        """
+        self.test_priority_queue.add_to_priority_queue(1)
+        self.assertEquals(self.test_priority_queue.__str__(), "['[1, 1]']" )
+
+        self.test_priority_queue.add_to_priority_queue(2)
+        self.assertEquals(self.test_priority_queue.__str__(), "['[1, 1]', '[2, 2]']" )
+
+        self.test_priority_queue.add_to_priority_queue(3)
+        self.assertEquals(self.test_priority_queue.__str__(), "['[1, 1]']" )
 
 
 if __name__ == '__main__':
