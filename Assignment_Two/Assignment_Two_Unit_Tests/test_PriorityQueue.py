@@ -126,6 +126,56 @@ class TestPriorityQueueClass(unittest.TestCase):
 
         self.assertEquals(number_of_students_to_add, length_of_priotity_queue)
 
+    def test_student_remove_highest_priority_Node(self):
+        """
+        This unit test is testing the PriorityQueue class definition 'remove_from_priority_queue'.  This test passes
+        if all 15 'student' objects which were instantiated in the 'setUp' definition are successfully added to the
+        priority queue and then the 'student' object Ryan is removed once the definition 'remove_from_priority_queue'
+        is called. The priority queue must maintain priority order at all times with the 'student' object having the
+        highest priority be on the top of the list since the structure is based on a max heap.
+        :return:
+        """
+        self.test_priority_queue.set_priority_strategy(PriorityClass.student)
+        self.test_priority_queue.add_to_priority_queue(self.studentDavid)
+        self.test_priority_queue.add_to_priority_queue(self.studentEric)
+        self.test_priority_queue.add_to_priority_queue(self.studentNathan)
+        self.test_priority_queue.add_to_priority_queue(self.studentPaul)
+        self.test_priority_queue.add_to_priority_queue(self.studentChris)
+        self.test_priority_queue.add_to_priority_queue(self.studentBob)
+        self.test_priority_queue.add_to_priority_queue(self.studentLarissa)
+        self.test_priority_queue.add_to_priority_queue(self.studentMark)
+        self.test_priority_queue.add_to_priority_queue(self.studentHeath)
+        self.test_priority_queue.add_to_priority_queue(self.studentSarah)
+        self.test_priority_queue.add_to_priority_queue(self.studentAshley)
+        self.test_priority_queue.add_to_priority_queue(self.studentRyan)
+        self.test_priority_queue.add_to_priority_queue(self.studentJake)
+        self.test_priority_queue.add_to_priority_queue(self.studentDrake)
+        self.test_priority_queue.add_to_priority_queue(self.studentBlake)
+        self.test_priority_queue.remove_top_priority_from_priority_queue()
+        self.assertEqual(self.test_priority_queue.get_data_from_priority_queue_index(0), self.studentAshley)
+
+    def test_student_remove_from_priority_queue_size_check(self):
+        """
+        This unit test is testing the PriorityQueue class definition 'remove_from_priority_queue'.  This test passes
+        if a fixed number of 'student' objects which were instantiated in the 'setUp' definition are successfully
+        added to the priority queue and then a specified number are removed once the definition
+        'remove_from_priority_queue' is called. The number of iterations that the definition
+        'remove_from_priority_queue' is called is based on the 'number_of_students_to_remove' variable.
+        :return:
+        """
+        number_of_students_to_add = 15
+        number_of_students_to_remove = 10
+
+        self.test_priority_queue.set_priority_strategy(PriorityClass.student)
+        for student in range(number_of_students_to_add):
+            self.test_priority_queue.add_to_priority_queue(self.studentDavid)
+
+        for student in range(number_of_students_to_remove):
+            self.test_priority_queue.remove_top_priority_from_priority_queue()
+
+        self.assertEquals(number_of_students_to_add-number_of_students_to_remove,len(self.test_priority_queue.get_all_data_from_priority_queue()))
+
+
     def test_iter_next_def(self):
         """
         This unit test is testing the __iter__ of a 'PriorityQueue' object. It passes when the '__priority_queue' list
@@ -161,10 +211,10 @@ class TestPriorityQueueClass(unittest.TestCase):
         self.assertEquals(self.test_priority_queue.__str__(), "['[1, 1]']" )
 
         self.test_priority_queue.add_to_priority_queue(2)
-        self.assertEquals(self.test_priority_queue.__str__(), "['[1, 1]', '[2, 2]']" )
+        self.assertEquals(self.test_priority_queue.__str__(), "['[2, 2]', '[1, 1]']" )
 
         self.test_priority_queue.add_to_priority_queue(3)
-        self.assertEquals(self.test_priority_queue.__str__(), "['[1, 1]']" )
+        self.assertEquals(self.test_priority_queue.__str__(), "['[3, 3]', '[1, 1]', '[2, 2]']")
 
 
 if __name__ == '__main__':

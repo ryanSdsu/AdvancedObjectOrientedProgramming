@@ -55,15 +55,6 @@ class PriorityQueue:
         """
         return self.__priority_queue[priority_queue_index][1]
 
-    def pop_priority_queue(self):
-        """
-        This pops the first element off of the priority queue and then returns it.
-        :return: The highest priority node in the priority queue
-        :rtype: Any
-        """
-        popped = self.__priority_queue.pop(0)
-        return popped
-
     def get_priority_queue(self):
         """
         This returns the priority queue.
@@ -111,7 +102,7 @@ class PriorityQueue:
             raise TypeError("The data being passed into the priority queue "
                             "is not aligned with a compatible priority strategy.")
 
-    def remove_from_priority_queue(self):
+    def remove_top_priority_from_priority_queue(self):
         """
         This is where we remove the object with the highest priority in the priority queue.
         After removing this object we then re-heapify the entire queue in order to ensure that the next
@@ -178,7 +169,7 @@ class PriorityQueue_iter:
     def __next__(self):
         if self.__counter_temp_queue < self.size_of_priority_queue:
             current_node = self.__temporary_queue.get_priority_queue()[0]
-            self.__temporary_queue.remove_from_priority_queue()
+            self.__temporary_queue.remove_top_priority_from_priority_queue()
             self.__counter_temp_queue += 1
             return current_node
         else:
