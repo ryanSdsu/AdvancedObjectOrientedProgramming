@@ -1,4 +1,5 @@
 from Assignment_Two import StudentClass
+from Assignment_Two import NodeClass
 
 class Priority:
     """This is the base class for the Priority Strategy."""
@@ -16,7 +17,16 @@ def default(data):
     :param data: the value of which is being passed into the strategy
     :return:
     """
-    return (data)
+    return data
+
+def node(data):
+    """
+    This is the node strategy used to determine the priority. It simply sets the priority
+    to whatever is being passed into it.
+    :param data: the value of which is being passed into the strategy
+    :return:
+    """
+    return data.node_data
 
 def student(data = StudentClass.Student):
     """
@@ -26,7 +36,6 @@ def student(data = StudentClass.Student):
     :param number_of_units_taken: the number of units taken by the student (range: 0 - 150)
     :return:
     """
-    from Assignment_Two import StudentClass
 
     gpa = data.gpa / 4.0
     gpa = gpa * 0.3

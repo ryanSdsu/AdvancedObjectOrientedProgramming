@@ -11,7 +11,7 @@ class PriorityQueue:
         """
         self.__priority_queue = []
         self.__counter_priority_queue = 0
-        self.priority_strategy = PriorityClass.Priority(PriorityClass.default)
+        self.__priority_strategy = PriorityClass.Priority(PriorityClass.default)
         self.__priority_value = None
 
     def add_to_priority_queue(self, data):
@@ -23,10 +23,46 @@ class PriorityQueue:
         :return: priority_queue
         :rtype: []
         """
-        self.priority_value = self.priority_strategy.input(data)
-        priority_node = NodeClass.Node(data, self.priority_value)
+        self.priority_value = self.__priority_strategy.input(data)
+        priority_node = [data, self.priority_value]
         self.__priority_queue.append(priority_node)
         self.max_heapify()
+
+    def get_all_data_from_priority_queue(self):
+        """
+        This returns all of the data from the priority queue in a list.
+        :return: data_queue
+        :rtype: []
+        """
+        data_queue = []
+        for data in self.__priority_queue:
+            data_queue.append(data[0])
+
+        return data_queue
+
+    def get_data_from_priority_queue_index(self, priority_queue_index):
+        """
+        This returns the data from a certain index in the priority queue.
+        :return: the data of a certain priority queue index
+        :rtype: any
+        """
+        return self.__priority_queue[priority_queue_index][0]
+
+    def get_priority_from_priority_queue_index(self, priority_queue_index):
+        """
+        This returns the priority value from a certain index in the priority queue.
+        :return: the priority value of a certain priority queue index
+        :rtype: float or int
+        """
+        return self.__priority_queue[priority_queue_index][1]
+
+    def get_priority_strategy(self):
+        """
+        This returns the current priority strategy of the priority queue.
+        :return: the current priority strategy
+        :rtype: PriorityClass
+        """
+        return self.__priority_strategy.input
 
     def max_heapify(self):
         """
@@ -37,39 +73,35 @@ class PriorityQueue:
         If not we check the left child (if there is one) and do the same thing.
         :return:
         """
-        number_of_nodes_in_priority_queue = len(self.__priority_queue)
-        if number_of_nodes_in_priority_queue < 1:
-            return
-        for priority_queue_index in range(number_of_nodes_in_priority_queue, 1, -2):
-            node_parent_index = (priority_queue_index - 2) // 2
-            node_left_child_index = node_parent_index * 2 + 1
-            node_right_child_index = node_parent_index * 2 + 2
+        try:
+            number_of_nodes_in_priority_queue = len(self.__priority_queue)
+            if number_of_nodes_in_priority_queue < 1:
+                return
+            for priority_queue_index in range(number_of_nodes_in_priority_queue, 1, -2):
+                node_parent_index = (priority_queue_index - 2) // 2
+                node_left_child_index = node_parent_index * 2 + 1
+                node_right_child_index = node_parent_index * 2 + 2
 
-            if(node_right_child_index <= (number_of_nodes_in_priority_queue - 1)):
-                if(self.get_priority_from_priority_queue_index(node_right_child_index) >
-                       self.get_priority_from_priority_queue_index(node_parent_index)):
-                    self.swap_priority_queue_index(node_right_child_index, node_parent_index)
+                if(node_right_child_index <= (number_of_nodes_in_priority_queue - 1)):
+                    if(self.get_priority_from_priority_queue_index(node_right_child_index) >
+                           self.get_priority_from_priority_queue_index(node_parent_index)):
+                        self.swap_priority_queue_index(node_right_child_index, node_parent_index)
 
-            if(node_left_child_index <= (number_of_nodes_in_priority_queue - 1)):
-                if(self.get_priority_from_priority_queue_index(node_left_child_index) >
-                       self.get_priority_from_priority_queue_index(node_parent_index)):
-                    self.swap_priority_queue_index(node_left_child_index, node_parent_index)
+                if(node_left_child_index <= (number_of_nodes_in_priority_queue - 1)):
+                    if(self.get_priority_from_priority_queue_index(node_left_child_index) >
+                           self.get_priority_from_priority_queue_index(node_parent_index)):
+                        self.swap_priority_queue_index(node_left_child_index, node_parent_index)
+        except TypeError:
+            raise TypeError("The data being passed into the priority queue "
+                            "is not aligned with a compatible priority strategy.")
 
-    def get_data_from_priority_queue_index(self, priority_queue_index):
+    def set_priority_strategy(self, name_of_strategy):
         """
-        This returns the data from a certain index in the priority queue.
-        :return: the data of a certain priority queue index
-        :rtype: any
+        This modifies the priority strategy to the desired choice.
+        :param name_of_strategy: strategy to be chosen
+        :return:
         """
-        return self.__priority_queue[priority_queue_index].node_data[0].node_data
-
-    def get_priority_from_priority_queue_index(self, priority_queue_index):
-        """
-        This returns the priority value from a certain index in the priority queue.
-        :return: the priority value of a certain priority queue index
-        :rtype: float or int
-        """
-        return self.__priority_queue[priority_queue_index].node_data[1].node_data
+        self.__priority_strategy.input = name_of_strategy
 
     def swap_priority_queue_index(self, node_index_one, node_index_two):
         """
@@ -103,10 +135,3 @@ class PriorityQueue:
         :return:
         """
         return str(list(map(str, self.__priority_queue)))
-
-pq = PriorityQueue()
-one_node = NodeClass.Node(1)
-pq.add_to_priority_queue(one_node)
-two_node = NodeClass.Node(2)
-pq.add_to_priority_queue(two_node)
-print(pq)
