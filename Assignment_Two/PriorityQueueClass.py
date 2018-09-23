@@ -2,7 +2,7 @@ from Assignment_Two import NodeClass
 from Assignment_Two import PriorityClass
 import copy
 
-class PriorityQueue:
+class PriorityQueue():
     """This is the base class for the PriorityQueue, the main structure is a max heap."""
     def __init__(self):
         """
