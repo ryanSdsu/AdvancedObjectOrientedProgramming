@@ -107,6 +107,15 @@ class TestStudentClass(unittest.TestCase):
         with self.assertRaises(TypeError):
             StudentClass.Student("123NotAValidName", "777777777", "Nate@aol.com", "134 Home St", "4.5", 150)
 
+    def test_print_student(self):
+        """
+        This unit test is testing the print of the student class. It passes when both the name
+        and red_id are returned.
+        :return:
+        """
+        student = StudentClass.Student("Nathan", 777777777, "Nate@aol.com", "134 Home St", 3.6, 110)
+        self.assertEquals(student.__str__(), "Red ID: 777777777 Name: Nathan")
+
     def test_return_address(self):
         """
         This unit test is testing the return of the 'address' variable. It passes when a student's 'address' variable

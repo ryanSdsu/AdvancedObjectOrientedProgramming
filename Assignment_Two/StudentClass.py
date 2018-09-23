@@ -146,3 +146,7 @@ class Student:
             raise  AttributeError("The number of units taken from {} is not between 0 and 150.".format(self.name))
         except TypeError:
             raise TypeError("The number of units taken is not an actual number.")
+
+    def __str__(self):
+
+        return "Red ID: {} Name: {}".format(self.red_id, self.name)
