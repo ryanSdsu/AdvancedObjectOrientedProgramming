@@ -192,7 +192,7 @@ class TestPriorityQueueClass(unittest.TestCase):
         self.test_priority_queue.add_to_priority_queue(self.student_jake)
         self.test_priority_queue.add_to_priority_queue(self.student_drake)
         self.test_priority_queue.add_to_priority_queue(self.student_blake)
-        self.test_priority_queue.remove_top_priority_from_priority_queue()
+        self.test_priority_queue.remove_top_priority_node_from_priority_queue()
         self.assertEqual(self.test_priority_queue.get_data_from_priority_queue_index(0), self.student_ashley)
 
     def test_student_remove_from_priority_queue_size_check(self):
@@ -212,7 +212,7 @@ class TestPriorityQueueClass(unittest.TestCase):
             self.test_priority_queue.add_to_priority_queue(self.student_david)
 
         for student in range(number_of_students_to_remove):
-            self.test_priority_queue.remove_top_priority_from_priority_queue()
+            self.test_priority_queue.remove_top_priority_node_from_priority_queue()
 
         self.assertEquals(number_of_students_to_add-number_of_students_to_remove,
                           len(self.test_priority_queue.get_all_data_from_priority_queue()))

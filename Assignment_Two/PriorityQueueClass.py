@@ -1,17 +1,21 @@
 from Assignment_Two import NodeClass
 from Assignment_Two import PriorityClass
 import copy
+import queue
+import sys
 
-class PriorityQueue():
+class PriorityQueue(queue.Queue):
     """This is the base class for the PriorityQueue, the main structure is a max heap."""
-    def __init__(self):
+    def __init__(self, maxsize = sys.maxsize):
         """
         This is the constructor for the PriorityQueue class.
+        Because it is inheriting queue it must have a self.queue.
         The default Priority strategy is set to default.
         """
         self.__priority_queue = []
         self.__priority_strategy = PriorityClass.Priority(PriorityClass.default)
         self.__priority_value = None
+        self.queue = self.__priority_queue
 
     def add_to_priority_queue(self, data):
         """
@@ -71,7 +75,7 @@ class PriorityQueue():
         """
         return self.__priority_strategy.input
 
-    def max_heapify(self):
+    def max_heapify(self, *args):
         """
         This sorts the priority_node(s) in the '__priority_queue' by traversing the nodes in the list
         so that the node with the highest 'priority_value' resides at the top via the max heap.
@@ -102,7 +106,50 @@ class PriorityQueue():
             raise TypeError("The data being passed into the priority queue "
                             "is not aligned with a compatible priority strategy.")
 
-    def remove_top_priority_from_priority_queue(self):
+    def _qsize(self):
+        """
+        This overrides the queue.Queue's _qsize function. Which essentially returns the
+        length of the queue.
+        :return:
+        """
+        return len(self.queue)
+
+    def _put(self, item):
+        """
+        This overrides the queue.Queue's _put function. Which essentially appends the item and then
+        reheapify's it to go upwards.
+        :return:
+        """
+        self.queue.append(item)
+        number_of_nodes_in_queue = len(self._qsize())
+        if number_of_nodes_in_queue < 1:
+            return
+        for priority_queue_index in range(number_of_nodes_in_queue, 1, -2):
+            node_parent_index = (priority_queue_index - 2) // 2
+            node_left_child_index = node_parent_index * 2 + 1
+            node_right_child_index = node_parent_index * 2 + 2
+
+            if(node_right_child_index <= (number_of_nodes_in_queue - 1)):
+                if(self.queue[node_right_child_index] > self.queue[node_parent_index]):
+                    node_temp = self.queue[node_right_child_index]
+                    self.queue[node_right_child_index] = self.queue[node_parent_index]
+                    self.queue[node_parent_index] = node_temp
+            if(node_left_child_index <= (number_of_nodes_in_queue - 1)):
+                if(self.queue[node_left_child_index] > self.queue[node_parent_index]):
+                    node_temp = self.queue[node_left_child_index]
+                    self.queue[node_left_child_index] = self.queue[node_parent_index]
+                    self.queue[node_parent_index] = node_temp
+        self.__bubble_up(self._qsize() - 1)
+
+    def _get(self):
+        """
+        This overrides the queue.Queue's _get function.
+        :return:
+        """
+        if self.is_empty():
+            return None
+
+    def remove_top_priority_node_from_priority_queue(self):
         """
         This is where we remove the object with the highest priority in the priority queue.
         After removing this object we then re-heapify the entire queue in order to ensure that the next
@@ -190,7 +237,7 @@ class PriorityQueue_iter:
     def __next__(self):
         if self.__counter_temp_queue < self.size_of_priority_queue:
             current_node = self.__temporary_queue.get_priority_queue()[0]
-            self.__temporary_queue.remove_top_priority_from_priority_queue()
+            self.__temporary_queue.remove_top_priority_node_from_priority_queue()
             self.__counter_temp_queue += 1
             return current_node
         else:

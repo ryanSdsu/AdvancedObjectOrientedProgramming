@@ -33,7 +33,7 @@ class TestCommandInvokerClass(unittest.TestCase):
         """
         command_invoker = CommandInvokerClass.CommandInvoker()
         add_command = PriorityQueueAddCommandClass.AddCommand(1, self.test_priority_queue)
-        remove_command = PriorityQueueRemoveCommandClass.RemoveCommand(1, self.test_priority_queue)
+        remove_command = PriorityQueueRemoveCommandClass.RemoveCommand(self.test_priority_queue)
         command_invoker.execute_command(add_command)
         self.assertListEqual(self.test_priority_queue.get_all_data_from_priority_queue(), [1])
         self.assertListEqual(command_invoker.undo_stack, [add_command])
