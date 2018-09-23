@@ -22,7 +22,7 @@ def default(data):
 def node(data):
     """
     This is the node strategy used to determine the priority. It simply sets the priority
-    to whatever is being passed into it.
+    to whatever node data is being passed into it via the node class.
     :param data: the value of which is being passed into the strategy
     :return:
     """

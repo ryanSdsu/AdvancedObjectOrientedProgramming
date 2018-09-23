@@ -1,5 +1,4 @@
 import unittest
-from Assignment_Two import NodeClass
 from Assignment_Two import PriorityQueueClass
 from Assignment_Two import PriorityClass
 from Assignment_Two import StudentClass

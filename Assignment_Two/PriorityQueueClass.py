@@ -74,7 +74,7 @@ class PriorityQueue():
     def max_heapify(self):
         """
         This sorts the priority_node(s) in the '__priority_queue' by traversing the nodes in the list
-        so that the element with the highest 'priority_value' resides at the top via the max heap.
+        so that the node with the highest 'priority_value' resides at the top via the max heap.
         In terms of traversal we iterate and check to see if there is a right child of the current node
         and if there is one we see if it's priority is greater than its parents. If this is the case we swap them.
         If not we check the left child (if there is one) and do the same thing.
@@ -106,17 +106,38 @@ class PriorityQueue():
         """
         This is where we remove the object with the highest priority in the priority queue.
         After removing this object we then re-heapify the entire queue in order to ensure that the next
-        object with the highest 'studentPriority' is at the top.
+        object with the highest priority is at the top.
         :return: priorityQueue
         :rtype: []
         """
 
         if len(self.__priority_queue) <= 0:
-            raise ValueError ("There are no elements in this queue to remove")
+            raise ValueError ("There are no nodes in this queue to remove")
         else:
             self.__priority_queue[0] = self.__priority_queue[-1]
             self.__priority_queue.pop(-1)
             self.max_heapify()
+
+    def remove_node_from_priority_queue(self, node):
+        """
+        This is where we remove an object with a specific data from the priority queue.
+        After removing this object we then re-heapify the entire queue in order to ensure that the next
+        object with the highest priority is at the top.
+        :return: priorityQueue
+        :rtype: []
+        """
+
+        if len(self.__priority_queue) <= 0:
+            raise ValueError("There are no nodes in this queue to remove")
+        else:
+            try:
+                temp_queue = self.get_all_data_from_priority_queue()
+                removal_index = temp_queue.index(node)
+                self.__priority_queue.pop(removal_index)
+                self.max_heapify()
+            except:
+                raise ValueError("The node you are trying to remove is not in the priority queue.")
+
 
     def set_priority_strategy(self, name_of_strategy):
         """

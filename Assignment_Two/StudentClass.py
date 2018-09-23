@@ -148,5 +148,4 @@ class Student:
             raise TypeError("The number of units taken is not an actual number.")
 
     def __str__(self):
-
         return "Red ID: {} Name: {}".format(self.red_id, self.name)
