@@ -32,6 +32,7 @@ class TestCommandInvokerClass(unittest.TestCase):
         :return:
         """
         command_invoker = CommandInvokerClass.CommandInvoker()
+        add_command = lambda: PriorityQueueAddCommandClass.PriorityQueueAddCommand(1, self.test_priority_queue)
         add_command = PriorityQueueAddCommandClass.PriorityQueueAddCommand(1, self.test_priority_queue)
         remove_command = PriorityQueueRemoveCommandClass.PriorityQueueRemoveCommand(self.test_priority_queue)
         command_invoker.execute_command(add_command)

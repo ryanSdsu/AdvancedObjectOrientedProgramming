@@ -219,7 +219,7 @@ class PriorityQueue(queue.Queue):
         :return: self
         :rtype: enumerate
         """
-        return PriorityQueue_iter(self)
+        return PriorityQueueIter(self)
 
     def __str__(self):
         """
@@ -234,7 +234,7 @@ class PriorityQueue(queue.Queue):
 
         return priority_string
 
-class PriorityQueue_iter:
+class PriorityQueueIter:
 
     def __init__(self, priority_queue):
         """
@@ -245,6 +245,7 @@ class PriorityQueue_iter:
         self.__temporary_queue = copy.deepcopy(priority_queue)
         self.size_of_priority_queue = len(self.__temporary_queue.get_all_data_from_priority_queue())
         self.__counter_temp_queue = 0
+        self.__current_node = None
 
     def __iter__(self):
         """
@@ -255,11 +256,45 @@ class PriorityQueue_iter:
         return self
 
     def __next__(self):
+        """
+        This iterates through each of the nodes in the 'temp' priority queue
+        and returns the Node with the highest priority.
+        :return:
+        """
         if self.__counter_temp_queue < self.size_of_priority_queue:
-            current_node = self.__temporary_queue.get_priority_queue()[0]
+            self.__current_node = self.__temporary_queue.get_priority_queue()[0]
             self.__temporary_queue.remove_top_priority_node_from_priority_queue()
             self.__counter_temp_queue += 1
-            return current_node
+            return self.__current_node
         else:
             raise StopIteration
 
+    def has_next(self):
+        """
+        This returns True if there is still and iteration that can happen in the
+        priority queue.
+        :return:
+        """
+        if self.__counter_temp_queue < self.size_of_priority_queue:
+            return True
+        else:
+            return False
+
+    def is_done(self):
+        """
+        This returns True if the prirority queue has reached it's limits in terms of
+        number of possible iterations.
+        :return:
+        """
+        if self.__counter_temp_queue == self.size_of_priority_queue:
+            return True
+        else:
+            return False
+
+    def current_item(self):
+        """
+        This returns the last node which was iterated out of the priority queue.
+        :return: the last node which was iterated
+        :rtype: any
+        """
+        return self.__current_node

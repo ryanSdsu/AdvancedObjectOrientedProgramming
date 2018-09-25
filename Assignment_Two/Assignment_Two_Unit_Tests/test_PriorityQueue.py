@@ -116,11 +116,12 @@ class TestPriorityQueueClass(unittest.TestCase):
         self.assertIsInstance(cs635_priority_queue, PriorityQueueClass.PriorityQueue)
 
 
-    def test_iter_and_next_def(self):
+    def test_iter_def_and_priority_queue_iter(self):
         """
-        This unit test is testing the __iter__ of a 'PriorityQueue' object. It passes when the '__priority_queue' list
-        and all of its nodes are iterated upon via the __next__ definition. Each of the iterations must be with the
-        highest priority.
+        This unit test is testing the __iter__ of a 'PriorityQueue' object as well as it's subclass
+        'PriorityQueueIter. It passes when the '__priority_queue' list and all of its nodes are iterated
+        upon via the __next__ definition. Each of the iterations must be with the highest priority. It also
+        passes upon the checking of the has_next, is_done and current_item definitions.
         :return:
         """
         self.test_priority_queue.set_priority_strategy(PriorityClass.node)
@@ -136,10 +137,24 @@ class TestPriorityQueueClass(unittest.TestCase):
 
         iter_priority = self.test_priority_queue.__iter__()
 
+        self.assertEquals(iter_priority.has_next(), True)
+        self.assertEquals(iter_priority.is_done(), False)
         self.assertEquals(iter_priority.__next__()[1], int_four_node.node_data)
+        self.assertEquals(iter_priority.is_done(), False)
+        self.assertEquals(iter_priority.has_next(), True)
+        self.assertEquals(iter_priority.current_item()[1], int_four_node.node_data)
         self.assertEquals(iter_priority.__next__()[1], int_three_node.node_data)
+        self.assertEquals(iter_priority.is_done(), False)
+        self.assertEquals(iter_priority.has_next(), True)
+        self.assertEquals(iter_priority.current_item()[1], int_three_node.node_data)
         self.assertEquals(iter_priority.__next__()[1], int_two_node.node_data)
+        self.assertEquals(iter_priority.is_done(), False)
+        self.assertEquals(iter_priority.has_next(), True)
+        self.assertEquals(iter_priority.current_item()[1], int_two_node.node_data)
         self.assertEquals(iter_priority.__next__()[1], int_one_node.node_data)
+        self.assertEquals(iter_priority.has_next(), False)
+        self.assertEquals(iter_priority.is_done(), True)
+        self.assertEquals(iter_priority.current_item()[1], int_one_node.node_data)
 
     def test_max_heapify(self):
         """
