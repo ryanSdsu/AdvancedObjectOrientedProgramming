@@ -1,5 +1,4 @@
 from Assignment_Two import StudentClass
-from Assignment_Two import NodeClass
 
 class Priority:
     """This is the base class for the Priority Strategy."""

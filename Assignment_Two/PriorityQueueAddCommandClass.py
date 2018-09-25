@@ -1,4 +1,4 @@
-class AddCommand():
+class PriorityQueueAddCommand():
     """This is the base class for the PriorityQueueAddCommand class."""
     def __init__(self, data,  priority_queue):
         """

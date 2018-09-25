@@ -1,4 +1,3 @@
-from Assignment_Two import NodeClass
 from Assignment_Two import PriorityClass
 import copy
 import queue
@@ -75,7 +74,7 @@ class PriorityQueue(queue.Queue):
         """
         return self.__priority_strategy.input
 
-    def max_heapify(self, *args):
+    def max_heapify(self):
         """
         This sorts the priority_node(s) in the '__priority_queue' by traversing the nodes in the list
         so that the node with the highest 'priority_value' resides at the top via the max heap.
@@ -139,7 +138,6 @@ class PriorityQueue(queue.Queue):
                     node_temp = self.queue[node_left_child_index]
                     self.queue[node_left_child_index] = self.queue[node_parent_index]
                     self.queue[node_parent_index] = node_temp
-        self.__bubble_up(self._qsize() - 1)
 
     def _get(self):
         """

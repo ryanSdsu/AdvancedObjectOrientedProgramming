@@ -1,4 +1,4 @@
-class RemoveCommand():
+class PriorityQueueRemoveCommand():
     """This is the base class for the PriorityQueueRemoveCommand class."""
     def __init__(self, priority_queue):
         """

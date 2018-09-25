@@ -32,8 +32,8 @@ class TestCommandInvokerClass(unittest.TestCase):
         :return:
         """
         command_invoker = CommandInvokerClass.CommandInvoker()
-        add_command = PriorityQueueAddCommandClass.AddCommand(1, self.test_priority_queue)
-        remove_command = PriorityQueueRemoveCommandClass.RemoveCommand(self.test_priority_queue)
+        add_command = PriorityQueueAddCommandClass.PriorityQueueAddCommand(1, self.test_priority_queue)
+        remove_command = PriorityQueueRemoveCommandClass.PriorityQueueRemoveCommand(self.test_priority_queue)
         command_invoker.execute_command(add_command)
         self.assertListEqual(self.test_priority_queue.get_all_data_from_priority_queue(), [1])
         self.assertListEqual(command_invoker.undo_stack, [add_command])
@@ -49,10 +49,10 @@ class TestCommandInvokerClass(unittest.TestCase):
         :return:
         """
         command_invoker = CommandInvokerClass.CommandInvoker()
-        add_one_command = PriorityQueueAddCommandClass.AddCommand(1, self.test_priority_queue)
-        add_two_command = PriorityQueueAddCommandClass.AddCommand(2, self.test_priority_queue)
-        add_three_command = PriorityQueueAddCommandClass.AddCommand(3, self.test_priority_queue)
-        add_four_command = PriorityQueueAddCommandClass.AddCommand(4, self.test_priority_queue)
+        add_one_command = PriorityQueueAddCommandClass.PriorityQueueAddCommand(1, self.test_priority_queue)
+        add_two_command = PriorityQueueAddCommandClass.PriorityQueueAddCommand(2, self.test_priority_queue)
+        add_three_command = PriorityQueueAddCommandClass.PriorityQueueAddCommand(3, self.test_priority_queue)
+        add_four_command = PriorityQueueAddCommandClass.PriorityQueueAddCommand(4, self.test_priority_queue)
         command_invoker.execute_command(add_one_command)
         command_invoker.execute_command(add_two_command)
         command_invoker.execute_command(add_three_command)

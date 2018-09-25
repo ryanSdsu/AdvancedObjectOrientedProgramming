@@ -19,8 +19,8 @@ class TestPriorityQueueAddCommandClass(unittest.TestCase):
         instantiated.
         :return:
         """
-        priority_queue_add_command = PriorityQueueAddCommandClass.AddCommand(1, self.test_priority_queue)
-        self.assertIsInstance(priority_queue_add_command, PriorityQueueAddCommandClass.AddCommand)
+        priority_queue_add_command = PriorityQueueAddCommandClass.PriorityQueueAddCommand(1, self.test_priority_queue)
+        self.assertIsInstance(priority_queue_add_command, PriorityQueueAddCommandClass.PriorityQueueAddCommand)
         self.assertEquals(priority_queue_add_command.data, 1)
         self.assertEqual(priority_queue_add_command.priority_queue, self.test_priority_queue)
 
@@ -30,7 +30,7 @@ class TestPriorityQueueAddCommandClass(unittest.TestCase):
         successful command is invoked i.e. add_to_priority_queue.
         :return:
         """
-        add_command = PriorityQueueAddCommandClass.AddCommand(1, self.test_priority_queue)
+        add_command = PriorityQueueAddCommandClass.PriorityQueueAddCommand(1, self.test_priority_queue)
         add_command.execute()
         self.assertListEqual(self.test_priority_queue.get_all_data_from_priority_queue(), [1])
 
@@ -40,7 +40,7 @@ class TestPriorityQueueAddCommandClass(unittest.TestCase):
         successful command is invoked i.e. remove_node_from_priority_queue.
         :return:
         """
-        add_command = PriorityQueueAddCommandClass.AddCommand(1, self.test_priority_queue)
+        add_command = PriorityQueueAddCommandClass.PriorityQueueAddCommand(1, self.test_priority_queue)
         add_command.execute()
         self.assertListEqual(self.test_priority_queue.get_all_data_from_priority_queue(), [1])
         add_command.undo()

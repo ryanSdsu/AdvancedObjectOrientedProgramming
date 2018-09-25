@@ -1,6 +1,5 @@
 import unittest
 from Assignment_Two import PriorityQueueClass
-from Assignment_Two import PriorityQueueAddCommandClass
 from Assignment_Two import PriorityQueueRemoveCommandClass
 
 class TestPriorityQueueRemoveCommandClass(unittest.TestCase):
@@ -20,8 +19,8 @@ class TestPriorityQueueRemoveCommandClass(unittest.TestCase):
         instantiated.
         :return:
         """
-        priority_queue_remove_command = PriorityQueueRemoveCommandClass.RemoveCommand(self.test_priority_queue)
-        self.assertIsInstance(priority_queue_remove_command, PriorityQueueRemoveCommandClass.RemoveCommand)
+        priority_queue_remove_command = PriorityQueueRemoveCommandClass.PriorityQueueRemoveCommand(self.test_priority_queue)
+        self.assertIsInstance(priority_queue_remove_command, PriorityQueueRemoveCommandClass.PriorityQueueRemoveCommand)
         self.assertEquals(priority_queue_remove_command.data, None)
         self.assertEqual(priority_queue_remove_command.priority_queue, self.test_priority_queue)
 
@@ -33,7 +32,7 @@ class TestPriorityQueueRemoveCommandClass(unittest.TestCase):
         """
         self.test_priority_queue.add_to_priority_queue(1)
         self.assertListEqual(self.test_priority_queue.get_all_data_from_priority_queue(), [1])
-        priority_queue_remove_command = PriorityQueueRemoveCommandClass.RemoveCommand(self.test_priority_queue)
+        priority_queue_remove_command = PriorityQueueRemoveCommandClass.PriorityQueueRemoveCommand(self.test_priority_queue)
         priority_queue_remove_command.execute()
         self.assertListEqual(self.test_priority_queue.get_all_data_from_priority_queue(), [])
 
@@ -45,7 +44,7 @@ class TestPriorityQueueRemoveCommandClass(unittest.TestCase):
         """
         self.test_priority_queue.add_to_priority_queue(1)
         self.assertListEqual(self.test_priority_queue.get_all_data_from_priority_queue(), [1])
-        priority_queue_remove_command = PriorityQueueRemoveCommandClass.RemoveCommand(self.test_priority_queue)
+        priority_queue_remove_command = PriorityQueueRemoveCommandClass.PriorityQueueRemoveCommand(self.test_priority_queue)
         priority_queue_remove_command.execute()
         self.assertListEqual(self.test_priority_queue.get_all_data_from_priority_queue(), [])
         priority_queue_remove_command.undo()

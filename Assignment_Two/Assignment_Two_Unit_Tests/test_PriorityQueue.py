@@ -30,6 +30,70 @@ class TestPriorityQueueClass(unittest.TestCase):
         self.student_drake = StudentClass.Student("Drake", 140000000, "Drake@aol.com", "147 Nom St", 1, 1)
         self.student_blake = StudentClass.Student("Blake", 150000000, "Blake@aol.com", "148 Lol St", 1, 1)
 
+    def test_get_all_data_from_priority_queue(self):
+        """
+        This unit test is testing the get_all_data_from_priority_queue definition in the PriorityQueue class.
+        It passes when the priority queue's elements are returned in a list once the the definition is called.
+        :return:
+        """
+        for data in range(1,10):
+            self.test_priority_queue.add_to_priority_queue(data)
+
+        self.assertListEqual(self.test_priority_queue.get_all_data_from_priority_queue(),
+                             [9, 8, 6, 7, 3, 2, 5, 1, 4])
+
+    def test_get_priority_queue(self):
+        """
+        This unit test is testing the get_priority_queue definition in the PriorityQueue class.
+        It passes when the priority queue is returned successfully.
+        :return:
+        """
+        for data in range(1,10):
+            self.test_priority_queue.add_to_priority_queue(data)
+
+        self.assertListEqual(self.test_priority_queue.get_priority_queue(),
+                             [[9, 9], [8, 8], [6, 6], [7, 7], [3, 3], [2, 2], [5, 5], [1, 1], [4, 4]])
+
+    def test_get_data_from_priority_queue_index(self):
+        """
+        This unit test is testing the get_data_from_priority_queue_index definition in the PriorityQueue class.
+        It passes when a specific priority queue element's data is returned based on the index that was passed.
+        :return:
+        """
+        test_range = 20
+
+        for index in range(test_range):
+            self.test_priority_queue.get_priority_queue().append([index,0])
+
+        for index in range(test_range):
+            self.assertEquals(self.test_priority_queue.get_data_from_priority_queue_index(index), index)
+
+
+    def test_get_priority_from_priority_queue_index(self):
+        """
+        This unit test is testing the get_priority_from_priority_queue_index definition in the PriorityQueue class.
+        It passes when a specific priority queue element's priority is returned based on the index that was passed.
+        :return:
+        """
+        test_range = 20
+
+        for index in range(test_range):
+            self.test_priority_queue.get_priority_queue().append([0,index])
+
+        for index in range(test_range):
+            self.assertEquals(self.test_priority_queue.get_priority_from_priority_queue_index(index), index)
+
+    def test_get_priority_strategy(self):
+        """
+        This unit test is testing the get_priority_strategy definition in the PriorityQueue class.
+        It passes when the priority queue strategy is returned successfully.
+        :return:
+        """
+
+        self.test_priority_queue.set_priority_strategy(PriorityClass.student)
+
+        self.assertEquals(self.test_priority_queue.get_priority_strategy(), PriorityClass.student)
+
     def test_init_def(self):
         """
         This unit test is testing the __init__ def of a 'PriorityQueue' class. It passes when a 'PriorityQueue'
@@ -39,11 +103,33 @@ class TestPriorityQueueClass(unittest.TestCase):
         cs635_priority_queue = PriorityQueueClass.PriorityQueue()
         self.assertIsInstance(cs635_priority_queue, PriorityQueueClass.PriorityQueue)
 
+    def test_max_heapify(self):
+        """
+        This unit test is testing the max_heapify def of a 'PriorityQueue' class. It passes whenever an
+        element is added into the priority queue and after being added it automatically bubbles
+        the element with the highest priority to the top of the queue.
+        :return:
+        """
+        import random
+
+        samples = random.sample(list(range(101, 200)),20)
+        for node in samples:
+            self.test_priority_queue.get_priority_queue().append([node,node])
+            max_sample = max(self.test_priority_queue.get_all_data_from_priority_queue())
+            self.test_priority_queue.max_heapify()
+            self.assertEquals(self.test_priority_queue.get_data_from_priority_queue_index(0),max_sample)
+
+    def test_qsize(self):
+        queue_size = 10
+        for index in range(queue_size):
+            self.test_priority_queue.queue.append(index)
+        self.assertEquals(self.test_priority_queue.qsize(), queue_size)
+
     def test_node_add_to_priority_queue(self):
         """
         This unit test is testing the 'PriorityQueue' class definition 'add_to_priority_queue'.  This test passes
         if a Node of any type is successfully added into the '__priority_queue' along with it's priority.
-        It also passes if the Node with the highest priority remains at the top of the queue via the max heap.
+        It also passes if the Node with the highest priority remains at the top of the queue via the 'max_heapify'.
         :return:
         """
         import random
@@ -92,11 +178,6 @@ class TestPriorityQueueClass(unittest.TestCase):
         highest priority.
         :return:
         """
-        # self.test_priority_queue.set_priority_strategy(PriorityClass.node)
-        # int_one_node = NodeClass.Node(1)
-        # int_two_node = NodeClass.Node(2)
-        # int_three_node = NodeClass.Node(3)
-        # int_four_node = NodeClass.Node(4)
 
         self.test_priority_queue.add_to_priority_queue(1)
         self.test_priority_queue.add_to_priority_queue(2)
