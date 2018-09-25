@@ -253,7 +253,7 @@ class TestPriorityQueueClass(unittest.TestCase):
         """
         for index in range(5):
             self.test_priority_queue._put(index)
-        self.assertListEqual(self.test_priority_queue.queue, [4,3,1,0,2])
+        self.assertListEqual(self.test_priority_queue.queue, [[4, 4], [3, 3], [1, 1], [0, 0], [2, 2]])
 
     def test_qsize(self):
         """

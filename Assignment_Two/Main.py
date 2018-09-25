@@ -4,14 +4,14 @@
 
 # Q1)
 # My unit tests that I did for assignment #1 I personally felt were “Ok” however they were
-# lacking in terms of their handling for generic types. Because of this I had to write a bunch of
-# new unit tests in order to make sure that some of the hypothetical cases were taken care of.
-# This had caused me to go back to the very beginning and start with a simple “Node” class.
-# It was with this simple class that I had built my new priority queue upon and had used for
-# initial testing. From there I began to focus on the student class where in the end I ended
-# up reusing quite a bit of the old unit tests but not as many as I thought I would do.
-# In fact, after refactoring, most of the tests that I had to write/create were new as my
-# priority queue had to be able to handle a more wider array of data types.
+# lacking in terms of their handling for 'generic' types. Because of this I had to re-write a bunch of
+# new unit tests in order to make sure that different data types and classes were being taken care of.
+# This had caused me to go back to the very beginning and start with a new simple “Node” class.
+# It was with this very rudimentary class that I had built my new priority queue and had begun doing
+# initial testing. From there I then transitioned into focusing on the "Student" class where surprisingly
+# in the end I had only reused a few of the old unit tests from AS#1. In fact, after refactoring,
+# most of the tests that I had written were 'new' as my new priority queue had to be able to handle a more
+# wider range of data types along with different class operations and requirements.
 
 import unittest
 testLoader = unittest.TestLoader()

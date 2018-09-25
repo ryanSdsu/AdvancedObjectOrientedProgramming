@@ -17,8 +17,7 @@ class Node:
         elif len(additional_data) > 1:
             self.node_data = []
             self.__counter_data = 0
-            for data in additional_data:
-                self.node_data.append(data)
+            self.node_data = [data for data in additional_data]
 
     def __iter__(self):
         """

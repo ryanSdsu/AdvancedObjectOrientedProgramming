@@ -25,8 +25,7 @@ class PriorityQueue(queue.Queue):
         :rtype: []
         """
         self.priority_value = self.__priority_strategy.input(data)
-        priority_node = [data, self.priority_value]
-        self.queue.append(priority_node)
+        self.queue.append([data, self.priority_value])
         self.max_heapify()
 
     def get_all_data_from_priority_queue(self):
@@ -35,11 +34,7 @@ class PriorityQueue(queue.Queue):
         :return: data_queue
         :rtype: []
         """
-        data_queue = []
-        for data in self.queue:
-            data_queue.append(data[0])
-
-        return data_queue
+        return [data[0] for data in self.queue]
 
     def get_data_from_priority_queue_index(self, priority_queue_index):
         """
@@ -83,20 +78,19 @@ class PriorityQueue(queue.Queue):
         :return:
         """
         try:
-            number_of_nodes_in_priority_queue = len(self.queue)
-            if number_of_nodes_in_priority_queue < 1:
+            if len(self.queue) < 1:
                 return
-            for priority_queue_index in range(number_of_nodes_in_priority_queue, 1, -2):
+            for priority_queue_index in range(len(self.queue), 1, -2):
                 node_parent_index = (priority_queue_index - 2) // 2
                 node_left_child_index = node_parent_index * 2 + 1
                 node_right_child_index = node_parent_index * 2 + 2
 
-                if(node_right_child_index <= (number_of_nodes_in_priority_queue - 1)):
+                if(node_right_child_index <= (len(self.queue) - 1)):
                     if(self.get_priority_from_priority_queue_index(node_right_child_index) >
                            self.get_priority_from_priority_queue_index(node_parent_index)):
                         self.swap_priority_queue_index(node_right_child_index, node_parent_index)
 
-                if(node_left_child_index <= (number_of_nodes_in_priority_queue - 1)):
+                if(node_left_child_index <= (len(self.queue) - 1)):
                     if(self.get_priority_from_priority_queue_index(node_left_child_index) >
                            self.get_priority_from_priority_queue_index(node_parent_index)):
                         self.swap_priority_queue_index(node_left_child_index, node_parent_index)
@@ -118,25 +112,8 @@ class PriorityQueue(queue.Queue):
         reheapify's it to go upwards.
         :return:
         """
-        self.queue.append(item)
-        number_of_nodes_in_queue = self._qsize()
-        if number_of_nodes_in_queue < 1:
-            return
-        for priority_queue_index in range(number_of_nodes_in_queue, 1, -2):
-            node_parent_index = (priority_queue_index - 2) // 2
-            node_left_child_index = node_parent_index * 2 + 1
-            node_right_child_index = node_parent_index * 2 + 2
-
-            if(node_right_child_index <= (number_of_nodes_in_queue - 1)):
-                if(self.queue[node_right_child_index] > self.queue[node_parent_index]):
-                    node_temp = self.queue[node_right_child_index]
-                    self.queue[node_right_child_index] = self.queue[node_parent_index]
-                    self.queue[node_parent_index] = node_temp
-            if(node_left_child_index <= (number_of_nodes_in_queue - 1)):
-                if(self.queue[node_left_child_index] > self.queue[node_parent_index]):
-                    node_temp = self.queue[node_left_child_index]
-                    self.queue[node_left_child_index] = self.queue[node_parent_index]
-                    self.queue[node_parent_index] = node_temp
+        self.queue.append([item, item])
+        self.max_heapify()
 
     def _get(self):
         """
@@ -186,7 +163,6 @@ class PriorityQueue(queue.Queue):
                 removal_index = temp_queue.index(node)
                 self.queue.pop(removal_index)
                 self.max_heapify()
-                self.queue = self.queue
             except:
                 raise ValueError("The node you are trying to remove is not in the priority queue.")
         return self.queue
