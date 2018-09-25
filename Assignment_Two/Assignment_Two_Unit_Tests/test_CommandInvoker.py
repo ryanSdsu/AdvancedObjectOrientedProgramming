@@ -5,7 +5,7 @@ from Assignment_Two import PriorityQueueAddCommandClass
 from Assignment_Two import PriorityQueueRemoveCommandClass
 
 class TestCommandInvokerClass(unittest.TestCase):
-
+    """This is the base class for the unit tests involving the Command Invoker Class"""
     def setUp(self):
         """
         This is the set up for the 'CommandInvoker' class. We are creating the 'PriorityQueue' class to

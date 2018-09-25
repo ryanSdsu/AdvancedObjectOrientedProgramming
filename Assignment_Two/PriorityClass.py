@@ -35,7 +35,6 @@ def student(data = StudentClass.Student):
     :param number_of_units_taken: the number of units taken by the student (range: 0 - 150)
     :return:
     """
-
     gpa = data.gpa / 4.0
     gpa = gpa * 0.3
     number_of_units_taken = data.number_of_units_taken / 150

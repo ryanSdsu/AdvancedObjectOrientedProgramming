@@ -3,7 +3,7 @@ from Assignment_Two import PriorityQueueClass
 from Assignment_Two import PriorityQueueRemoveCommandClass
 
 class TestPriorityQueueRemoveCommandClass(unittest.TestCase):
-
+    """This is the base class for the unit tests involving the Priority Queue Remove Command Class"""
     def setUp(self):
         """
         This is the set up for the 'PriorityQueueRemoveCommandClass' class. We are creating the

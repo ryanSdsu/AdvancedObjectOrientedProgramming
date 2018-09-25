@@ -3,9 +3,8 @@ from Assignment_Two import PriorityQueueClass
 from Assignment_Two import PriorityClass
 from Assignment_Two import StudentClass
 
-
 class TestPriorityClass(unittest.TestCase):
-
+    """This is the base class for the unit tests involving the Priority Class"""
     def setUp(self):
         """
         This is the set up for the 'Priority' class. We are creating the 'PriorityQueue' to be used later.
@@ -49,17 +48,6 @@ class TestPriorityClass(unittest.TestCase):
         self.test_priority_queue.add_to_priority_queue(student)
         self.assertEquals(self.test_priority_queue.get_priority_strategy(), PriorityClass.student)
         self.assertEquals(self.test_priority_queue.get_priority_from_priority_queue_index(0), 0.575)
-
-
-# # one_argument_node.priority_strategy.input = PriorityClass.student
-# one_argument_node.priority_strategy = PriorityClass.Priority(PriorityClass.student)
-# one_argument_node.priority_value = one_argument_node.priority_strategy.input(2, 100)
-# print(one_argument_node.priority_strategy.input)
-# print(one_argument_node.priority_value)
-#
-#
-# one_argument_node.priority_type.priority_strategy = PriorityClass.student
-# one_argument_node.priority_type = one_argument_node.priority_type.priority_strategy(one_argument_node.data, 100)
 
 if __name__ == '__main__':
     unittest.main()

@@ -2,7 +2,7 @@ import unittest
 from Assignment_Two import StudentClass
 
 class TestStudentClass(unittest.TestCase):
-
+    """This is the base class for the unit tests involving the Student Class"""
     def test_change_address(self):
         """
         This unit test is testing the changing of the 'address' variable. It passes when a student's 'address' variable

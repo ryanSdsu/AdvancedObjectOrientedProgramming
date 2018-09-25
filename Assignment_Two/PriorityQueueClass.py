@@ -29,6 +29,7 @@ class PriorityQueue(queue.Queue):
         priority_node = [data, self.priority_value]
         self.__priority_queue.append(priority_node)
         self.max_heapify()
+        self.queue = self.__priority_queue
 
     def get_all_data_from_priority_queue(self):
         """
@@ -120,7 +121,7 @@ class PriorityQueue(queue.Queue):
         :return:
         """
         self.queue.append(item)
-        number_of_nodes_in_queue = len(self._qsize())
+        number_of_nodes_in_queue = self._qsize()
         if number_of_nodes_in_queue < 1:
             return
         for priority_queue_index in range(number_of_nodes_in_queue, 1, -2):
@@ -141,10 +142,14 @@ class PriorityQueue(queue.Queue):
 
     def _get(self):
         """
-        This overrides the queue.Queue's _get function.
-        :return:
+        This overrides the queue.Queue's _get function. It returns an node from the queue based
+        on the the highest priority.
+        :return: the highest priority node
+        :rtype: any
         """
-        if self.is_empty():
+        if self._qsize() >= 1:
+            return self.queue.pop(-1)
+        else:
             return None
 
     def remove_top_priority_node_from_priority_queue(self):
@@ -152,23 +157,26 @@ class PriorityQueue(queue.Queue):
         This is where we remove the object with the highest priority in the priority queue.
         After removing this object we then re-heapify the entire queue in order to ensure that the next
         object with the highest priority is at the top.
-        :return: priorityQueue
-        :rtype: []
+        :return: the priority queue node with the highest priority
+        :rtype: any
         """
 
         if len(self.__priority_queue) <= 0:
             raise ValueError ("There are no nodes in this queue to remove")
         else:
+            highest_priority_node = self.__priority_queue[0]
             self.__priority_queue[0] = self.__priority_queue[-1]
             self.__priority_queue.pop(-1)
             self.max_heapify()
+
+        return highest_priority_node
 
     def remove_node_from_priority_queue(self, node):
         """
         This is where we remove an object with a specific data from the priority queue.
         After removing this object we then re-heapify the entire queue in order to ensure that the next
         object with the highest priority is at the top.
-        :return: priorityQueue
+        :return: priority queue
         :rtype: []
         """
 
@@ -180,9 +188,11 @@ class PriorityQueue(queue.Queue):
                 removal_index = temp_queue.index(node)
                 self.__priority_queue.pop(removal_index)
                 self.max_heapify()
+                self.queue = self.__priority_queue
             except:
                 raise ValueError("The node you are trying to remove is not in the priority queue.")
 
+        return self.__priority_queue
 
     def set_priority_strategy(self, name_of_strategy):
         """
@@ -213,13 +223,25 @@ class PriorityQueue(queue.Queue):
 
     def __str__(self):
         """
+        This is where we print all of the elements and their priorities in the
+        priority queue via priority order.
         :return:
         """
-        return str(list(map(str, self.__priority_queue)))
+        priority_string = ""
+        for highest_priority_node in self:
+            priority_string += str(highest_priority_node)
+            priority_string += "\n"
+
+        return priority_string
 
 class PriorityQueue_iter:
 
     def __init__(self, priority_queue):
+        """
+        This is the constructor for the priorityqueue_iter. From here we make a deep copy of the
+        original pirotity queue for which we will iterate through.
+        :param priority_queue:
+        """
         self.__temporary_queue = copy.deepcopy(priority_queue)
         self.size_of_priority_queue = len(self.__temporary_queue.get_all_data_from_priority_queue())
         self.__counter_temp_queue = 0
@@ -240,3 +262,4 @@ class PriorityQueue_iter:
             return current_node
         else:
             raise StopIteration
+

@@ -8,7 +8,6 @@ class Node:
         variable 'data' will be set to "None". If there is only one argument 'data' will be set to
         what is being passed. For multiple arguments 'data' will become a 'list' containing containing
         what is being passed. If there is a 'list', the counter for the iter definition(s) is instantiated.
-
         :param additional_data: additional arguments being passed into init and set to 'data'
         """
         self.node_data = None
@@ -22,9 +21,18 @@ class Node:
                 self.node_data.append(data)
 
     def __iter__(self):
+        """
+        This is the iterator for the Node class. It simply is in reference to itself.
+        :return:
+        """
         return self
 
     def __next__(self):
+        """
+        This is the next definition for the Node class. It simply iterates through all of the data
+        that is passed into it.
+        :return:
+        """
         if self.__counter_data < len(self.node_data):
             current_data = self.node_data[self.__counter_data]
             self.__counter_data += 1
@@ -33,4 +41,8 @@ class Node:
             raise StopIteration
 
     def __str__(self):
+        """
+        This is the str definition of Node class in which we simply print the data.
+        :return:
+        """
         return str(self.node_data)

@@ -3,7 +3,7 @@ from Assignment_Two import PriorityQueueClass
 from Assignment_Two import PriorityQueueAddCommandClass
 
 class TestPriorityQueueAddCommandClass(unittest.TestCase):
-
+    """This is the base class for the unit tests involving the Priority Queue Add Command Class"""
     def setUp(self):
         """
         This is the set up for the 'PriorityQueueAddCommand' class. We are creating the 'PriorityQueue' class to

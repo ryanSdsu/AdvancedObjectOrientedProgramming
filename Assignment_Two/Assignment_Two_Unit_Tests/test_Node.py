@@ -2,7 +2,7 @@ import unittest
 from Assignment_Two import NodeClass
 
 class TestNodeClass(unittest.TestCase):
-
+    """This is the base class for the unit tests involving the Node Class"""
     def test_data_variable(self):
         """
         This unit test is testing the 'data' variable of the 'Node' class. It passes when upon proceeding with the

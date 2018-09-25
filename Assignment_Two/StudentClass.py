@@ -1,6 +1,5 @@
 class Student:
     """This is the base class for all students."""
-
     def __init__(self, name, red_id, email, address, gpa=None, number_of_units_taken=None):
         """
         This is the constructor for the Student class.
