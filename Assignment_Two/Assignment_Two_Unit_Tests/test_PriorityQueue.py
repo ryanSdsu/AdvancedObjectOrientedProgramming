@@ -124,7 +124,7 @@ class TestPriorityQueueClass(unittest.TestCase):
         passes upon the checking of the has_next, is_done and current_item definitions.
         :return:
         """
-        self.test_priority_queue.set_priority_strategy(PriorityClass.node)
+        self.test_priority_queue.set_priority_strategy(PriorityClass.node())
         int_one_node = NodeClass.Node(1)
         int_two_node = NodeClass.Node(2)
         int_three_node = NodeClass.Node(3)
@@ -177,7 +177,7 @@ class TestPriorityQueueClass(unittest.TestCase):
         It also passes if the Node with the highest priority remains at the top of the queue via the 'max_heapify'.
         :return:
         """
-        self.test_priority_queue.set_priority_strategy(PriorityClass.node)
+        self.test_priority_queue.set_priority_strategy(PriorityClass.node())
         for new_node_value in range(100):
             self.test_priority_queue.add_to_priority_queue(NodeClass.Node(new_node_value))
             self.assertEquals(self.test_priority_queue.get_data_from_priority_queue_index(0).node_data, new_node_value)
@@ -197,7 +197,7 @@ class TestPriorityQueueClass(unittest.TestCase):
         still intact.
         :return:
         """
-        self.test_priority_queue.set_priority_strategy(PriorityClass.node)
+        self.test_priority_queue.set_priority_strategy(PriorityClass.node())
         for new_node_value in range(100):
             self.test_priority_queue.add_to_priority_queue(NodeClass.Node(new_node_value))
             self.assertEquals(self.test_priority_queue.get_data_from_priority_queue_index(0).node_data, new_node_value)
@@ -209,7 +209,7 @@ class TestPriorityQueueClass(unittest.TestCase):
         still intact.
         :return:
         """
-        self.test_priority_queue.set_priority_strategy(PriorityClass.node)
+        self.test_priority_queue.set_priority_strategy(PriorityClass.node())
         for new_node_value in range(100):
             self.test_priority_queue.add_to_priority_queue(NodeClass.Node(new_node_value))
             self.assertEquals(self.test_priority_queue.get_priority_from_priority_queue_index(0), new_node_value)
@@ -274,7 +274,7 @@ class TestPriorityQueueClass(unittest.TestCase):
         successfully added to the priority queue and are in priority order.
         :return:
         """
-        self.test_priority_queue.set_priority_strategy(PriorityClass.student)
+        self.test_priority_queue.set_priority_strategy(PriorityClass.student())
         self.test_priority_queue.add_to_priority_queue(self.student_david)
         self.test_priority_queue.add_to_priority_queue(self.student_eric)
         self.test_priority_queue.add_to_priority_queue(self.student_nathan)
@@ -306,7 +306,7 @@ class TestPriorityQueueClass(unittest.TestCase):
         :return:
         """
         number_of_students_to_add = 5
-        self.test_priority_queue.set_priority_strategy(PriorityClass.student)
+        self.test_priority_queue.set_priority_strategy(PriorityClass.student())
         for index in range(number_of_students_to_add):
             self.test_priority_queue.add_to_priority_queue(self.student_david)
 
@@ -323,7 +323,7 @@ class TestPriorityQueueClass(unittest.TestCase):
         highest priority be on the top of the list since the structure is based on a max heap.
         :return:
         """
-        self.test_priority_queue.set_priority_strategy(PriorityClass.student)
+        self.test_priority_queue.set_priority_strategy(PriorityClass.student())
         self.test_priority_queue.add_to_priority_queue(self.student_david)
         self.test_priority_queue.add_to_priority_queue(self.student_eric)
         self.test_priority_queue.add_to_priority_queue(self.student_nathan)
@@ -354,7 +354,7 @@ class TestPriorityQueueClass(unittest.TestCase):
         number_of_students_to_add = 15
         number_of_students_to_remove = 10
 
-        self.test_priority_queue.set_priority_strategy(PriorityClass.student)
+        self.test_priority_queue.set_priority_strategy(PriorityClass.student())
         for student in range(number_of_students_to_add):
             self.test_priority_queue.add_to_priority_queue(self.student_david)
 

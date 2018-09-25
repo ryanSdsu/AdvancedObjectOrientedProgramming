@@ -11,10 +11,9 @@ class PriorityQueue(queue.Queue):
         Because it is inheriting queue it must have a self.queue.
         The default Priority strategy is set to default.
         """
-        self.__priority_queue = []
+        self.queue = []
         self.__priority_strategy = PriorityClass.Priority(PriorityClass.default)
         self.__priority_value = None
-        self.queue = self.__priority_queue
 
     def add_to_priority_queue(self, data):
         """
@@ -27,9 +26,8 @@ class PriorityQueue(queue.Queue):
         """
         self.priority_value = self.__priority_strategy.input(data)
         priority_node = [data, self.priority_value]
-        self.__priority_queue.append(priority_node)
+        self.queue.append(priority_node)
         self.max_heapify()
-        self.queue = self.__priority_queue
 
     def get_all_data_from_priority_queue(self):
         """
@@ -38,7 +36,7 @@ class PriorityQueue(queue.Queue):
         :rtype: []
         """
         data_queue = []
-        for data in self.__priority_queue:
+        for data in self.queue:
             data_queue.append(data[0])
 
         return data_queue
@@ -49,7 +47,7 @@ class PriorityQueue(queue.Queue):
         :return: the data of a certain priority queue index
         :rtype: any
         """
-        return self.__priority_queue[priority_queue_index][0]
+        return self.queue[priority_queue_index][0]
 
     def get_priority_from_priority_queue_index(self, priority_queue_index):
         """
@@ -57,7 +55,7 @@ class PriorityQueue(queue.Queue):
         :return: the priority value of a certain priority queue index
         :rtype: float or int
         """
-        return self.__priority_queue[priority_queue_index][1]
+        return self.queue[priority_queue_index][1]
 
     def get_priority_queue(self):
         """
@@ -65,7 +63,7 @@ class PriorityQueue(queue.Queue):
         :return: priority queue
         :rtype: []
         """
-        return self.__priority_queue
+        return self.queue
 
     def get_priority_strategy(self):
         """
@@ -77,7 +75,7 @@ class PriorityQueue(queue.Queue):
 
     def max_heapify(self):
         """
-        This sorts the priority_node(s) in the '__priority_queue' by traversing the nodes in the list
+        This sorts the priority_node(s) in the 'queue' by traversing the nodes in the list
         so that the node with the highest 'priority_value' resides at the top via the max heap.
         In terms of traversal we iterate and check to see if there is a right child of the current node
         and if there is one we see if it's priority is greater than its parents. If this is the case we swap them.
@@ -85,7 +83,7 @@ class PriorityQueue(queue.Queue):
         :return:
         """
         try:
-            number_of_nodes_in_priority_queue = len(self.__priority_queue)
+            number_of_nodes_in_priority_queue = len(self.queue)
             if number_of_nodes_in_priority_queue < 1:
                 return
             for priority_queue_index in range(number_of_nodes_in_priority_queue, 1, -2):
@@ -161,12 +159,12 @@ class PriorityQueue(queue.Queue):
         :rtype: any
         """
 
-        if len(self.__priority_queue) <= 0:
+        if len(self.queue) <= 0:
             raise ValueError ("There are no nodes in this queue to remove")
         else:
-            highest_priority_node = self.__priority_queue[0]
-            self.__priority_queue[0] = self.__priority_queue[-1]
-            self.__priority_queue.pop(-1)
+            highest_priority_node = self.queue[0]
+            self.queue[0] = self.queue[-1]
+            self.queue.pop(-1)
             self.max_heapify()
 
         return highest_priority_node
@@ -180,19 +178,18 @@ class PriorityQueue(queue.Queue):
         :rtype: []
         """
 
-        if len(self.__priority_queue) <= 0:
+        if len(self.queue) <= 0:
             raise ValueError("There are no nodes in this queue to remove")
         else:
             try:
                 temp_queue = self.get_all_data_from_priority_queue()
                 removal_index = temp_queue.index(node)
-                self.__priority_queue.pop(removal_index)
+                self.queue.pop(removal_index)
                 self.max_heapify()
-                self.queue = self.__priority_queue
+                self.queue = self.queue
             except:
                 raise ValueError("The node you are trying to remove is not in the priority queue.")
-
-        return self.__priority_queue
+        return self.queue
 
     def set_priority_strategy(self, name_of_strategy):
         """
@@ -209,9 +206,9 @@ class PriorityQueue(queue.Queue):
         :param node_index_two: the position of another node in the priority queue
         :return: None
         """
-        node_temp = self.__priority_queue[node_index_one]
-        self.__priority_queue[node_index_one] = self.__priority_queue[node_index_two]
-        self.__priority_queue[node_index_two] = node_temp
+        node_temp = self.queue[node_index_one]
+        self.queue[node_index_one] = self.queue[node_index_two]
+        self.queue[node_index_two] = node_temp
 
     def __iter__(self):
         """

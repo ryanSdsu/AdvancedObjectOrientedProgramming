@@ -43,10 +43,10 @@ class TestPriorityClass(unittest.TestCase):
         :return:
         """
 
-        self.test_priority_queue.set_priority_strategy(PriorityClass.student)
+        self.test_priority_queue.set_priority_strategy(PriorityClass.student())
         student = StudentClass.Student("Nathan", 777777777, "Nate@aol.com", "134 Home St", 3.0, 75)
         self.test_priority_queue.add_to_priority_queue(student)
-        self.assertEquals(self.test_priority_queue.get_priority_strategy(), PriorityClass.student)
+        self.assertEquals(type(self.test_priority_queue.get_priority_strategy()), type(PriorityClass.student()))
         self.assertEquals(self.test_priority_queue.get_priority_from_priority_queue_index(0), 0.575)
 
 if __name__ == '__main__':
