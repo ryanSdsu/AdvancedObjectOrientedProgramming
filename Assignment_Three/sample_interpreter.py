@@ -95,7 +95,7 @@ repeat_expression.add_statement(TurnExpression(VariableExpression('#side'), turt
 list_of_operations.append(repeat_expression)
 for i in list_of_operations:
     i.interpret(contextualness)
-print(turtle_murtle.location())
+print(turtle_murtle.location_of_turtle())
 
 """
 #side = 15

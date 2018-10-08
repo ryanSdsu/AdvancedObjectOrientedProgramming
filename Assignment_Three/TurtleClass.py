@@ -1,20 +1,25 @@
-class Turtle():
+from Assignment_Three import LocationClass
+
+class Turtle:
 
     def __init__(self):
-        self._location = [0,0]
-        self._degrees = 0
+        self.location_of_turtle = [0, 0]
+        self.degrees = 0
+        self.pen_up_state = True
+        self.pen_down_state = False
+        self.__location_strategy = LocationClass.Location(LocationClass.Location.custom_turtle_no_graphics)
 
     def move(self, distance):
-        self._distance = distance
-        self._location[0] = self._location[0] + distance
-        print("The distance the turtle has moved is: {}".format(distance))
-        print("The location for the turtle is: {}".format(self._location))
+        self.distance = distance
+        self.location_of_turtle = self.__location_strategy.input(self)
 
     def turn(self, degrees):
-        self._degrees = self._degrees + degrees
-        if self._degrees > 360:
-            self._degrees =  self._degrees - 360
-        print("The turtle has turned {} degrees and is now at: {}".format(degrees, self._degrees))
+        if degrees > 0:
+            self.degrees = self.degrees + degrees
+        else:
+            self.degrees = self.degrees + degrees + 360
+        if self.degrees >= 360:
+            self.degrees = self.degrees - 360
 
     def pen_up(self):
         self.pen_up_state = True
@@ -32,7 +37,7 @@ class Turtle():
 
     @property
     def direction(self):
-        return self._distance
+        return self.distance
 
     def location(self):
-        return self._location
+        return self.location_of_turtle
