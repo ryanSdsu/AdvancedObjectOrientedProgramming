@@ -81,18 +81,16 @@ class RepeatExpression(AbstractExpression):
 
 contextualness = dict()
 """ Anything with a # in front is a variable and needs to be added to the context"""
-contextualness.update({'#side': 90})
+contextualness.update({'#side': 180})
 list_of_operations = []
 turtle_murtle = TurtleClass.Turtle()
-# list_of_operations.append(MoveExpression(NumberExpression(10), turtle_murtle))
-# list_of_operations.append(TurnExpression(NumberExpression(90), turtle_murtle))
+list_of_operations.append(MoveExpression(NumberExpression(10), turtle_murtle))
+# list_of_operations.append(TurnExpression(NumberExpression(180), turtle_murtle))
+list_of_operations.append(TurnExpression(VariableExpression('#side'), turtle_murtle))
+list_of_operations.append(MoveExpression(NumberExpression(20), turtle_murtle))
 # list_of_operations.append(MoveExpression(NumberExpression(20), turtle_murtle))
 # list_of_operations.append(TurnExpression(VariableExpression('#side'), turtle_murtle))
 # list_of_operations.append(MoveExpression(NumberExpression(15), turtle_murtle))
-repeat_expression = RepeatExpression(5)
-repeat_expression.add_statement(MoveExpression(NumberExpression(10), turtle_murtle))
-# repeat_expression.add_statement(TurnExpression(VariableExpression('#side'), turtle_murtle))
-list_of_operations.append(repeat_expression)
 for i in list_of_operations:
     i.interpret(contextualness)
 print(turtle_murtle.location())
