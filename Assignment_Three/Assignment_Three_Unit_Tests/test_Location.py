@@ -4,6 +4,7 @@ from Assignment_Three import LocationClass
 
 class TestLocationClass(unittest.TestCase):
     """This is the base class for the unit tests involving the Location Class"""
+
     def setUp(self):
         """
         This is the set up for the 'Location' class. We are creating the 'Turtle' objects to be

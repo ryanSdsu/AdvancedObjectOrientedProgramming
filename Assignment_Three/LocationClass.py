@@ -2,11 +2,19 @@ from Assignment_Three import TurtleClass
 import numpy as np
 
 class LocationStrategy:
+    """This is the base class for the selecting of the Location Strategy."""
+
     def custom_turtle_no_graphics(self):
+        """
+        This def selects the 'custom_turtle_no_graphics' strategy to be used for calculating
+        'Location'.
+        :return:
+        """
         return Location(Location.custom_turtle_no_graphics)
 
 class Location:
-    """This is the base class for the Location Strategy."""
+    """This is the base class for computations involving 'Location'."""
+
     def __init__(self, input):
         """
         This is the constructor of 'Location' class in which the class strategy can be set.

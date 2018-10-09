@@ -5,6 +5,11 @@ class TestStudentClass(unittest.TestCase):
     """This is the base class for the unit tests involving the Turtle Class"""
 
     def setUp(self):
+        """
+        This is the set up for the 'Turtle' class. We are creating the 'turtle' objects to be
+        set, added and tested later.
+        :return:
+        """
         self.turtle = TurtleClass.Turtle()
 
     def test_constructor(self):
