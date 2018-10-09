@@ -38,6 +38,19 @@ class TestFileReadClass(unittest.TestCase):
         self.assertListEqual(self.test_file_read.file_lines,
                              ['move 10', 'turn 90', 'move 20', 'turn -60', 'move 15'])
 
+    def test_split_lines_into_words(self):
+        """
+        This unit test is testing the 'split_lines_into_words' def of the 'FileRead' class.
+        It passes when the all of the lines in the 'file_lines' list have had any trailing whitespace
+        be removed and then are reorganized into lists containing each individual word per
+        their respective line.
+        :return:
+        """
+        self.test_file_read.split_lines_into_words()
+        self.assertListEqual(self.test_file_read.file_lines,
+                             [['move', '10'], ['turn', '90'], ['move', '20'],
+                              ['turn', '-60'], ['move', '15']])
+
 if __name__ == '__main__':
     unittest.main()
 

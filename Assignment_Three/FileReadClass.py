@@ -17,3 +17,13 @@ class FileRead:
         """
         for index, line in enumerate(self.file_lines):
              self.file_lines[index]= line.rstrip()
+
+    def split_lines_into_words(self):
+        """
+        This is where we split all of the lines in the file_lines list into individual words contained
+        into separate lists.
+        :return:
+        """
+        self.remove_all_trailing_whitespace()
+        for index, line in enumerate(self.file_lines):
+            self.file_lines[index] = line.split(" ")

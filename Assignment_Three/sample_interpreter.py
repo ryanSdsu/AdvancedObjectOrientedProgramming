@@ -91,11 +91,11 @@ turtle_murtle = TurtleClass.Turtle()
 # list_of_operations.append(MoveExpression(NumberExpression(15), turtle_murtle))
 repeat_expression = RepeatExpression(5)
 repeat_expression.add_statement(MoveExpression(NumberExpression(10), turtle_murtle))
-repeat_expression.add_statement(TurnExpression(VariableExpression('#side'), turtle_murtle))
+# repeat_expression.add_statement(TurnExpression(VariableExpression('#side'), turtle_murtle))
 list_of_operations.append(repeat_expression)
 for i in list_of_operations:
     i.interpret(contextualness)
-print(turtle_murtle.location_of_turtle())
+print(turtle_murtle.location())
 
 """
 #side = 15
