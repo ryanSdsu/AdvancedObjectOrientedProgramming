@@ -5,6 +5,7 @@ class Turtle:
     def __init__(self):
         self.location_of_turtle = [0, 0]
         self.degrees = 0
+        self.distance = 0
         self.pen_up_state = True
         self.pen_down_state = False
         self.__location_strategy = LocationClass.LocationStrategy.custom_turtle_no_graphics(self)
