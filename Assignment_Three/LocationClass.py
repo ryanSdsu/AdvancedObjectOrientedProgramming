@@ -1,6 +1,10 @@
 from Assignment_Three import TurtleClass
 import numpy as np
 
+class LocationStrategy:
+    def custom_turtle_no_graphics(self):
+        return Location(Location.custom_turtle_no_graphics)
+
 class Location:
     """This is the base class for the Location Strategy."""
     def __init__(self, input):
@@ -9,7 +13,6 @@ class Location:
         :param input: the strategy of which the 'Location' class can be set to.
         """
         self.input = input
-
 
     def custom_turtle_no_graphics(turtle):
         """

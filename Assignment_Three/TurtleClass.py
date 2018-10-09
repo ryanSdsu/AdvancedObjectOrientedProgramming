@@ -7,7 +7,7 @@ class Turtle:
         self.degrees = 0
         self.pen_up_state = True
         self.pen_down_state = False
-        self.__location_strategy = LocationClass.Location(LocationClass.Location.custom_turtle_no_graphics)
+        self.__location_strategy = LocationClass.LocationStrategy.custom_turtle_no_graphics(self)
 
     def move(self, distance):
         self.distance = distance
@@ -35,9 +35,8 @@ class Turtle:
         elif self.pen_up_state == False and self.pen_down_state == True:
             return False
 
-    @property
     def direction(self):
-        return self.distance
+        return self.degrees
 
     def location(self):
         return self.location_of_turtle

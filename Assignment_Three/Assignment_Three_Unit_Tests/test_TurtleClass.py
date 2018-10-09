@@ -19,19 +19,23 @@ class TestStudentClass(unittest.TestCase):
         self.assertEquals(self.turtle.is_pen_up(), True)
         self.assertEquals(self.turtle.pen_down_state, False)
 
-    def test_move(self):
+    def test_direction(self):
         """
-        This unit test is testing the move definition of the 'Turtle' object. It passes when after
-        receiving a certain amount of units to move, it's location gets updated based on where its
-        X/Y coordinates were previously as well as what the current 'degrees' was set to.
-        The actual mathematical calculations are contained within the 'custom_turtle_no_graphics'
-        strategy in the '__location_strategy' variable.
+        This unit test is testing the direction def of the 'Turtle' class.  It passes when the
+        definition returns the current amount of degrees that the turtle has been set to.
         :return:
         """
-        self.turtle.location_of_turtle = [10,20]
-        self.turtle.degrees = 30
-        self.turtle.move(15)
-        self.assertListEqual(self.turtle.location_of_turtle, [22.99,27.5])
+        self.assertEquals(self.turtle.degrees, self.turtle.direction())
+        self.turtle.turn(90)
+        self.assertEquals(self.turtle.degrees, self.turtle.direction())
+        self.turtle.turn(-90)
+        self.assertEquals(self.turtle.degrees, self.turtle.direction())
+        self.turtle.turn(-270)
+        self.assertEquals(self.turtle.degrees, self.turtle.direction())
+        self.turtle.turn(-45)
+        self.assertEquals(self.turtle.degrees, self.turtle.direction())
+        self.turtle.turn(315)
+        self.assertEquals(self.turtle.degrees, self.turtle.direction())
 
     def test_is_pen_up(self):
         """
@@ -50,16 +54,31 @@ class TestStudentClass(unittest.TestCase):
         self.turtle.pen_down()
         self.assertEquals(self.turtle.is_pen_up(), False)
 
-    def test_pen_up(self):
+    def test_location(self):
         """
-        This unit test is testing the pen_up def of the 'Turtle' class.  It passes when after
-        executing the definition, the 'pen_up_state' is set to True while the 'pen_down_state'
-        is set to False.
+        This unit test is testing the direction def of the 'Turtle' class.  It passes when the
+        definition returns the current location of where the turtle is.
         :return:
         """
-        self.turtle.pen_up()
-        self.assertEquals(self.turtle.pen_up_state, True)
-        self.assertEquals(self.turtle.pen_down_state, False)
+        self.turtle.location_of_turtle = [10,20]
+        self.assertListEqual(self.turtle.location_of_turtle, self.turtle.location())
+        self.turtle.degrees = 30
+        self.turtle.move(15)
+        self.assertListEqual(self.turtle.location_of_turtle, self.turtle.location())
+
+    def test_move(self):
+        """
+        This unit test is testing the move definition of the 'Turtle' object.  It passes when after
+        receiving a certain amount of units to move, it's location gets updated based on where its
+        X/Y coordinates were previously as well as what the current 'degrees' was set to.
+        The actual mathematical calculations are contained within the 'custom_turtle_no_graphics'
+        strategy in the '__location_strategy' variable.
+        :return:
+        """
+        self.turtle.location_of_turtle = [10,20]
+        self.turtle.degrees = 30
+        self.turtle.move(15)
+        self.assertListEqual(self.turtle.location_of_turtle, [22.99,27.5])
 
     def test_pen_down(self):
         """
@@ -72,9 +91,20 @@ class TestStudentClass(unittest.TestCase):
         self.assertEquals(self.turtle.pen_down_state, True)
         self.assertEquals(self.turtle.pen_up_state, False)
 
+    def test_pen_up(self):
+        """
+        This unit test is testing the pen_up def of the 'Turtle' class.  It passes when after
+        executing the definition, the 'pen_up_state' is set to True while the 'pen_down_state'
+        is set to False.
+        :return:
+        """
+        self.turtle.pen_up()
+        self.assertEquals(self.turtle.pen_up_state, True)
+        self.assertEquals(self.turtle.pen_down_state, False)
+
     def test_turn(self):
         """
-        This unit test is testing the turn def of the 'Turtle' class. It passes when the
+        This unit test is testing the turn def of the 'Turtle' class.  It passes when the
         definition receives a certain amount of degrees and turns based on its given input.
         The turning has to resemble a circle so an input of 90 as well as -270 should
         give the same result i.e. 90 degrees.
