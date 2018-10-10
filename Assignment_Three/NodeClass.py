@@ -13,6 +13,7 @@ class Node:
         self.node_data = None
         self.left_child = None
         self.right_child = None
+
         if len(additional_data) == 1:
             for data in additional_data:
                 self.node_data = data
