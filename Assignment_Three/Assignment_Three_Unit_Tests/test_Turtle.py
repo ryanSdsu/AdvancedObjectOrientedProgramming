@@ -1,7 +1,7 @@
 import unittest
 from Assignment_Three import TurtleClass
 
-class TestStudentClass(unittest.TestCase):
+class TestTurtleClass(unittest.TestCase):
     """This is the base class for the unit tests involving the Turtle Class"""
 
     def setUp(self):
