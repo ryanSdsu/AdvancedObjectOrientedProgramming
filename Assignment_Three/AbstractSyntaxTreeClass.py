@@ -10,6 +10,7 @@ class AbstractSyntaxTree:
         """
         self.root_node = None
         self.current_node = None
+        self.iter_node = None
 
     def add_to_tree(self, node = NodeClass.Node):
         """
@@ -22,6 +23,7 @@ class AbstractSyntaxTree:
         if self.root_node == None:
             self.root_node = NodeClass.Node(node.node_data[0])
             self.root_node.right_child = NodeClass.Node(node.node_data[1])
+            self.iter_node = self.root_node
             return
         else:
             self.current_node = self.root_node
@@ -36,4 +38,22 @@ class AbstractSyntaxTree:
 
             self.current_node.left_child = NodeClass.Node(node.node_data[0])
             self.current_node.left_child.right_child = NodeClass.Node(node.node_data[1])
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.iter_data = []
+        if self.iter_node == None:
+            raise StopIteration
+        elif self.iter_node.left_child == None:
+            self.iter_data.append(self.iter_node.node_data, self.iter_node.right_child.node_data)
+            self.iter_node = None
+            return self.iter_data
+
+        self.iter_data.append(self.iter_node.node_data, self.iter_node.right_child.node_data)
+        self.iter_node = self.iter_node.left_child
+        return self.iter_data
+
+
 
