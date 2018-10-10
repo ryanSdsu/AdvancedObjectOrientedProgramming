@@ -40,20 +40,29 @@ class AbstractSyntaxTree:
             self.current_node.left_child.right_child = NodeClass.Node(node.node_data[1])
 
     def __iter__(self):
+        """
+        This initializes the iterator to be set to the AbstractSyntaxTree class itself.
+        :return: self
+        :rtype: enumerate
+        """
         return self
 
     def __next__(self):
+        """
+        This iterates through each of the nodes in the 'AbstractSyntaxTree'. It returns the first
+        node that was added followed by the second, third and so forth until there are none left to
+        be iterated upon.
+        :return:
+        """
         self.iter_data = []
         if self.iter_node == None:
             raise StopIteration
         elif self.iter_node.left_child == None:
-            self.iter_data.append(self.iter_node.node_data, self.iter_node.right_child.node_data)
+            self.iter_data.append(self.iter_node.node_data)
+            self.iter_data.append(self.iter_node.right_child.node_data)
             self.iter_node = None
             return self.iter_data
-
-        self.iter_data.append(self.iter_node.node_data, self.iter_node.right_child.node_data)
+        self.iter_data.append(self.iter_node.node_data)
+        self.iter_data.append(self.iter_node.right_child.node_data)
         self.iter_node = self.iter_node.left_child
         return self.iter_data
-
-
-

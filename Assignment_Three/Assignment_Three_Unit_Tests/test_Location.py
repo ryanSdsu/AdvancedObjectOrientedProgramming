@@ -23,17 +23,6 @@ class TestLocationClass(unittest.TestCase):
         test_location_class = LocationClass.Location(self)
         self.assertIsInstance(test_location_class, LocationClass.Location)
 
-    def test_location_strategy_custom_turtle_no_graphics(self):
-        """
-        This unit test is testing the 'custom_turtle_no_graphics' strategy of the 'LocationStrategy'
-        class. It passes when the strategy 'custom_turtle_no_graphics' is set via the 'LocationStrategy'
-        class to the corresponding variable.
-        :return:
-        """
-        test_location_class = LocationClass.LocationStrategy.custom_turtle_no_graphics(self.turtle)
-        self.assertEquals(type(test_location_class.input(self.turtle)),
-                          type(LocationClass.Location.custom_turtle_no_graphics(self.turtle)))
-
     def test_location_custom_turtle_no_graphics(self):
         """
         This unit test is testing the 'custom_turtle_no_graphics' strategy of the 'Location' class.
@@ -46,6 +35,17 @@ class TestLocationClass(unittest.TestCase):
         self.turtle.degrees = 30
         self.turtle.move(15)
         self.assertListEqual(self.turtle.location_of_turtle, [22.99,27.5])
+
+    def test_location_strategy_custom_turtle_no_graphics(self):
+        """
+        This unit test is testing the 'custom_turtle_no_graphics' strategy of the 'LocationStrategy'
+        class. It passes when the strategy 'custom_turtle_no_graphics' is set via the 'LocationStrategy'
+        class to the corresponding variable.
+        :return:
+        """
+        test_location_class = LocationClass.LocationStrategy.custom_turtle_no_graphics(self.turtle)
+        self.assertEquals(type(test_location_class.input(self.turtle)),
+                          type(LocationClass.Location.custom_turtle_no_graphics(self.turtle)))
 
 if __name__ == '__main__':
     unittest.main()
