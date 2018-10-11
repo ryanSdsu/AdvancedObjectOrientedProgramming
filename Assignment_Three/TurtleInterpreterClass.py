@@ -94,7 +94,6 @@ for i in list_of_operations:
     i.interpretation_of_expression(contextualness)
 print(turtle_murtle.location())
 
-
 """
 #side = 15
 move 10
