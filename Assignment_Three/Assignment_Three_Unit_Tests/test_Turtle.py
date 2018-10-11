@@ -83,7 +83,7 @@ class TestTurtleClass(unittest.TestCase):
         self.turtle.location_of_turtle = [10,20]
         self.turtle.degrees = 30
         self.turtle.move(15)
-        self.assertListEqual(self.turtle.location_of_turtle, [22.99,27.5])
+        self.assertListEqual(self.turtle.location_of_turtle, [22.99, 27.5])
 
     def test_pen_down(self):
         """

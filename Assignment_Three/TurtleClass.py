@@ -82,4 +82,3 @@ class Turtle:
         :return:
         """
         return self.location_of_turtle
-
