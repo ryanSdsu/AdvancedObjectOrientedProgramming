@@ -25,7 +25,8 @@ class TestFileReadClass(unittest.TestCase):
         """
         self.assertIsInstance(self.test_file_read, FileReadClass.FileRead)
         self.assertListEqual(self.test_file_read.file_lines,
-                             ['move 10\n', 'turn 90\n', 'move 20\n', 'turn -60\n', 'move 15'])
+                             ['#side = 15\n', '#side= 10\n', 'move 10\n', 'turn 90\n',
+                              'move 20\n', 'turn -60\n', 'move 15'])
 
     def test_remove_all_trailing_whitespace(self):
         """
@@ -36,7 +37,21 @@ class TestFileReadClass(unittest.TestCase):
         """
         self.test_file_read.remove_all_trailing_whitespace()
         self.assertListEqual(self.test_file_read.file_lines,
-                             ['move 10', 'turn 90', 'move 20', 'turn -60', 'move 15'])
+                             ['#side = 15', '#side= 10',
+                              'move 10', 'turn 90', 'move 20', 'turn -60', 'move 15'])
+
+    def test_replace_characters_in_lines(self):
+        """
+        This unit test is testing the 'replace_characters_in_lines' def of the 'FileRead' class.
+        It passes when the all of the lines in the 'file_lines' list that have a certain character
+        sequence are replaced with a "new sequence" of characters in that specific sequence.
+        :return:
+        """
+        self.test_file_read.remove_all_trailing_whitespace()
+        self.test_file_read.replace_characters_in_lines("=", " ")
+        self.assertListEqual(self.test_file_read.file_lines,
+                             ['#side   15', '#side  10',
+                              'move 10', 'turn 90', 'move 20', 'turn -60', 'move 15'])
 
     def test_split_lines_into_words(self):
         """
@@ -46,9 +61,12 @@ class TestFileReadClass(unittest.TestCase):
         their respective line.
         :return:
         """
+        self.test_file_read.remove_all_trailing_whitespace()
+        self.test_file_read.replace_characters_in_lines("=", " ")
         self.test_file_read.split_lines_into_words()
         self.assertListEqual(self.test_file_read.file_lines,
-                             [['move', '10'], ['turn', '90'], ['move', '20'],
+                             [['#side', '15'], ['#side', '10'],
+                              ['move', '10'], ['turn', '90'], ['move', '20'],
                               ['turn', '-60'], ['move', '15']])
 
 if __name__ == '__main__':
