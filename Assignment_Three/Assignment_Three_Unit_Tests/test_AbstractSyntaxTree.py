@@ -22,53 +22,53 @@ class TestAbstractSyntaxTreeClass(unittest.TestCase):
         set to anything, it will be set to it before starting to branch off.
         :return:
         """
-        zero_node = NodeClass.Node([0,0])
+        zero_node = NodeClass.Node([9,-9])
         self.test_abstract_syntax_tree.add_to_tree(zero_node)
-        self.assertEquals(self.test_abstract_syntax_tree.root_node.node_data, 0)
+        self.assertEquals(self.test_abstract_syntax_tree.root_node.node_data, 9)
         self.assertEquals(self.test_abstract_syntax_tree.root_node.left_child, None)
-        self.assertEquals(self.test_abstract_syntax_tree.root_node.right_child.node_data, 0)
+        self.assertEquals(self.test_abstract_syntax_tree.root_node.right_child.node_data, -9)
 
-        first_node = NodeClass.Node([1,1])
+        first_node = NodeClass.Node([1,-1])
         self.test_abstract_syntax_tree.add_to_tree(first_node)
-        self.assertEquals(self.test_abstract_syntax_tree.root_node.node_data, 0)
+        self.assertEquals(self.test_abstract_syntax_tree.root_node.node_data, 9)
         self.assertEquals(self.test_abstract_syntax_tree.root_node.left_child.node_data, 1)
-        self.assertEquals(self.test_abstract_syntax_tree.root_node.right_child.node_data, 0)
+        self.assertEquals(self.test_abstract_syntax_tree.root_node.right_child.node_data, -9)
 
         self.assertEquals(self.test_abstract_syntax_tree.root_node.left_child.left_child, None)
-        self.assertEquals(self.test_abstract_syntax_tree.root_node.left_child.right_child.node_data, 1)
+        self.assertEquals(self.test_abstract_syntax_tree.root_node.left_child.right_child.node_data, -1)
 
-        second_node = NodeClass.Node([2, 2])
+        second_node = NodeClass.Node([2, -2])
         self.test_abstract_syntax_tree.add_to_tree(second_node)
-        self.assertEquals(self.test_abstract_syntax_tree.root_node.node_data, 0)
+        self.assertEquals(self.test_abstract_syntax_tree.root_node.node_data, 9)
         self.assertEquals(self.test_abstract_syntax_tree.root_node.left_child.node_data, 1)
-        self.assertEquals(self.test_abstract_syntax_tree.root_node.right_child.node_data, 0)
+        self.assertEquals(self.test_abstract_syntax_tree.root_node.right_child.node_data, -9)
 
         self.assertEquals(self.test_abstract_syntax_tree.root_node.left_child.left_child.node_data, 2)
-        self.assertEquals(self.test_abstract_syntax_tree.root_node.left_child.right_child.node_data, 1)
+        self.assertEquals(self.test_abstract_syntax_tree.root_node.left_child.right_child.node_data, -1)
 
         self.assertEquals(self.test_abstract_syntax_tree.root_node.
                           left_child.left_child.left_child, None)
         self.assertEquals(self.test_abstract_syntax_tree.root_node.
-                          left_child.left_child.right_child.node_data, 2)
+                          left_child.left_child.right_child.node_data, -2)
 
-        third_node = NodeClass.Node([3, 3])
+        third_node = NodeClass.Node([3, -3])
         self.test_abstract_syntax_tree.add_to_tree(third_node)
-        self.assertEquals(self.test_abstract_syntax_tree.root_node.node_data, 0)
+        self.assertEquals(self.test_abstract_syntax_tree.root_node.node_data, 9)
         self.assertEquals(self.test_abstract_syntax_tree.root_node.left_child.node_data, 1)
-        self.assertEquals(self.test_abstract_syntax_tree.root_node.right_child.node_data, 0)
+        self.assertEquals(self.test_abstract_syntax_tree.root_node.right_child.node_data, -9)
 
         self.assertEquals(self.test_abstract_syntax_tree.root_node.left_child.left_child.node_data, 2)
-        self.assertEquals(self.test_abstract_syntax_tree.root_node.left_child.right_child.node_data, 1)
+        self.assertEquals(self.test_abstract_syntax_tree.root_node.left_child.right_child.node_data, -1)
 
         self.assertEquals(self.test_abstract_syntax_tree.root_node.
                           left_child.left_child.left_child.node_data, 3)
         self.assertEquals(self.test_abstract_syntax_tree.root_node.
-                          left_child.left_child.right_child.node_data, 2)
+                          left_child.left_child.right_child.node_data, -2)
 
         self.assertEquals(self.test_abstract_syntax_tree.root_node.
                           left_child.left_child.left_child.left_child, None)
         self.assertEquals(self.test_abstract_syntax_tree.root_node.
-                          left_child.left_child.left_child.right_child.node_data, 3)
+                          left_child.left_child.left_child.right_child.node_data, -3)
 
     def test_init_def(self):
         """

@@ -125,6 +125,10 @@ class TestTurtleClass(unittest.TestCase):
         self.assertEquals(self.turtle.degrees, 45)
         self.turtle.turn(315)
         self.assertEquals(self.turtle.degrees, 0)
+        self.turtle.turn(1805)
+        self.assertEquals(self.turtle.degrees, 5)
+        self.turtle.turn(-1815)
+        self.assertEquals(self.turtle.degrees, 350)
 
 if __name__ == '__main__':
     unittest.main()

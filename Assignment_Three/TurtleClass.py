@@ -38,7 +38,9 @@ class Turtle:
             self.degrees = self.degrees + degrees
         else:
             self.degrees = self.degrees + degrees + 360
-        if self.degrees >= 360:
+        while self.degrees < 0:
+            self.degrees = self.degrees + 360
+        while self.degrees >= 360:
             self.degrees = self.degrees - 360
 
     def pen_up(self):
@@ -80,3 +82,4 @@ class Turtle:
         :return:
         """
         return self.location_of_turtle
+

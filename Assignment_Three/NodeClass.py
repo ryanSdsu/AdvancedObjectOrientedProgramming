@@ -1,5 +1,3 @@
-from Assignment_Two import PriorityClass
-
 class Node:
     """This is the base class for the Node."""
     def __init__(self, *additional_data):
