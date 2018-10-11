@@ -1,7 +1,8 @@
 from Assignment_Three import AbstractInterpreterClass
 from Assignment_Three import TurtleClass
 
-class NumberExpression(AbstractInterpreterClass.AbstractInterpreter):
+
+class NumericalExpression(AbstractInterpreterClass.AbstractInterpreter):
     def __init__(self, number):
         self.num = number
 
@@ -9,28 +10,28 @@ class NumberExpression(AbstractInterpreterClass.AbstractInterpreter):
         return self.num
 
 
-class VariableExpression(AbstractInterpreterClass.AbstractInterpreter):
-    def __init__(self, name):
-        self.name = name
+class KeyVariableExpression(AbstractInterpreterClass.AbstractInterpreter):
+    def __init__(self, variable_name):
+        self.variable_name = variable_name
 
     def interpretation_of_expression(self, value):
-        return value.get(self.name)
+        return value.get(self.variable_name)
 
 
 class PenUp(AbstractInterpreterClass.AbstractInterpreter):
     def __init__(self, turtle_class):
-        self.turtle = turtle_class
+        self.expression = turtle_class
 
     def interpretation_of_expression(self, value):
-        self.turtle.pen_up()
+        self.expression.pen_up()
 
 
 class PenDown(AbstractInterpreterClass.AbstractInterpreter):
     def __init__(self, turtle_class):
-        self.turtle = turtle_class
+        self.expression = turtle_class
 
     def interpretation_of_expression(self, value):
-        self.turtle.pen_down()
+        self.expression.pen_down()
 
 
 class Move(AbstractInterpreterClass.AbstractInterpreter):
@@ -76,19 +77,19 @@ list_of_operations = []
 turtle_murtle = TurtleClass.Turtle()
 
 
-list_of_operations.append(Move(NumberExpression(10), turtle_murtle))
-list_of_operations.append(Turn(NumberExpression(180), turtle_murtle))
-# list_of_operations.append(TurnExpression(VariableExpression('#side'), turtle_murtle))
-list_of_operations.append(Move(NumberExpression(20), turtle_murtle))
+list_of_operations.append(Move(NumericalExpression(10), turtle_murtle))
+list_of_operations.append(Turn(NumericalExpression(180), turtle_murtle))
+# list_of_operations.append(TurnExpression(KeyVariableExpression('#side'), turtle_murtle))
+list_of_operations.append(Move(NumericalExpression(20), turtle_murtle))
 # list_of_operations.append(MoveExpression(NumberExpression(20), turtle_murtle))
-# list_of_operations.append(TurnExpression(VariableExpression('#side'), turtle_murtle))
+# list_of_operations.append(TurnExpression(KeyVariableExpression('#side'), turtle_murtle))
 # list_of_operations.append(MoveExpression(NumberExpression(15), turtle_murtle))
 # for i in list_of_operations:
 #     i.interpret(contextualness)
 # print(turtle_murtle.location())
 #
 # repeat_expression = RepeatExpression(4)
-# repeat_expression.add_statement(MoveExpression(VariableExpression('#side'), turtle_murtle))
+# repeat_expression.add_statement(MoveExpression(KeyVariableExpression('#side'), turtle_murtle))
 # list_of_operations.append(repeat_expression)
 for i in list_of_operations:
     i.interpretation_of_expression(contextualness)
