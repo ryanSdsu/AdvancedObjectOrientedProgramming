@@ -89,7 +89,7 @@ class TestAbstractInterpreterClass(unittest.TestCase):
         """
         pen_down_class = TurtleInterpreterClass.PenDown(self.test_turtle)
         self.assertIsInstance(pen_down_class, TurtleInterpreterClass.PenDown)
-        pen_down_class.interpretation_of_expression(None)
+        pen_down_class.interpretation_of_expression()
         self.assertEqual(self.test_turtle.is_pen_up(), False)
         self.assertEqual(self.test_turtle.pen_up_state, False)
         self.assertEqual(self.test_turtle.pen_down_state, True)
@@ -104,7 +104,7 @@ class TestAbstractInterpreterClass(unittest.TestCase):
         """
         pen_up_class = TurtleInterpreterClass.PenUp(self.test_turtle)
         self.assertIsInstance(pen_up_class, TurtleInterpreterClass.PenUp)
-        pen_up_class.interpretation_of_expression(None)
+        pen_up_class.interpretation_of_expression()
         self.assertEqual(self.test_turtle.is_pen_up(), True)
         self.assertEqual(self.test_turtle.pen_up_state, True)
         self.assertEqual(self.test_turtle.pen_down_state, False)
@@ -155,19 +155,38 @@ class TestAbstractInterpreterClass(unittest.TestCase):
         :return:
         """
         self.test_ti = TurtleInterpreterClass.TurtleInterpreter()
+        move_class = self.test_ti.string_to_class_turtle_interpreter(['Move', 10], self.test_turtle)
+        self.assertIsInstance(move_class[0].class_object, TurtleInterpreterClass.Move)
+        self.assertIsInstance(move_class[1].class_object, TurtleInterpreterClass.Numerical)
+        move_class[0].interpret_expression(move_class[1].interpret_expression())
 
-        move_class = self.test_ti.string_to_class_turtle_interpreter(self.test_turtle, 'Move')
-        self.assertIsInstance(move_class.class_object, TurtleInterpreterClass.Move)
-        numerical_class = self.test_ti.string_to_class_turtle_interpreter(10)
-        self.assertIsInstance(numerical_class.class_object, TurtleInterpreterClass.Numerical)
-        set_variable_class = self.test_ti.string_to_class_turtle_interpreter('#key')
-        self.assertIsInstance(set_variable_class.class_object, TurtleInterpreterClass.SetVariable)
-        set_variable_class.interpret_expression('value')
-        self.assertEqual(self.test_ti.variable_dictionary['#key'], 'value')
-        get_variable_class = self.test_ti.string_to_class_turtle_interpreter('#key')
-        self.assertIsInstance(get_variable_class.class_object, TurtleInterpreterClass.GetVariable)
-        get_variable_class = get_variable_class.interpret_expression()
-        self.assertEqual(get_variable_class, 'value')
+        self.assertEqual(self.test_turtle.location(), [10, 0])
+        pen_down_class = self.test_ti.string_to_class_turtle_interpreter(['PenDown'], self.test_turtle)
+        self.assertIsInstance(pen_down_class[0].class_object, TurtleInterpreterClass.PenDown)
+        pen_down_class[0].interpret_expression()
+        self.assertEqual(self.test_turtle.is_pen_up(), False)
+        self.assertEqual(self.test_turtle.pen_up_state, False)
+        self.assertEqual(self.test_turtle.pen_down_state, True)
+
+        set_variable_class = self.test_ti.string_to_class_turtle_interpreter(['#key',10])
+        self.assertIsInstance(set_variable_class[0].class_object, TurtleInterpreterClass.SetVariable)
+        self.assertIsInstance(set_variable_class[1].class_object, TurtleInterpreterClass.Numerical)
+        set_variable_class[0].interpret_expression(set_variable_class[1].interpret_expression())
+        self.assertEqual(self.test_ti.variable_dictionary['#key'], 10)
+
+        move_class = self.test_ti.string_to_class_turtle_interpreter(['Move', '#key'], self.test_turtle)
+        self.assertIsInstance(move_class[0].class_object, TurtleInterpreterClass.Move)
+        self.assertIsInstance(move_class[1].class_object, TurtleInterpreterClass.GetVariable)
+        move_class[0].interpret_expression(move_class[1].interpret_expression())
+        self.assertEqual(self.test_turtle.location(), [20, 0])
+
+        move_class = self.test_ti.string_to_class_turtle_interpreter(['Turn', '#key'], self.test_turtle)
+        self.assertIsInstance(move_class[0].class_object, TurtleInterpreterClass.Turn)
+        self.assertIsInstance(move_class[1].class_object, TurtleInterpreterClass.GetVariable)
+        move_class[0].interpret_expression(move_class[1].interpret_expression())
+        self.assertEqual(self.test_turtle.degrees, 10)
+
+
         with self.assertRaises(AttributeError):
             TurtleInterpreterClass.string_to_class_turtle_interpreter(self.test_turtle, 'MMove')
 

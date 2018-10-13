@@ -98,10 +98,10 @@ class TestAbstractSyntaxTreeClass(unittest.TestCase):
                              [['#side', '15'], ['#side', '10'],
                               ['move', '10'], ['turn', '90'], ['move', '20'],
                               ['turn', '-60'], ['move', '15']])
-
-        for string_command in self.list_of_string_commands:
-            TIC.string_to_class_turtle_interpreter('Move', self.test_turtle)
-            print(string_command)
+        #WORK IN PROGRESS
+        # for string_command in self.list_of_string_commands:
+        #     TIC.string_to_class_turtle_interpreter('Move', self.test_turtle)
+        #     print(string_command)
 
     def test_init_def(self):
         """
