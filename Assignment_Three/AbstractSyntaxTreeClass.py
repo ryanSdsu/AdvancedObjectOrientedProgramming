@@ -8,6 +8,8 @@ class AbstractSyntaxTree:
         This is the constructor for the Abstract Syntax Tree.  We start by initializing a
         root_node variable which will be referenced in the beginning as we start to build our tree.
         """
+        self.tree = []
+        self.variable_dictionary = {}
         self.root_node = None
         self.current_node = None
         self.iter_node = None
