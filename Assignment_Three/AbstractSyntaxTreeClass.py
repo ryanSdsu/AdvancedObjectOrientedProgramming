@@ -12,7 +12,20 @@ class AbstractSyntaxTree:
         self.variable_dictionary = {}
         self.root_node = None
         self.current_node = None
-        self.iter_node = None
+        self.root_node = None
+
+    def execute_interpretation_tree(self):
+        """
+        This is is where we traverse the abstract syntax tree and with each node, run the
+        interpretations of each node in order.
+        :return:
+        """
+        for value, expression in enumerate(self):
+            if len(expression) == 1:
+                expression.node_data[0].interpretation_of_expression(None)
+            else:
+                expression.node_data[0].interpretation_of_expression(
+                    expression.node_data[1].interpretation_of_expression())
 
     def add_to_tree(self, node = NodeClass.Node):
         """
@@ -25,7 +38,7 @@ class AbstractSyntaxTree:
         if self.root_node == None:
             self.root_node = NodeClass.Node(node.node_data[0])
             self.root_node.right_child = NodeClass.Node(node.node_data[1])
-            self.iter_node = self.root_node
+            self.root_node = self.root_node
             return
         else:
             self.current_node = self.root_node
@@ -57,14 +70,14 @@ class AbstractSyntaxTree:
         :return:
         """
         self.iter_data = []
-        if self.iter_node == None:
+        if self.root_node == None:
             raise StopIteration
-        elif self.iter_node.left_child == None:
-            self.iter_data.append(self.iter_node.node_data)
-            self.iter_data.append(self.iter_node.right_child.node_data)
-            self.iter_node = None
+        elif self.root_node.left_child == None:
+            self.iter_data.append(self.root_node.node_data)
+            self.iter_data.append(self.root_node.right_child.node_data)
+            self.root_node = None
             return self.iter_data
-        self.iter_data.append(self.iter_node.node_data)
-        self.iter_data.append(self.iter_node.right_child.node_data)
-        self.iter_node = self.iter_node.left_child
+        self.iter_data.append(self.root_node.node_data)
+        self.iter_data.append(self.root_node.right_child.node_data)
+        self.root_node = self.root_node.left_child
         return self.iter_data

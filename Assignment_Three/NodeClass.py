@@ -1,5 +1,8 @@
 class Node:
-    """This is the base class for the Node."""
+    """
+    This is the base class for the Node. It is used as a wrapper to hold
+    each individual expression and then be stored in the Abstract Syntax Tree.
+    """
     def __init__(self, *additional_data):
         """
         This is the constructor for the Node class. If there is no argument being passed the Node class

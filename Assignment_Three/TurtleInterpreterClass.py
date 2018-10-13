@@ -1,4 +1,20 @@
 from Assignment_Three.AbstractInterpreterClass import AbstractInterpreter
+from Assignment_Three.ExpressionLoaderClass import ExpressionLoader
+
+def string_to_class_turtle_interpreter(class_to_be_selected, turtle):
+    """
+    This reads in a string and then selects the proper subclass from the
+    'Turtle Interpreter Class' to be loaded based on that string.
+    :return:
+    """
+    module_name = "Assignment_Three"
+    turtle_interpreter = "TurtleInterpreterClass"
+    try:
+        class_object = ExpressionLoader(module_name, turtle_interpreter, class_to_be_selected, turtle)
+        return class_object
+    except AttributeError:
+        raise AttributeError("An invalid class has been selected.")
+
 
 class End(AbstractInterpreter):
     """
@@ -216,3 +232,4 @@ class Turn(AbstractInterpreter):
         :return:
         """
         self.expression.turn(value)
+

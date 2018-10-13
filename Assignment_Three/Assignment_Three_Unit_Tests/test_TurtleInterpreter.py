@@ -146,6 +146,19 @@ class TestAbstractInterpreterClass(unittest.TestCase):
         set_variable_class = set_variable_class.interpretation_of_expression('value')
         self.assertEqual(test_dictionary['#key'], 'value')
 
+    def test_string_to_class_turtle_interpreter(self):
+        """
+        This unit test is testing the 'string_to_class_turtle_interpreter' def of the
+        'Turtle Interpreter' class.  It passes when the 'string_to_class_turtle_interpreter'
+        def successfully returns the correct 'Turtle Interpreter' subclass based on the
+        string that it is passed.
+        :return:
+        """
+        move_class = TurtleInterpreterClass.string_to_class_turtle_interpreter('Move', self.test_turtle)
+        self.assertIsInstance(move_class.class_object, TurtleInterpreterClass.Move)
+        with self.assertRaises(AttributeError):
+            TurtleInterpreterClass.string_to_class_turtle_interpreter('MMove', self.test_turtle)
+
     def test_turn(self):
         """
         This unit test is testing the 'Turn' subclass of the 'Turtle Interpreter' class.

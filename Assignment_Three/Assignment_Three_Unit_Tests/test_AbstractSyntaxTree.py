@@ -2,6 +2,8 @@ import unittest
 import random
 from Assignment_Three import AbstractSyntaxTreeClass
 from Assignment_Three import NodeClass
+from Assignment_Three.FileReadClass import FileRead
+from Assignment_Three.ExpressionLoaderClass import ExpressionLoader
 
 
 class TestAbstractSyntaxTreeClass(unittest.TestCase):
@@ -77,6 +79,27 @@ class TestAbstractSyntaxTreeClass(unittest.TestCase):
                           left_child.left_child.left_child.left_child, None)
         self.assertEquals(self.test_abstract_syntax_tree.root_node.
                           left_child.left_child.left_child.right_child.node_data, third_node_second_value)
+
+    def test_execute_interpretation_tree(self):
+        """
+        This unit test is testing the 'execute_interpretation_tree' def of the Abstract Syntax Tree.
+        It passes when we load in expressions, add them to the Abstract Syntax Tree and then interpret
+        them correctly.
+        :return:
+        """
+        self.test_file_read = FileRead(
+            "/Users/RJ/PycharmProjects/AdvancedObjectOrientedProgramming/Assignment_Three/sample_text")
+        self.test_file_read.remove_all_trailing_whitespace()
+        self.test_file_read.replace_characters_in_lines("=", " ")
+        self.test_file_read.split_lines_into_words()
+        self.list_of_string_commands = self.test_file_read.file_lines
+        self.assertListEqual(self.test_file_read.file_lines,
+                             [['#side', '15'], ['#side', '10'],
+                              ['move', '10'], ['turn', '90'], ['move', '20'],
+                              ['turn', '-60'], ['move', '15']])
+
+        for string_command in self.list_of_string_commands:
+            print(string_command)
 
     def test_init_def(self):
         """

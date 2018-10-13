@@ -1,7 +1,12 @@
 from Assignment_Three.AbstractClassLoaderClass import AbstractClassLoader
 
 class ExpressionLoader(AbstractClassLoader):
-    """This is the base class for the interpreter loader"""
+    """
+    This is the base class for the expression loader. It allows one to load expressions
+    from different interpreters, specifically in this case the subclasses of the Turtle
+    Interpreter class. The translation from string to Turtle Interpreter also happens
+    here in the 'string_to_class_turtle_interpreter' definition.
+    """
     def __init__(self, module_name, file_name, class_name, expression):
         """
         This builds off of the class loader class and allows one to further load expressions
