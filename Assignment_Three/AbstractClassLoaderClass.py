@@ -1,5 +1,7 @@
-class ClassLoader:
-    """This is the base class for the Class Loader"""
+class AbstractClassLoader:
+    """This is the base class for the Abstract Class Loader for which the Expression Loader Class
+    will be inheriting upon in order to allow one to dynamically load the subclasses via the
+    Turtle Interpreter Class."""
     def __init__(self, module_name, file_name, class_name):
         """
         This allows one to dynamically load a class into a variable in real-time.

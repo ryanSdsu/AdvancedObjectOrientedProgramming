@@ -1,7 +1,6 @@
-from Assignment_Three import TurtleClass
-from Assignment_Three import ClassLoaderClass
+from Assignment_Three.AbstractClassLoaderClass import AbstractClassLoader
 
-class ExpressionLoader(ClassLoaderClass.ClassLoader):
+class ExpressionLoader(AbstractClassLoader):
     """This is the base class for the interpreter loader"""
     def __init__(self, module_name, file_name, class_name, expression):
         """

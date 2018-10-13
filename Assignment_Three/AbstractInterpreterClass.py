@@ -1,11 +1,11 @@
 class AbstractInterpreter():
     """
-    This is the Abstract Expression class for which all of the turtle objects
-    definitions will be run via interpreter.
+    This is the Abstract Interpreter class for which the Turtle Interpreter
+    class will be inheriting from to create interpreter classes.
     """
     def __init__(self, expression):
         """
-        This is the constructor for the Abstract Expression class. We pass in an abstract
+        This is the constructor for the Abstract Interpreter class. We pass in an abstract
         expression for which we will interpret in the interpret definition.
         :param expression: the expression for which to be interpreted
         """

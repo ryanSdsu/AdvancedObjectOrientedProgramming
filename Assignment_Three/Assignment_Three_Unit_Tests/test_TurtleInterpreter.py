@@ -15,6 +15,30 @@ class TestAbstractInterpreterClass(unittest.TestCase):
         """
         self.test_turtle = TurtleClass.Turtle()
 
+    def test_end(self):
+        """
+        This unit test is testing the 'End' subclass of the 'Turtle Interpreter'
+        class.  It passes when the 'End' class is successfully instantiated upon
+        via the 'Repeat' class and the definition 'interpretation_of_expression'
+        is executed successfully i.e. iterating through the other interpretations
+        in the 'repeat_commands_list'.
+        :return:
+        """
+        repeat_class = TurtleInterpreterClass.Repeat(3)
+        pen_up_class = TurtleInterpreterClass.PenUp(self.test_turtle)
+        move_class = TurtleInterpreterClass.Move(self.test_turtle)
+        numerical_class = TurtleInterpreterClass.Numerical(10)
+        pen_down_class = TurtleInterpreterClass.PenDown(self.test_turtle)
+        repeat_class.interpretation_of_expression([pen_up_class])
+        repeat_class.interpretation_of_expression([move_class, numerical_class])
+        repeat_class.interpretation_of_expression([pen_down_class])
+        end_class = TurtleInterpreterClass.End(repeat_class)
+        self.assertIsInstance(end_class, TurtleInterpreterClass.End)
+        end_class.interpretation_of_expression()
+        self.assertEqual(self.test_turtle.location(), [30,0])
+        self.assertEqual(self.test_turtle.pen_up_state, False)
+
+
     def test_get_variable(self):
         """
         This unit test is testing the 'GetVariable' subclass of the 'Turtle Interpreter'
@@ -84,6 +108,29 @@ class TestAbstractInterpreterClass(unittest.TestCase):
         self.assertEqual(self.test_turtle.is_pen_up(), True)
         self.assertEqual(self.test_turtle.pen_up_state, True)
         self.assertEqual(self.test_turtle.pen_down_state, False)
+
+    def test_repeat(self):
+        """
+        This unit test is testing the 'Repeat' subclass of the 'Turtle Interpreter'
+        class.  It passes when the 'Repeat' class is successfully instantiated upon
+        and the definition 'interpretation_of_expression' is executed successfully i.e.
+        appending other interpretations into the 'repeat_commands_list'.
+        :return:
+        """
+        repeat_class = TurtleInterpreterClass.Repeat(3)
+        self.assertIsInstance(repeat_class, TurtleInterpreterClass.Repeat)
+        pen_up_class = TurtleInterpreterClass.PenUp(self.test_turtle)
+        move_class = TurtleInterpreterClass.Move(self.test_turtle)
+        numerical_class = TurtleInterpreterClass.Numerical(10)
+        pen_down_class = TurtleInterpreterClass.PenDown(self.test_turtle)
+        repeat_class.interpretation_of_expression([pen_up_class])
+        repeat_class.interpretation_of_expression([move_class, numerical_class])
+        repeat_class.interpretation_of_expression([pen_down_class])
+        self.assertIsInstance(repeat_class.repeat_commands[0][0], TurtleInterpreterClass.PenUp)
+        self.assertIsInstance(repeat_class.repeat_commands[1][0], TurtleInterpreterClass.Move)
+        self.assertIsInstance(repeat_class.repeat_commands[1][1], TurtleInterpreterClass.Numerical)
+        self.assertIsInstance(repeat_class.repeat_commands[2][0], TurtleInterpreterClass.PenDown)
+        self.assertEqual(repeat_class.number_of_repeats, 3)
 
     def test_set_variable(self):
         """

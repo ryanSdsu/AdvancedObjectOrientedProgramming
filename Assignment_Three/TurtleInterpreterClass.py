@@ -1,20 +1,38 @@
 from Assignment_Three.AbstractInterpreterClass import AbstractInterpreter
-from Assignment_Three import TurtleClass
 
+class End(AbstractInterpreter):
+    """
+    This is the subclass for the Turtle Interpreter Class in which the
+    'End' class is called upon.
+    """
+    def __init__(self, repeat_class):
+        """
+        This is the constructor for the 'End' class and is expected to take in
+        the variable 'repeat_class' which is the the 'Repeat' subclass of the
+        Turtle Interpreter.
+        :param repeat_class: the Repeat subclass to be interpreted upon
+        """
+        self.repeat_class = repeat_class
 
-# class End(AbstractInterpreterClass.AbstractInterpreter):
-#     def __init__(self, repeat_class):
-#         self.repeat_class = repeat_class
-#
-#     def interpretation_of_expression(self, value):
-#         for iterator in range(0, self.repeat_class.number_of_repeats):
-#             for item in self.repeat_class.repeat_commands:
-#                 item.interpretation_of_expression(value)
+    def interpretation_of_expression(self):
+        """
+        This is where we iterate through the 'Repeat' class and execute the interpretations
+        of those expressions
+        :return:
+        """
+        for iterations in range(0, self.repeat_class.number_of_repeats):
+            for value, expression in enumerate(self.repeat_class.repeat_commands):
+                if len(expression) == 1:
+                    expression[0].interpretation_of_expression(None)
+                else:
+                    expression[0].interpretation_of_expression(
+                        expression[1].interpretation_of_expression())
+
 
 class GetVariable(AbstractInterpreter):
     """
     This is the subclass for the Turtle Interpreter Class in which the
-    'GetVariable' definition is called upon.
+    'GetVariable' class is called upon.
     """
     def __init__(self, variable_key, variable_dictionary):
         """
@@ -61,8 +79,8 @@ class Move(AbstractInterpreter):
 
 class Numerical(AbstractInterpreter):
     """
-    This is the subclass for the Turtle Interpreter Class in which the turtles
-    'NumericalExpression' definition is called upon.
+    This is the subclass for the Turtle Interpreter Class in which the
+    'NumericalExpression' class is called upon.
     """
     def __init__(self, number):
         """
@@ -125,20 +143,36 @@ class PenUp(AbstractInterpreter):
         """
         self.expression.pen_up()
 
-#
-# class Repeat(AbstractInterpreterClass.AbstractInterpreter):
-#     def __init__(self, number_of_repeats):
-#         self.repeat_commands = []
-#         self.number_of_repeats = number_of_repeats
-#
-#     def interpretation_of_expression(self, value):
-#         self.repeat_commands.append(value)
-#
+
+class Repeat(AbstractInterpreter):
+    """
+    This is the subclass for the Turtle Interpreter Class in which the
+    'Repeat' class is called upon.
+    """
+    def __init__(self, number_of_repeats):
+        """
+        This is the constructor for the 'Repeat' class, it instantiates the 'repeat_commands'
+        list and is expected to take in the variable 'number_of_repeats'.  The 'number_of_repeats'
+        is the number of times that 'repeat_commands' list will be iterated upon.
+        upon.
+        :param number_of_repeats: the number of enumerations
+        """
+        self.repeat_commands = []
+        self.number_of_repeats = number_of_repeats
+
+    def interpretation_of_expression(self, value):
+        """
+        This is where we add the interpreter commands for which to be executed.
+        :param value:
+        :return:
+        """
+        self.repeat_commands.append(value)
+
 
 class SetVariable(AbstractInterpreter):
     """
     This is the subclass for the Turtle Interpreter Class in which the
-    'SetVariable' definition is called upon.
+    'SetVariable' class is called upon.
     """
     def __init__(self, variable_key, variable_dictionary):
         """
@@ -182,45 +216,3 @@ class Turn(AbstractInterpreter):
         :return:
         """
         self.expression.turn(value)
-
-
-
-contextualness = dict()
-""" Anything with a # in front is a variable and needs to be added to the context"""
-contextualness.update({'#side': 10})
-list_of_operations = []
-turtle_murtle = TurtleClass.Turtle()
-stuff = "hi"
-# test_command = Move(turtle_murtle)
-# test_interpret = test_command.interpretation_of_expression(10)
-
-
-# list_of_operations.append(Turn(NumericalExpression(180), turtle_murtle))
-# list_of_operations.append(TurnExpression(KeyVariableExpression('#side'), turtle_murtle))
-# list_of_operations.append(Move(NumericalExpression(20), turtle_murtle))
-# list_of_operations.append(MoveExpression(NumberExpression(20), turtle_murtle))
-# list_of_operations.append(TurnExpression(KeyVariableExpression('#side'), turtle_murtle))
-# list_of_operations.append(MoveExpression(NumberExpression(15), turtle_murtle))
-# for i in list_of_operations:
-#     i.interpret(contextualness)
-# print(turtle_murtle.location())
-#
-# repeat_expression = RepeatExpression(4)
-# repeat_expression.add_statement(MoveExpression(KeyVariableExpression('#side'), turtle_murtle))
-# list_of_operations.append(repeat_expression)
-# for i in list_of_operations:
-#     i.interpretation_of_expression(contextualness)
-
-"""
-#side = 15
-move 10
-turn 90
-move 20
-turn -60
-move 15
-"""
-
-#This is for the unit test
-# from pydoc import locate
-# klass = locate('Assignment_Three.TurtleClass')
-
