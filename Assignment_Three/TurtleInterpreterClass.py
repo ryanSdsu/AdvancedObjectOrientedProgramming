@@ -1,19 +1,44 @@
 from Assignment_Three.AbstractInterpreterClass import AbstractInterpreter
 from Assignment_Three.ExpressionLoaderClass import ExpressionLoader
 
-def string_to_class_turtle_interpreter(class_to_be_selected, turtle):
-    """
-    This reads in a string and then selects the proper subclass from the
-    'Turtle Interpreter Class' to be loaded based on that string.
-    :return:
-    """
-    module_name = "Assignment_Three"
-    turtle_interpreter = "TurtleInterpreterClass"
-    try:
-        class_object = ExpressionLoader(module_name, turtle_interpreter, class_to_be_selected, turtle)
-        return class_object
-    except AttributeError:
-        raise AttributeError("An invalid class has been selected.")
+class TurtleInterpreter:
+    def __init__(self):
+        self.variable_dictionary = {}
+
+    def string_to_class_turtle_interpreter(self, expression, *class_to_be_selected):
+        """
+        This reads in a string and then selects the proper subclass from the
+        'Turtle Interpreter Class' to be loaded based on that string.
+        :return:
+        """
+
+        module_name = "Assignment_Three"
+        turtle_interpreter = "TurtleInterpreterClass"
+
+        if type(expression) is int:
+            class_object = ExpressionLoader(module_name, turtle_interpreter,
+                                            "Numerical", expression)
+            return class_object
+
+        if type(expression) is str:
+            if expression[0] == '#':
+                if expression not in self.variable_dictionary:
+                    expression = [expression, self.variable_dictionary]
+                    class_object = ExpressionLoader(module_name, turtle_interpreter,
+                                            "SetVariable", expression)
+                    return class_object
+                else:
+                    expression = [expression, self.variable_dictionary]
+                    class_object = ExpressionLoader(module_name, turtle_interpreter,
+                                                "GetVariable", expression)
+                    return class_object
+
+        try:
+            class_object = ExpressionLoader(module_name, turtle_interpreter,
+                                            class_to_be_selected[0], expression)
+            return class_object
+        except AttributeError:
+            raise AttributeError("An invalid class has been selected.")
 
 
 class End(AbstractInterpreter):
@@ -50,7 +75,7 @@ class GetVariable(AbstractInterpreter):
     This is the subclass for the Turtle Interpreter Class in which the
     'GetVariable' class is called upon.
     """
-    def __init__(self, variable_key, variable_dictionary):
+    def __init__(self, variable_key_and_dictionary):
         """
         This is the constructor for the 'Variable' class and is expected to take in
         two variables 'variable_key' and 'variable_dictionary'.  The 'variable_key'
@@ -59,8 +84,8 @@ class GetVariable(AbstractInterpreter):
         :param variable_key: the key of which the interpretation will be acted upon
         :param variable_dictionary: the dictionary of which the interpretation will be acted upon
         """
-        self.variable_key = variable_key
-        self.variable_dictionary = variable_dictionary
+        self.variable_key = variable_key_and_dictionary[0]
+        self.variable_dictionary = variable_key_and_dictionary[1]
 
     def interpretation_of_expression(self):
         """
@@ -104,14 +129,14 @@ class Numerical(AbstractInterpreter):
         a number.
         :param number: the number that will be interpreted
         """
-        self.number = number
+        self.expression = number
 
     def interpretation_of_expression(self):
         """
         This is where we return the number that was given by the 'NumericalExpression' class.
         :return:
         """
-        return self.number
+        return self.expression
 
 
 class PenDown(AbstractInterpreter):
@@ -190,7 +215,7 @@ class SetVariable(AbstractInterpreter):
     This is the subclass for the Turtle Interpreter Class in which the
     'SetVariable' class is called upon.
     """
-    def __init__(self, variable_key, variable_dictionary):
+    def __init__(self, variable_key_and_dictionary):
         """
         This is the constructor for the 'Variable' class and is expected to take in
         two variables 'variable_key' and 'variable_dictionary'.  The 'variable_key'
@@ -199,8 +224,8 @@ class SetVariable(AbstractInterpreter):
         :param variable_key: the key of which the interpretation will be acted upon
         :param variable_dictionary: the dictionary of which the interpretation will be acted upon
         """
-        self.variable_key = variable_key
-        self.variable_dictionary = variable_dictionary
+        self.variable_key = variable_key_and_dictionary[0]
+        self.variable_dictionary = variable_key_and_dictionary[1]
 
     def interpretation_of_expression(self, value):
         """
@@ -232,4 +257,3 @@ class Turn(AbstractInterpreter):
         :return:
         """
         self.expression.turn(value)
-

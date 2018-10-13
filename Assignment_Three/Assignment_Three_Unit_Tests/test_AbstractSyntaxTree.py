@@ -3,6 +3,7 @@ import random
 from Assignment_Three import AbstractSyntaxTreeClass
 from Assignment_Three import NodeClass
 from Assignment_Three.FileReadClass import FileRead
+from Assignment_Three import TurtleInterpreterClass as TIC
 from Assignment_Three.ExpressionLoaderClass import ExpressionLoader
 
 
@@ -99,6 +100,7 @@ class TestAbstractSyntaxTreeClass(unittest.TestCase):
                               ['turn', '-60'], ['move', '15']])
 
         for string_command in self.list_of_string_commands:
+            TIC.string_to_class_turtle_interpreter('Move', self.test_turtle)
             print(string_command)
 
     def test_init_def(self):

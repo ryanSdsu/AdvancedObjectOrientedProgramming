@@ -19,10 +19,13 @@ class ExpressionLoader(AbstractClassLoader):
         super().__init__(module_name, file_name, class_name)
         self.class_object = self.class_object(expression)
 
-    def interpret_expression(self, value):
+    def interpret_expression(self, *value):
         """
         This executes the interpretation of the expression that was was loaded.
         :param value: the value of that which will be passed into the interpretation
         :return:
         """
-        self.class_object.interpretation_of_expression(value)
+        if len(value) == 1:
+            return self.class_object.interpretation_of_expression(value[0])
+        else:
+            return self.class_object.interpretation_of_expression()
