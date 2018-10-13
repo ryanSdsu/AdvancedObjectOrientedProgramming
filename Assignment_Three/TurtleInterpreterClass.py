@@ -2,43 +2,85 @@ from Assignment_Three.AbstractInterpreterClass import AbstractInterpreter
 from Assignment_Three.ExpressionLoaderClass import ExpressionLoader
 
 class TurtleInterpreter:
+    """
+    This is the base class for the 'Turtle Interpreter'. It translates string commands
+    into the desired subclasses via the Turtle Language.
+    """
     def __init__(self):
+        """
+        This is the constructor for the Turtle Interpreter. It creates a 'variable_dictionary'
+        that will be referenced whenever a string being passed has a '#' in the beginning
+        so that the values can be stored, referenced and changed if necessary.
+        """
         self.variable_dictionary = {}
 
-    def string_to_class_turtle_interpreter(self, expression, *class_to_be_selected):
+    def string_to_class_turtle_interpreter(self, expression_list, *class_to_be_selected):
         """
-        This reads in a string and then selects the proper subclass from the
+        This reads in a list of string expressions and then selects the proper subclass from the
         'Turtle Interpreter Class' to be loaded based on that string.
         :return:
         """
 
         module_name = "Assignment_Three"
         turtle_interpreter = "TurtleInterpreterClass"
-
-        if type(expression) is int:
-            class_object = ExpressionLoader(module_name, turtle_interpreter,
-                                            "Numerical", expression)
-            return class_object
-
-        if type(expression) is str:
-            if expression[0] == '#':
-                if expression not in self.variable_dictionary:
-                    expression = [expression, self.variable_dictionary]
+        if len(expression_list) == 1:
+            if expression_list[0] == '#':
+                    set_variable_list = [expression_list[0], self.variable_dictionary]
                     class_object = ExpressionLoader(module_name, turtle_interpreter,
-                                            "SetVariable", expression)
-                    return class_object
-                else:
-                    expression = [expression, self.variable_dictionary]
-                    class_object = ExpressionLoader(module_name, turtle_interpreter,
-                                                "GetVariable", expression)
-                    return class_object
+                                                "GetVariable", set_variable_list)
+                    return [class_object]
 
-        try:
-            class_object = ExpressionLoader(module_name, turtle_interpreter,
-                                            class_to_be_selected[0], expression)
-            return class_object
-        except AttributeError:
-            raise AttributeError("An invalid class has been selected.")
+            try:
+                class_object = ExpressionLoader(module_name, turtle_interpreter,
+                                                class_to_be_selected[0], expression_list[0])
+                return [class_object]
+            except AttributeError:
+                raise AttributeError("An invalid class has been selected: {}.".format(
+                    expression_list[0]))
+
+        else:
+            if expression_list[0] == '#':
+                if expression_list[0] not in self.variable_dictionary:
+                    set_variable_list = [expression_list[0], self.variable_dictionary]
+                    class_object_one = ExpressionLoader(module_name, turtle_interpreter,
+                                                    "SetVariable", set_variable_list)
+                    if expression_list[1] == '#':
+                        if expression_list[1] in self.variable_dictionary:
+                            set_variable_list = [expression_list[1], self.variable_dictionary]
+                            class_object_two = ExpressionLoader(module_name, turtle_interpreter,
+                                                            "GetVariable", set_variable_list)
+                            return [class_object_one, class_object_two]
+                    try:
+                        class_object_two = ExpressionLoader(module_name, turtle_interpreter,
+                                                        class_to_be_selected[0], expression_list[1])
+                        return [class_object_one, class_object_two]
+                    except AttributeError:
+                        raise AttributeError("An invalid class has been selected: {}.".format(
+                            expression_list[1]))
+
+            try:
+                class_object_one = ExpressionLoader(module_name, turtle_interpreter,
+                                                class_to_be_selected[0], expression_list[0])
+            except AttributeError:
+                raise AttributeError("An invalid class has been selected: {}.".format(
+                    expression_list[0]))
+
+
+            if type(expression_list[1]) is int or type(expression_list[1]) is float:
+                class_object_two = ExpressionLoader(module_name, turtle_interpreter,
+                                                "Numerical", expression_list[1])
+                return [class_object_one, class_object_two]
+
+            if expression_list[1] == '#':
+                try:
+                    if expression_list[1] in self.variable_dictionary:
+                        get_variable_list = [expression_list[1], self.variable_dictionary]
+                        class_object_two = ExpressionLoader(module_name, turtle_interpreter,
+                                                            "GetVariable", get_variable_list)
+                        return [class_object_one, class_object_two]
+                except AttributeError:
+                    raise AttributeError("The variable '{}' is not in the variable_dictionary.".format(
+                        expression_list[1]))
 
 
 class End(AbstractInterpreter):
