@@ -13,14 +13,84 @@ class TurtleInterpreter:
         so that the values can be stored, referenced and changed if necessary.
         """
         self.variable_dictionary = {}
+        self.repeat_class = None
+        self.repeat_command_mode_on = False
+        self.end_command_mode_on = False
 
-    def string_to_class_turtle_interpreter(self, expression_list, *turtle):
+    def string_to_class_interpreter(self, expression_list, *turtle):
+        """
+        This is where we run the grammar rules for the turtle interpreter. It selects and loads
+        the correct subclass based on what is given via a string list and takes into account any
+        'repeat' commands as well as any 'end' and other '#' variables.
+        :param expression_list: This is the list of commands that will be interpreted
+        :param turtle: This is turtle object of which the commands will be executed upon
+        :return: the command to be loaded
+        """
+
+        if self.repeat_command_mode_on:
+            end_class = self.end_and_repeat_command_identifier(expression_list)
+            if end_class:
+                return end_class
+            elif expression_list[0] == "repeat":
+                return
+            new_command = self.string_to_class_loader(expression_list, *turtle)
+            self.repeat_class.interpret_expression(new_command)
+        else:
+            end_class = self.end_and_repeat_command_identifier(expression_list)
+            if end_class:
+                return end_class
+            elif expression_list[0] == "repeat":
+                return
+            return self.string_to_class_loader(expression_list, *turtle)
+
+
+    def end_and_repeat_command_identifier(self, expression_list):
+        """
+        This checks to see if a repeat or end command have been initiated. If we detect
+        a 'repeat' command we must create a separate list of commands and store them
+        for which to be executed via a certain number of iterations until the 'end' command
+        is seen.
+        :param expression_list: This is the list of commands that will be interpreted
+        :return:
+        """
+        module_name = "Assignment_Three"
+        turtle_interpreter = "TurtleInterpreterClass"
+        if len(expression_list) == 2:
+            if expression_list[0] == 'repeat':
+                self.repeat_command_mode_on = True
+                if type(expression_list[1]) is str:
+                    if expression_list[1][0] == '#':
+                        if expression_list[1] in self.variable_dictionary:
+                            set_variable_list = [expression_list[1], self.variable_dictionary]
+                            class_object_two = ExpressionLoader(module_name, turtle_interpreter,
+                                                                "GetVariable", set_variable_list)
+                            class_object_two = class_object_two.interpret_expression()
+                            repeat_command_counter = class_object_two
+
+                if type(expression_list[1]) is int or type(expression_list[1]) is float:
+                    class_object_two = ExpressionLoader(module_name, turtle_interpreter,
+                                                        "Numerical", expression_list[1])
+                    class_object_two = class_object_two.interpret_expression()
+                    repeat_command_counter = class_object_two
+                self.repeat_class = ExpressionLoader(module_name, turtle_interpreter,
+                                                       "Repeat", repeat_command_counter)
+                return None
+
+        if len(expression_list) == 1:
+            if expression_list[0] == 'end':
+                self.repeat_command_mode_on = False
+                end_class = ExpressionLoader(module_name, turtle_interpreter,
+                                                       "End", self.repeat_class.class_object)
+                return [end_class]
+
+    def string_to_class_loader(self, expression_list, *turtle):
         """
         This reads in a list of string expressions and then selects the proper subclass from the
         'Turtle Interpreter Class' to be loaded based on that string.
+        :param expression_list: This is the list of commands that will be interpreted
+        :param turtle: This is turtle object of which the commands will be executed upon
         :return:
         """
-
         module_name = "Assignment_Three"
         turtle_interpreter = "TurtleInterpreterClass"
 
@@ -32,8 +102,9 @@ class TurtleInterpreter:
                 return [class_object]
 
             try:
+                class_name = expression_list[0][0].upper() + expression_list[0][1:]
                 class_object = ExpressionLoader(module_name, turtle_interpreter,
-                                                expression_list[0], turtle[0])
+                                                class_name, turtle[0])
                 return [class_object]
             except AttributeError:
                 raise AttributeError("An invalid class has been selected: {}.".format(
@@ -59,16 +130,18 @@ class TurtleInterpreter:
                     return [class_object_one, class_object_two]
 
                 try:
+                    class_name = expression_list[1][0].upper() + expression_list[1][1:]
                     class_object_two = ExpressionLoader(module_name, turtle_interpreter,
-                                                        expression_list[1], turtle[0])
+                                                        class_name, turtle[0])
                     return [class_object_one, class_object_two]
                 except AttributeError:
                     raise AttributeError("An invalid class has been selected: {}.".format(
                         expression_list[1]))
 
             try:
+                class_name = expression_list[0][0].upper() + expression_list[0][1:]
                 class_object_one = ExpressionLoader(module_name, turtle_interpreter,
-                                                    expression_list[0], turtle[0])
+                                                    class_name, turtle[0])
             except AttributeError:
                 raise AttributeError("An invalid class has been selected: {}.".format(
                     expression_list[0]))
@@ -114,10 +187,10 @@ class End(AbstractInterpreter):
         for iterations in range(0, self.repeat_class.number_of_repeats):
             for value, expression in enumerate(self.repeat_class.repeat_commands):
                 if len(expression) == 1:
-                    expression[0].interpretation_of_expression()
+                    expression[0].class_object.interpretation_of_expression()
                 else:
-                    expression[0].interpretation_of_expression(
-                        expression[1].interpretation_of_expression())
+                    expression[0].class_object.interpretation_of_expression(
+                        expression[1].class_object.interpretation_of_expression())
 
 
 class GetVariable(AbstractInterpreter):

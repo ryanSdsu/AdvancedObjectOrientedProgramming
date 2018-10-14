@@ -24,19 +24,19 @@ class TestAbstractInterpreterClass(unittest.TestCase):
         in the 'repeat_commands_list'.
         :return:
         """
-        repeat_class = TurtleInterpreterClass.Repeat(3)
-        pen_up_class = TurtleInterpreterClass.PenUp(self.test_turtle)
-        move_class = TurtleInterpreterClass.Move(self.test_turtle)
-        numerical_class = TurtleInterpreterClass.Numerical(10)
-        pen_down_class = TurtleInterpreterClass.PenDown(self.test_turtle)
-        repeat_class.interpretation_of_expression([pen_up_class])
-        repeat_class.interpretation_of_expression([move_class, numerical_class])
-        repeat_class.interpretation_of_expression([pen_down_class])
-        end_class = TurtleInterpreterClass.End(repeat_class)
-        self.assertIsInstance(end_class, TurtleInterpreterClass.End)
-        end_class.interpretation_of_expression()
-        self.assertEqual(self.test_turtle.location(), [30,0])
-        self.assertEqual(self.test_turtle.pen_up_state, False)
+        # repeat_class = TurtleInterpreterClass.Repeat(3)
+        # pen_up_class = TurtleInterpreterClass.PenUp(self.test_turtle)
+        # move_class = TurtleInterpreterClass.Move(self.test_turtle)
+        # numerical_class = TurtleInterpreterClass.Numerical(10)
+        # pen_down_class = TurtleInterpreterClass.PenDown(self.test_turtle)
+        # repeat_class.interpretation_of_expression([pen_up_class])
+        # repeat_class.interpretation_of_expression([move_class, numerical_class])
+        # repeat_class.interpretation_of_expression([pen_down_class])
+        # end_class = TurtleInterpreterClass.End(repeat_class)
+        # self.assertIsInstance(end_class, TurtleInterpreterClass.End)
+        # end_class.interpretation_of_expression()
+        # self.assertEqual(self.test_turtle.location(), [30,0])
+        # self.assertEqual(self.test_turtle.pen_up_state, False)
 
 
     def test_get_variable(self):
@@ -132,6 +132,20 @@ class TestAbstractInterpreterClass(unittest.TestCase):
         self.assertIsInstance(repeat_class.repeat_commands[2][0], TurtleInterpreterClass.PenDown)
         self.assertEqual(repeat_class.number_of_repeats, 3)
 
+    def test_repeat_command_identifier(self):
+        """
+        This unit test is testing the 'repeat_command_identifier' definition of the
+        'Turtle Interpreter' class.  It passes when the 'Repeat' class is successfully
+        instantiated into the 'repeat_command' variable of the 'Turtle Interpreter' class
+        after reading in the string list command with 'repeat' in it as well as a certain
+        number of 'iterations'.
+        :return:
+        """
+        self.test_ti = TurtleInterpreterClass.TurtleInterpreter()
+        self.test_ti.end_and_repeat_command_identifier(['repeat', 10])
+        self.assertIsInstance(self.test_ti.repeat_class.class_object, TurtleInterpreterClass.Repeat)
+        self.assertEqual(self.test_ti.repeat_class.class_object.number_of_repeats, 10)
+
     def test_set_variable(self):
         """
         This unit test is testing the 'SetVariable' subclass of the 'Turtle Interpreter'
@@ -143,49 +157,88 @@ class TestAbstractInterpreterClass(unittest.TestCase):
         test_dictionary = {}
         set_variable_class = TurtleInterpreterClass.SetVariable(['#key', test_dictionary])
         self.assertIsInstance(set_variable_class, TurtleInterpreterClass.SetVariable)
-        set_variable_class = set_variable_class.interpretation_of_expression('value')
+        set_variable_class.interpretation_of_expression('value')
         self.assertEqual(test_dictionary['#key'], 'value')
 
-    def test_string_to_class_turtle_interpreter(self):
+    def test_string_to_class_interpreter(self):
         """
-        This unit test is testing the 'string_to_class_turtle_interpreter' def of the
-        'Turtle Interpreter' class.  It passes when the 'string_to_class_turtle_interpreter'
+        This unit test is testing the 'string_to_class_interpreter' def of the
+        'Turtle Interpreter' class.  It passes when the 'string_to_class_interpreter'
+        def successfully returns the correct 'Turtle Interpreter' subclass based on the
+        string that it is passed and the grammar of which it was created upon i.e. handling
+        cases that involve 'repeat', 'end' and variable commands.
+        :return:
+        """
+        self.test_ti = TurtleInterpreterClass.TurtleInterpreter()
+
+        move_class = self.test_ti.string_to_class_interpreter(['move', 10], self.test_turtle)
+        move_class[0].interpret_expression(move_class[1].interpret_expression())
+        turn_class = self.test_ti.string_to_class_interpreter(['turn', 90], self.test_turtle)
+        turn_class[0].interpret_expression(turn_class[1].interpret_expression())
+        move_class = self.test_ti.string_to_class_interpreter(['move', 20], self.test_turtle)
+        move_class[0].interpret_expression(move_class[1].interpret_expression())
+        turn_class = self.test_ti.string_to_class_interpreter(['turn', -60], self.test_turtle)
+        turn_class[0].interpret_expression(turn_class[1].interpret_expression())
+        move_class = self.test_ti.string_to_class_interpreter(['move', 15], self.test_turtle)
+        move_class[0].interpret_expression(move_class[1].interpret_expression())
+        self.assertEqual(self.test_turtle.location(), [22.99,27.5])
+        turn_class = self.test_ti.string_to_class_interpreter(['turn', -30], self.test_turtle)
+        turn_class[0].interpret_expression(turn_class[1].interpret_expression())
+        self.test_ti.string_to_class_interpreter(['repeat', 4])
+        self.assertIsInstance(self.test_ti.repeat_class.class_object, TurtleInterpreterClass.Repeat)
+        self.assertEqual(self.test_ti.repeat_class.class_object.number_of_repeats, 4)
+        self.test_ti.string_to_class_interpreter(['Move', 10], self.test_turtle)
+        self.test_ti.string_to_class_interpreter(['move', 10], self.test_turtle)
+        end_class = self.test_ti.string_to_class_interpreter(['end'])
+        self.assertIsInstance(end_class[0].class_object, TurtleInterpreterClass.End)
+        end_class[0].interpret_expression()
+        self.assertEqual(self.test_turtle.location(), [102.99,27.5])
+
+    def test_string_to_class_loader(self):
+        """
+        This unit test is testing the 'string_to_class_loader' def of the
+        'Turtle Interpreter' class.  It passes when the 'string_to_class_loader'
         def successfully returns the correct 'Turtle Interpreter' subclass based on the
         string that it is passed.
         :return:
         """
         self.test_ti = TurtleInterpreterClass.TurtleInterpreter()
-        move_class = self.test_ti.string_to_class_turtle_interpreter(['Move', 10], self.test_turtle)
+        move_class = self.test_ti.string_to_class_loader(['Move', 10], self.test_turtle)
         self.assertIsInstance(move_class[0].class_object, TurtleInterpreterClass.Move)
         self.assertIsInstance(move_class[1].class_object, TurtleInterpreterClass.Numerical)
         move_class[0].interpret_expression(move_class[1].interpret_expression())
 
         self.assertEqual(self.test_turtle.location(), [10, 0])
-        pen_down_class = self.test_ti.string_to_class_turtle_interpreter(['PenDown'], self.test_turtle)
+        pen_down_class = self.test_ti.string_to_class_loader(['PenDown'], self.test_turtle)
         self.assertIsInstance(pen_down_class[0].class_object, TurtleInterpreterClass.PenDown)
         pen_down_class[0].interpret_expression()
         self.assertEqual(self.test_turtle.is_pen_up(), False)
         self.assertEqual(self.test_turtle.pen_up_state, False)
         self.assertEqual(self.test_turtle.pen_down_state, True)
 
-        set_variable_class = self.test_ti.string_to_class_turtle_interpreter(['#key',10])
+        set_variable_class = self.test_ti.string_to_class_loader(['#key', 10])
         self.assertIsInstance(set_variable_class[0].class_object, TurtleInterpreterClass.SetVariable)
         self.assertIsInstance(set_variable_class[1].class_object, TurtleInterpreterClass.Numerical)
         set_variable_class[0].interpret_expression(set_variable_class[1].interpret_expression())
         self.assertEqual(self.test_ti.variable_dictionary['#key'], 10)
 
-        move_class = self.test_ti.string_to_class_turtle_interpreter(['Move', '#key'], self.test_turtle)
+        set_variable_class = self.test_ti.string_to_class_loader(['#kei', 100])
+        self.assertIsInstance(set_variable_class[0].class_object, TurtleInterpreterClass.SetVariable)
+        self.assertIsInstance(set_variable_class[1].class_object, TurtleInterpreterClass.Numerical)
+        set_variable_class[0].interpret_expression(set_variable_class[1].interpret_expression())
+        self.assertEqual(self.test_ti.variable_dictionary['#kei'], 100)
+
+        move_class = self.test_ti.string_to_class_loader(['Move', '#key'], self.test_turtle)
         self.assertIsInstance(move_class[0].class_object, TurtleInterpreterClass.Move)
         self.assertIsInstance(move_class[1].class_object, TurtleInterpreterClass.GetVariable)
         move_class[0].interpret_expression(move_class[1].interpret_expression())
         self.assertEqual(self.test_turtle.location(), [20, 0])
 
-        move_class = self.test_ti.string_to_class_turtle_interpreter(['Turn', '#key'], self.test_turtle)
+        move_class = self.test_ti.string_to_class_loader(['Turn', '#kei'], self.test_turtle)
         self.assertIsInstance(move_class[0].class_object, TurtleInterpreterClass.Turn)
         self.assertIsInstance(move_class[1].class_object, TurtleInterpreterClass.GetVariable)
         move_class[0].interpret_expression(move_class[1].interpret_expression())
-        self.assertEqual(self.test_turtle.degrees, 10)
-
+        self.assertEqual(self.test_turtle.degrees, 100)
 
         with self.assertRaises(AttributeError):
             TurtleInterpreterClass.string_to_class_turtle_interpreter(self.test_turtle, 'MMove')
