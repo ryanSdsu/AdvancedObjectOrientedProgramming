@@ -67,13 +67,12 @@ class TurtleInterpreter:
                             class_object_two = class_object_two.interpret_expression()
                             repeat_command_counter = class_object_two
 
-                if type(expression_list[1]) is int or type(expression_list[1]) is float:
+                if expression_list[1][0].isdigit() or expression_list[1][0] == '-':
                     class_object_two = ExpressionLoader(module_name, turtle_interpreter,
                                                         "Numerical", expression_list[1])
-                    class_object_two = class_object_two.interpret_expression()
-                    repeat_command_counter = class_object_two
+                    repeat_command_counter = class_object_two.interpret_expression()
                 self.repeat_class = ExpressionLoader(module_name, turtle_interpreter,
-                                                       "Repeat", repeat_command_counter)
+                                                       "Repeat", int(repeat_command_counter))
                 return None
 
         if len(expression_list) == 1:
@@ -122,17 +121,23 @@ class TurtleInterpreter:
                             set_variable_list = [expression_list[1], self.variable_dictionary]
                             class_object_two = ExpressionLoader(module_name, turtle_interpreter,
                                                             "GetVariable", set_variable_list)
+                            new_entry = {expression_list[0]:expression_list[1]}
+                            self.variable_dictionary.update(new_entry)
                             return [class_object_one, class_object_two]
 
-                if type(expression_list[1]) is int or type(expression_list[1]) is float:
-                    class_object_two = ExpressionLoader(module_name, turtle_interpreter,
-                                                        "Numerical", expression_list[1])
-                    return [class_object_one, class_object_two]
+                    if expression_list[1][0].isdigit() or expression_list[1][0] == '-':
+                        class_object_two = ExpressionLoader(module_name, turtle_interpreter,
+                                                            "Numerical", expression_list[1])
+                        new_entry = {expression_list[0]:expression_list[1]}
+                        self.variable_dictionary.update(new_entry)
+                        return [class_object_one, class_object_two]
 
                 try:
                     class_name = expression_list[1][0].upper() + expression_list[1][1:]
                     class_object_two = ExpressionLoader(module_name, turtle_interpreter,
                                                         class_name, turtle[0])
+                    new_entry = {expression_list[0]:expression_list[1]}
+                    self.variable_dictionary.update(new_entry)
                     return [class_object_one, class_object_two]
                 except AttributeError:
                     raise AttributeError("An invalid class has been selected: {}.".format(
@@ -146,9 +151,9 @@ class TurtleInterpreter:
                 raise AttributeError("An invalid class has been selected: {}.".format(
                     expression_list[0]))
 
-            if type(expression_list[1]) is int or type(expression_list[1]) is float:
+            if expression_list[1][0].isdigit() or expression_list[1][0] == '-':
                 class_object_two = ExpressionLoader(module_name, turtle_interpreter,
-                                                "Numerical", expression_list[1])
+                                                    "Numerical", expression_list[1])
                 return [class_object_one, class_object_two]
 
             try:
@@ -243,7 +248,7 @@ class Move(AbstractInterpreter):
         :param value: the value in which the turtle will move by.
         :return:
         """
-        self.expression.move(value)
+        self.expression.move(float(value))
 
 
 class Numerical(AbstractInterpreter):
@@ -382,4 +387,4 @@ class Turn(AbstractInterpreter):
         :param value: the value in which the turtle will turn by.
         :return:
         """
-        self.expression.turn(value)
+        self.expression.turn(float(value))

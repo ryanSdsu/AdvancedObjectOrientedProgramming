@@ -1,4 +1,5 @@
 from Assignment_Three import NodeClass
+from Assignment_Three.TurtleInterpreterClass import TurtleInterpreter
 
 class AbstractSyntaxTree:
     """This is the base class for the Abstract Syntax Tree."""
@@ -35,6 +36,8 @@ class AbstractSyntaxTree:
         :param node: a node which contains a list of two elements in its 'node_data' variable
         :return:
         """
+        if len(node.node_data) == 1:
+            node.node_data.append(None)
         if self.root_node == None:
             self.root_node = NodeClass.Node(node.node_data[0])
             self.root_node.right_child = NodeClass.Node(node.node_data[1])

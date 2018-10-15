@@ -1,11 +1,10 @@
 import unittest
 import random
-from Assignment_Three import AbstractSyntaxTreeClass
+from Assignment_Three.AbstractSyntaxTreeClass import AbstractSyntaxTree as AST
 from Assignment_Three import NodeClass
 from Assignment_Three.FileReadClass import FileRead
-from Assignment_Three import TurtleInterpreterClass as TIC
-from Assignment_Three.ExpressionLoaderClass import ExpressionLoader
-
+from Assignment_Three.TurtleInterpreterClass import TurtleInterpreter
+from Assignment_Three.TurtleClass import Turtle
 
 class TestAbstractSyntaxTreeClass(unittest.TestCase):
     """This is the base class for the unit tests involving the Abstract Syntax Tree Class"""
@@ -16,7 +15,7 @@ class TestAbstractSyntaxTreeClass(unittest.TestCase):
         Abstract Syntax Tree which we will be adding/deleting from.
         :return:
         """
-        self.test_abstract_syntax_tree = AbstractSyntaxTreeClass.AbstractSyntaxTree()
+        self.test_abstract_syntax_tree = AST()
 
     def test_add_to_tree(self):
         """
@@ -88,20 +87,43 @@ class TestAbstractSyntaxTreeClass(unittest.TestCase):
         them correctly.
         :return:
         """
+
+        # First we need to read in the text file and convert the lines to strings.
+        self.test_turtle_interpreter = TurtleInterpreter()
         self.test_file_read = FileRead(
-            "/Users/RJ/PycharmProjects/AdvancedObjectOrientedProgramming/Assignment_Three/sample_text")
+            "/Users/RJ/PycharmProjects/AdvancedObjectOrientedProgramming/Assignment_Three/sample_text_with_key")
         self.test_file_read.remove_all_trailing_whitespace()
         self.test_file_read.replace_characters_in_lines("=", " ")
         self.test_file_read.split_lines_into_words()
         self.list_of_string_commands = self.test_file_read.file_lines
-        self.assertListEqual(self.test_file_read.file_lines,
+        self.assertListEqual(self.list_of_string_commands,
                              [['#side', '15'], ['#side', '10'],
-                              ['move', '10'], ['turn', '90'], ['move', '20'],
-                              ['turn', '-60'], ['move', '15']])
-        #WORK IN PROGRESS
-        # for string_command in self.list_of_string_commands:
-        #     TIC.string_to_class_turtle_interpreter('Move', self.test_turtle)
-        #     print(string_command)
+                              ['move', '#side'], ['turn', '90'], ['penDown'], ['move', '20'],
+                              ['turn', '-60'], ['move', '15'], ['turn', '-30'],
+                              ['repeat' ,'3'], ['move', '1'], ['end']])
+
+        # Now we need to convert those strings to Turtle commands nodes via the Turtle Interpreter
+        self.list_of_turtle_commands_nodes = []
+        self.test_turtle = Turtle()
+        for string_command in self.list_of_string_commands:
+            interpreted_command = self.test_turtle_interpreter.string_to_class_interpreter(
+                string_command, self.test_turtle)
+            if interpreted_command:
+                self.list_of_turtle_commands_nodes.append(NodeClass.Node(interpreted_command))
+
+        # Now we need to load those commands into the Abstract Syntax Tree
+        for command_node in self.list_of_turtle_commands_nodes:
+            self.test_abstract_syntax_tree.add_to_tree(command_node)
+
+        # Now we attempt to execute the commands in the tree
+        for node in self.test_abstract_syntax_tree:
+            if node[1] == None:
+                node[0].class_object.interpretation_of_expression()
+            else:
+                node[0].class_object.interpretation_of_expression(
+                    node[1].class_object.interpretation_of_expression())
+
+        self.assertEqual(self.test_turtle.location(), [25.99, 27.5])
 
     def test_init_def(self):
         """
@@ -110,7 +132,7 @@ class TestAbstractSyntaxTreeClass(unittest.TestCase):
         via 'root_node' being instantiated as well.
         :return:
         """
-        self.assertIsInstance(self.test_abstract_syntax_tree, AbstractSyntaxTreeClass.AbstractSyntaxTree)
+        self.assertIsInstance(self.test_abstract_syntax_tree, AST)
         self.assertEquals(self.test_abstract_syntax_tree.root_node, None)
 
     def test_iter(self):
