@@ -19,3 +19,12 @@ class AbstractInterpreter():
         :return:
         """
         return value
+
+    def accept(self, visitor):
+        """
+        This is where we accept a visitor and allow it to perform any variety of actions
+        upon visiting a certain expression.
+        :param visitor: the visitor of which double dispatching will take place
+        :return:
+        """
+        visitor.visit(self)

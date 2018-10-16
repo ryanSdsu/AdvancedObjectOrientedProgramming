@@ -102,7 +102,7 @@ class TestAbstractSyntaxTreeClass(unittest.TestCase):
                               ['turn', '-60'], ['move', '15'], ['turn', '-30'],
                               ['repeat' ,'3'], ['move', '1'], ['end']])
 
-        # Now we need to convert those strings to Turtle commands nodes via the Turtle Interpreter
+        # Now we need to convert those strings to Turtle command nodes via the Turtle Interpreter.
         self.list_of_turtle_commands_nodes = []
         self.test_turtle = Turtle()
         for string_command in self.list_of_string_commands:
@@ -111,18 +111,14 @@ class TestAbstractSyntaxTreeClass(unittest.TestCase):
             if interpreted_command:
                 self.list_of_turtle_commands_nodes.append(NodeClass.Node(interpreted_command))
 
-        # Now we need to load those commands into the Abstract Syntax Tree
+        # Now we need to load those turtle command nodes into the Abstract Syntax Tree
         for command_node in self.list_of_turtle_commands_nodes:
             self.test_abstract_syntax_tree.add_to_tree(command_node)
 
-        # Now we attempt to execute the commands in the tree
-        for node in self.test_abstract_syntax_tree:
-            if node[1] == None:
-                node[0].class_object.interpretation_of_expression()
-            else:
-                node[0].class_object.interpretation_of_expression(
-                    node[1].class_object.interpretation_of_expression())
-
+        # Now we need to execute the tree
+        from Assignment_Three.DistanceCollectorVisitor import DistanceCollector
+        self.distance_collector = DistanceCollector()
+        self.test_abstract_syntax_tree.execute_interpretation_tree(self.distance_collector)
         self.assertEqual(self.test_turtle.location(), [25.99, 27.5])
 
     def test_init_def(self):

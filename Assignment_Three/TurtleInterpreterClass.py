@@ -182,6 +182,7 @@ class End(AbstractInterpreter):
         :param repeat_class: the Repeat subclass to be interpreted upon
         """
         self.repeat_class = repeat_class
+        self.distance = 0
 
     def interpretation_of_expression(self):
         """
@@ -194,9 +195,10 @@ class End(AbstractInterpreter):
                 if len(expression) == 1:
                     expression[0].class_object.interpretation_of_expression()
                 else:
-                    expression[0].class_object.interpretation_of_expression(
-                        expression[1].class_object.interpretation_of_expression())
-
+                    value = expression[1].class_object.interpretation_of_expression()
+                    if type(expression[0].class_object) is Move:
+                        self.distance = self.distance + float(value)
+                    expression[0].class_object.interpretation_of_expression(value)
 
 class GetVariable(AbstractInterpreter):
     """
@@ -248,6 +250,7 @@ class Move(AbstractInterpreter):
         :param value: the value in which the turtle will move by.
         :return:
         """
+        self.distance = float(value)
         self.expression.move(float(value))
 
 

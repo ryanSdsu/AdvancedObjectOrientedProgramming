@@ -1,5 +1,5 @@
 from Assignment_Three import NodeClass
-from Assignment_Three.TurtleInterpreterClass import TurtleInterpreter
+import copy
 
 class AbstractSyntaxTree:
     """This is the base class for the Abstract Syntax Tree."""
@@ -9,24 +9,23 @@ class AbstractSyntaxTree:
         This is the constructor for the Abstract Syntax Tree.  We start by initializing a
         root_node variable which will be referenced in the beginning as we start to build our tree.
         """
-        self.tree = []
-        self.variable_dictionary = {}
-        self.root_node = None
-        self.current_node = None
         self.root_node = None
 
-    def execute_interpretation_tree(self):
+    def execute_interpretation_tree(self, visitor):
         """
         This is is where we traverse the abstract syntax tree and with each node, run the
-        interpretations of each node in order.
+        interpretations of each node in order. Also any visitors that have been passed can
+        access the tree.
         :return:
         """
-        for value, expression in enumerate(self):
-            if len(expression) == 1:
-                expression.node_data[0].interpretation_of_expression(None)
+        for node in self:
+            if node[1] == None:
+                node[0].class_object.interpretation_of_expression()
+                node[0].class_object.accept(visitor)
             else:
-                expression.node_data[0].interpretation_of_expression(
-                    expression.node_data[1].interpretation_of_expression())
+                node[0].class_object.interpretation_of_expression(
+                    node[1].class_object.interpretation_of_expression())
+                node[0].class_object.accept(visitor)
 
     def add_to_tree(self, node = NodeClass.Node):
         """
