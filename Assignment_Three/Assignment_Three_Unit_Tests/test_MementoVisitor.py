@@ -63,7 +63,7 @@ class MementoVisitorClass(unittest.TestCase):
         # Now we can check the visitor
         self.test_new_momento = self.test_memento_visitor.turtle_memento_caretaker.get_memento(0)
         self.test_new_momento.get_turtle_state(self.test_turtle)
-        self.assertEqual(self.test_turtle.location(), [0,0])
+        self.assertEqual(self.test_turtle.location(), [10,0])
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,5 +1,5 @@
 import unittest
-from Assignment_Three.MementoClass import Momento
+from Assignment_Three.MementoClass import Memento
 from Assignment_Three import TurtleClass
 
 class TestMementoClass(unittest.TestCase):
@@ -20,8 +20,8 @@ class TestMementoClass(unittest.TestCase):
         'Turtle Memento'.
         :return:
         """
-        self.test_turtle_memento = Momento.TurtleMemento(self.test_turtle)
-        self.assertIsInstance(self.test_turtle_memento, Momento.TurtleMemento)
+        self.test_turtle_memento = Memento.TurtleMemento(self.test_turtle)
+        self.assertIsInstance(self.test_turtle_memento, Memento.TurtleMemento)
 
     def test_get_turtle_state(self):
         """
@@ -31,7 +31,7 @@ class TestMementoClass(unittest.TestCase):
         :return:
         """
         self.test_blank_turtle = TurtleClass.Turtle()
-        self.test_turtle_memento = Momento.TurtleMemento(self.test_blank_turtle)
+        self.test_turtle_memento = Memento.TurtleMemento(self.test_blank_turtle)
         self.test_turtle.location_of_turtle = [10,100]
         self.test_turtle.pen_down()
         self.test_turtle.degrees = 40

@@ -1,5 +1,5 @@
 import unittest
-from Assignment_Three.MementoClass import Momento
+from Assignment_Three.MementoClass import Memento
 from Assignment_Three.CaretakerClass import Caretaker
 from Assignment_Three import TurtleClass
 
@@ -31,7 +31,7 @@ class TestCaretakerClass(unittest.TestCase):
         is successfully added to that of the Caretaker's 'saved_mementos' list.
         :return:
         """
-        self.test_turtle_memento = Momento.TurtleMemento(self.test_turtle)
+        self.test_turtle_memento = Memento.TurtleMemento(self.test_turtle)
         self.test_caretaker.add_memento(self.test_turtle_memento)
         self.assertEqual(len(self.test_caretaker.saved_mementos), 1)
 
@@ -45,7 +45,7 @@ class TestCaretakerClass(unittest.TestCase):
         self.test_turtle.location_of_turtle = [10,100]
         self.test_turtle.pen_down()
         self.test_turtle.degrees = 40
-        self.test_turtle_memento = Momento.TurtleMemento(self.test_turtle)
+        self.test_turtle_memento = Memento.TurtleMemento(self.test_turtle)
         self.test_caretaker.add_memento(self.test_turtle_memento)
         self.test_new_turtle = TurtleClass.Turtle()
         self.test_new_momento = self.test_caretaker.get_memento(0)
