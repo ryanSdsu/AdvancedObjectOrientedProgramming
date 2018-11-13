@@ -16,6 +16,7 @@ class SMSObserver():
         self.carrier_to_gateway_domain_dictionary = {
             'alltel' : '@mms.alltelwireless.com',
             'at&t' : '@mms.att.net',
+            'att' : '@mms.att.net',
             'boost mobile' : '@myboostmobile.com',
             'cricket wireless' : '@mms.cricketwireless.net',
             'project fi' : '@msg.fi.google.com',
@@ -53,3 +54,10 @@ class SMSObserver():
         message = "The website '" + self.web_address + "' you're monitoring has been updated"
         server.sendmail("jakewhitney86@gmail.com", self.sms_number + self.carrier_email, message)
         server.quit()
+
+    def __str__(self):
+        """
+        This is where we print a message stating the website has been updated.
+        :return:
+        """
+        return "The website '" + self.web_address + "' you're monitoring has been updated"

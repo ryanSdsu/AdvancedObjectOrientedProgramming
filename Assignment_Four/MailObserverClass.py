@@ -37,3 +37,10 @@ class MailObserver():
         message = "The website '" + self.web_address + "' you're monitoring has been updated"
         server.sendmail("jakewhitney86@gmail.com", self.email_address, message)
         server.quit()
+
+    def __str__(self):
+        """
+        This is where we print a message stating the website has been updated.
+        :return:
+        """
+        return "The website '" + self.web_address + "' you're monitoring has been updated"

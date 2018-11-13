@@ -36,17 +36,14 @@ class NotifierFactory:
 
         web_address = notifier_instruction_list[0]
         if web_address not in self.subject_dictionary:
-            print("not in here")
             self.subject_dictionary[web_address] = WebsiteSubject(web_address)
-
-
         self.newly_built_website_subject = self.subject_dictionary[web_address]
-        print(self.subject_dictionary)
-        # print(type(self.newly_built_website_subject))
+
         try:
-            observer_selection = self.observer_dictionary[notifier_instruction_list[1]]
+            observer_type = self.observer_dictionary[notifier_instruction_list[1]]
+            observer_selection = observer_type(notifier_instruction_list)
             self.newly_built_website_subject.attach(observer_selection)
             self.subject_dictionary[web_address] = self.newly_built_website_subject
-            return self.subject_dictionary.values()
+            return list(self.subject_dictionary.values())
         except:
             raise KeyError("There is no such key in dictionary.")

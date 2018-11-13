@@ -3,6 +3,10 @@ import io
 from contextlib import redirect_stdout
 from Assignment_Four import FileReadClass
 from Assignment_Four.NotifierFactoryClass import NotifierFactory
+from Assignment_Four.ConsoleObserverClass import ConsoleObserver
+from Assignment_Four.MailObserverClass import MailObserver
+from Assignment_Four.SMSObserverClass import SMSObserver
+from Assignment_Four.WebsiteSubjectClass import WebsiteSubject
 from mock import patch
 
 class TestFileReadClass(unittest.TestCase):
@@ -46,6 +50,30 @@ class TestFileReadClass(unittest.TestCase):
         self.test_factory = NotifierFactory()
         for instructions in self.test_file_lines:
             self.website_subjects_list = self.test_factory.create_notifier(instructions)
+
+        self.assertIsInstance(self.website_subjects_list[0], WebsiteSubject)
+        self.assertEqual(self.website_subjects_list[0].web_address,
+                        'http://www.eli.sdsu.edu/courses/fall18/cs635/notes/index.html')
+
+        self.assertIsInstance(self.website_subjects_list[0].currently_attached_observers[0], ConsoleObserver)
+        self.assertEqual(self.website_subjects_list[0].currently_attached_observers[0].web_address,
+                        'http://www.eli.sdsu.edu/courses/fall18/cs635/notes/index.html')
+
+        self.assertIsInstance(self.website_subjects_list[0].currently_attached_observers[1], SMSObserver)
+        self.assertEqual(self.website_subjects_list[0].currently_attached_observers[1].sms_number, '6195943535')
+
+        self.assertIsInstance(self.website_subjects_list[0].currently_attached_observers[2], SMSObserver)
+        self.assertEqual(self.website_subjects_list[0].currently_attached_observers[2].sms_number, '6191234567')
+
+        self.assertIsInstance(self.website_subjects_list[1], WebsiteSubject)
+        self.assertEqual(self.website_subjects_list[1].web_address, 'http://www.eli.sdsu.edu/index.html')
+
+        self.assertIsInstance(self.website_subjects_list[1].currently_attached_observers[0], MailObserver)
+        self.assertEqual(self.website_subjects_list[1].currently_attached_observers[0].email_address, 'whitney@sdsu.edu')
+
+        self.assertIsInstance(self.website_subjects_list[1].currently_attached_observers[1], ConsoleObserver)
+        self.assertEqual(self.website_subjects_list[1].currently_attached_observers[1].web_address,
+                         'http://www.eli.sdsu.edu/index.html')
 
 if __name__ == '__main__':
     unittest.main()
