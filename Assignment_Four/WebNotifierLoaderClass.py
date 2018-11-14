@@ -1,12 +1,8 @@
-from Assignment_Four.SMSObserverClass import SMSObserver
-from Assignment_Four.ConsoleObserverClass import ConsoleObserver
-from Assignment_Four.MailObserverClass import MailObserver
-from Assignment_Four.WebsiteSubjectClass import WebsiteSubject
+from Assignment_Four.AbstractWebNotifierFactoryClass import AbstractWebNotifierFactory
 
-
-class NotifierFactory:
+class WebNotifierLoader:
     """
-    This is the base class for the Notifier Factory.  It allows for one to build
+    This is the base class for the Web Notifier Loader.  It allows for one to build
     a selection of observers and subjects.  For the observers, the main collection
     includes a 'sms', 'console' and 'mail' objects while the subject includes
     'website'.
@@ -14,14 +10,15 @@ class NotifierFactory:
 
     def __init__(self):
         """
-        This is the constructor for the Notifier Factory class where the 'subject_dictionary' is being instantiated
+        This is the constructor for the Web Notifier Loader class where the 'subject_dictionary' is being instantiated
         as well as the 'observer_dictionary'.  The 'subject_dictionary' contains an empty dictionary that will
         hold all of the website subjects while the 'observer_dictionary' will contain instructions for which
         observers are to be created.
         """
-        self.observer_dictionary = {"sms" : (lambda x : SMSObserver(x)),
-                                   "console": (lambda x : ConsoleObserver(x)),
-                                   "mail" : (lambda x : MailObserver(x))}
+        self.abstract_factory = AbstractWebNotifierFactory()
+        self.observer_dictionary = {"sms" : (lambda x : self.abstract_factory.create_sms_observer(x)),
+                                    "console": (lambda x : self.abstract_factory.create_console_observer(x)),
+                                    "mail" : (lambda x : self.abstract_factory.create_mail_observer(x))}
         self.subject_dictionary = {}
 
     def create_notifier(self, notifier_instruction_list):
@@ -36,7 +33,7 @@ class NotifierFactory:
 
         web_address = notifier_instruction_list[0]
         if web_address not in self.subject_dictionary:
-            self.subject_dictionary[web_address] = WebsiteSubject(web_address)
+            self.subject_dictionary[web_address] = self.abstract_factory.create_website_subject(notifier_instruction_list)
         self.newly_built_website_subject = self.subject_dictionary[web_address]
 
         try:

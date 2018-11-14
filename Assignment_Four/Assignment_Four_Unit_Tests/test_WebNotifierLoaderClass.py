@@ -2,7 +2,7 @@ import unittest
 import io
 from contextlib import redirect_stdout
 from Assignment_Four import FileReadClass
-from Assignment_Four.NotifierFactoryClass import NotifierFactory
+from Assignment_Four.WebNotifierLoaderClass import WebNotifierLoader
 from Assignment_Four.ConsoleObserverClass import ConsoleObserver
 from Assignment_Four.MailObserverClass import MailObserver
 from Assignment_Four.SMSObserverClass import SMSObserver
@@ -10,11 +10,11 @@ from Assignment_Four.WebsiteSubjectClass import WebsiteSubject
 from mock import patch
 
 class TestNotifierFactoryClass(unittest.TestCase):
-    """This is the base class for the unit tests involving the Notifier Factory Class"""
+    """This is the base class for the unit tests involving the Web Notifier Loader Class"""
 
     def setUp(self):
         """
-        This is the set up for the 'Notifier Factory' class.  We are creating the 'FileRead' objects to be
+        This is the set up for the 'Web Notifier Loader' class.  We are creating the 'File Read' objects to be
         set, added and tested later.
         :return:
         """
@@ -32,13 +32,13 @@ class TestNotifierFactoryClass(unittest.TestCase):
 
     def test_init_def(self):
         """
-        This unit test is testing the __init__ def of the 'Notifier Factory' class.  It passes when a
-        'Notifier Factory' class is successfully created along with its dictionary via 'subject_dictionary'
+        This unit test is testing the __init__ def of the 'Web Notifier Loader' class.  It passes when a
+        'Web Notifier Loader' class is successfully created along with its dictionary via 'subject_dictionary'
         being instantiated.
         :return:
         """
-        self.test_factory = NotifierFactory()
-        self.assertIsInstance(self.test_factory, NotifierFactory)
+        self.test_factory = WebNotifierLoader()
+        self.assertIsInstance(self.test_factory, WebNotifierLoader)
         self.assertEqual(self.test_factory.subject_dictionary, {})
 
     def test_create_notifier_def(self):
@@ -47,7 +47,7 @@ class TestNotifierFactoryClass(unittest.TestCase):
         It passes when a message stating that the website has been updated appears on the console.
         :return:
         """
-        self.test_factory = NotifierFactory()
+        self.test_factory = WebNotifierLoader()
         for instructions in self.test_file_lines:
             self.website_subjects_list = self.test_factory.create_notifier(instructions)
 

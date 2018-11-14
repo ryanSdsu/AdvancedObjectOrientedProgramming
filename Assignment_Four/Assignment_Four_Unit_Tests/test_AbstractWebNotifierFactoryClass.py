@@ -3,7 +3,6 @@ import io
 from contextlib import redirect_stdout
 from Assignment_Four import FileReadClass
 from Assignment_Four.AbstractWebNotifierFactoryClass import AbstractWebNotifierFactory
-from Assignment_Four.NotifierFactoryClass import NotifierFactory
 from Assignment_Four.ConsoleObserverClass import ConsoleObserver
 from Assignment_Four.MailObserverClass import MailObserver
 from Assignment_Four.SMSObserverClass import SMSObserver
@@ -32,14 +31,14 @@ class TestAbstractWebNotifierFactoryClass(unittest.TestCase):
                               ['http://www.eli.sdsu.edu/index.html', 'console']
                               ])
 
-    def test_create_web_subject(self):
+    def test_create_website_subject(self):
         """
         This unit test is testing the 'create_web_subject' def of the 'Abstract Web Notifier Factory' class.
-        It passes when upon passing in the instructions, a WebSubject object is created and returned.
+        It passes when upon passing in the instructions, a WebsiteSubject object is created and returned.
         :return:
         """
-        self.test_web_subject = self.test_abstract_factory.create_web_subject(self.test_file_lines[0])
-        self.assertIsInstance(self.test_web_subject, WebsiteSubject)
+        self.test_website_subject = self.test_abstract_factory.create_website_subject(self.test_file_lines[0])
+        self.assertIsInstance(self.test_website_subject, WebsiteSubject)
 
     def test_create_console_observer(self):
         """

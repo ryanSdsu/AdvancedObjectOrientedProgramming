@@ -35,7 +35,7 @@ class TestWebsiteSubjectClass(unittest.TestCase):
         containing a list of observers for which to be added.
         :return:
         """
-        self.test_website_subject = WebsiteSubject(self.test_file_lines[0][0])
+        self.test_website_subject = WebsiteSubject(self.test_file_lines[0])
         self.assertIsInstance(self.test_website_subject, WebsiteSubject)
         self.assertListEqual(self.test_website_subject.currently_attached_observers, [])
 
@@ -46,7 +46,7 @@ class TestWebsiteSubjectClass(unittest.TestCase):
         list of the Website Subject class.
         :return:
         """
-        self.test_website_subject = WebsiteSubject(self.test_file_lines[0][0])
+        self.test_website_subject = WebsiteSubject(self.test_file_lines[0])
         self.assertIsInstance(self.test_website_subject, WebsiteSubject)
         self.assertListEqual(self.test_website_subject.currently_attached_observers, [])
         self.test_console_observer = ConsoleObserver(self.test_file_lines[0])
@@ -60,7 +60,7 @@ class TestWebsiteSubjectClass(unittest.TestCase):
         monitor is called and detects a change via the "web_address"
         :return:
         """
-        self.test_website_subject = WebsiteSubject('https://www.nytimes.com')
+        self.test_website_subject = WebsiteSubject(['https://www.nytimes.com', 'sms', '6195943535', 'verizon'])
         self.test_sms_observer = SMSObserver(['https://www.nytimes.com', 'sms', '6195943535', 'verizon'])
         self.test_website_subject.attach(self.test_sms_observer)
 
@@ -82,7 +82,7 @@ class TestWebsiteSubjectClass(unittest.TestCase):
         list of the Website Subject class.
         :return:
         """
-        self.test_website_subject = WebsiteSubject(self.test_file_lines[0][0])
+        self.test_website_subject = WebsiteSubject(self.test_file_lines[0])
         self.assertIsInstance(self.test_website_subject, WebsiteSubject)
         self.assertListEqual(self.test_website_subject.currently_attached_observers, [])
         self.test_console_observer = ConsoleObserver(self.test_file_lines[0])

@@ -8,10 +8,10 @@ class AbstractWebNotifierFactory:
     This is the base class for the Abstract Web Notifier Factory.  It allows for one to build
     a selection of observers and subjects.  For the observers, the main collection
     includes a 'sms', 'console' and 'mail' objects while the subject includes
-    'web'.
+    'website'.
     """
 
-    def create_web_subject(self, notifier_instruction):
+    def create_website_subject(self, notifier_instruction):
         """
         This is where we create a web subject given a list of instructions.
         :param notifier_instruction: a list of string instructions

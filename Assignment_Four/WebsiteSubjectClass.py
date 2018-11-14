@@ -7,16 +7,17 @@ class WebsiteSubject:
     It essentially can 'attach/remove' observers of all types and initiate a call via 'update' i.e.
     informing them of a modification that happens via a specific 'web_address'.
     """
-    def __init__(self, web_address):
+    def __init__(self, notifier_instruction_list):
         """
-        This is the constructor for the Website Subject class where the 'web_address' is being passed into
-        the def to be read in/set.
-        :param web_address: the url of which the Website subject will monitor
+        This is the constructor for the WebsiteSubject class where the 'notifier_instruction_list' is being passed into
+        the def to be read in and have certain elements be stored in various variables, specifically
+        'email_address' and 'web_address'.
+        :param notifier_instruction_list: the string instructions that were given in a line via the .txt file
         """
         self.last_reported_web_address_modified_time = None
         self.currently_attached_observers = []
         try:
-            self.web_address = str(web_address)
+            self.web_address = str(notifier_instruction_list[0])
         except:
             raise Exception("The URL could not be converted via type: str.")
 
