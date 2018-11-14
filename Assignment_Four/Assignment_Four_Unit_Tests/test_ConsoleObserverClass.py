@@ -3,7 +3,6 @@ import io
 from contextlib import redirect_stdout
 from Assignment_Four import FileReadClass
 from Assignment_Four.ConsoleObserverClass import ConsoleObserver
-from mock import patch
 
 class TestConsoleObserverClass(unittest.TestCase):
     """This is the base class for the unit tests involving the Console Observer Class"""

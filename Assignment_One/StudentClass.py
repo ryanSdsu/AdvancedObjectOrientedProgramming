@@ -77,8 +77,8 @@ class Student:
         # The requirement for this is that total be 70% numberOfUnitsTaken and 30% gpa.
         # In order to do this both the gpa and numberOfUnits variables must have been instantiated.
         try:
-            if self.gpa >= 0 and self.numberOfUnitsTaken >= 0:
-                self.__studentPriority = float(0.7*self.numberOfUnitsTaken + 0.3*self.gpa)
+            if self.gpa >= 0 and self.number_of_units_taken >= 0:
+                self.__studentPriority = float(0.7 * self.number_of_units_taken + 0.3 * self.gpa)
         except AttributeError:
             raise  AttributeError("Both the gpa and number of units taken for {} are not valid.".format(self.name))
 
@@ -148,22 +148,22 @@ class Student:
         try:
             if newGpa >= 0 and newGpa <= 4.0:
                 self.__gpa = float(newGpa)
-                self.__studentPriority = float(0.7*self.numberOfUnitsTaken + 0.3*self.gpa)
+                self.__studentPriority = float(0.7 * self.number_of_units_taken + 0.3 * self.gpa)
         except AttributeError:
             raise AttributeError("The gpa of {} is not between 0 and 4.0.".format(self.name))
         except TypeError:
             raise TypeError("The gpa is not an actual number.".format(self.name))
 
     @property
-    def numberOfUnitsTaken(self):
+    def number_of_units_taken(self):
         return self.__numberOfUnitsTaken
 
-    @numberOfUnitsTaken.setter
-    def numberOfUnitsTaken(self, newNumberOfUnitsTaken):
+    @number_of_units_taken.setter
+    def number_of_units_taken(self, newNumberOfUnitsTaken):
         try:
             if newNumberOfUnitsTaken >= 0 and newNumberOfUnitsTaken <= 150:
                 self.__numberOfUnitsTaken = int(newNumberOfUnitsTaken)
-                self.__studentPriority = float(0.7*self.numberOfUnitsTaken + 0.3*self.gpa)
+                self.__studentPriority = float(0.7 * self.number_of_units_taken + 0.3 * self.gpa)
         except AttributeError:
             raise  AttributeError("The number of units taken from {} is not between 0 and 150.".format(self.name))
         except TypeError:

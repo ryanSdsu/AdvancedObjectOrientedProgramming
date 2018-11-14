@@ -26,20 +26,9 @@ class MementoVisitor(Visitor.TurtleVisitor):
         :param object: the object in which the visitor will be interacting with.
         :return:
         """
-        pass
-
-    @dispatch(TurtleInterpreterClass.Repeat)
-    def visit(self, object):
-        """
-        This is the visit def of the visitor if it classifies the object to be a type 'End'
-        from the Turtle Interpreter.
-        :param object: the object in which the visitor will be interacting with.
-        :return:
-        """
         self.turtle_memento = Memento.TurtleMemento(object.expression)
         self.turtle_memento_caretaker.add_memento(self.turtle_memento)
         pass
-
 
     @dispatch(TurtleInterpreterClass.GetVariable)
     def visit(self, object):
@@ -95,8 +84,6 @@ class MementoVisitor(Visitor.TurtleVisitor):
         :param object: the object in which the visitor will be interacting with.
         :return:
         """
-        self.turtle_memento = Memento.TurtleMemento(object.expression)
-        self.turtle_memento_caretaker.add_memento(self.turtle_memento)
         pass
 
 

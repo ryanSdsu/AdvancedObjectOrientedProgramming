@@ -21,17 +21,6 @@ class Visitor:
             """
             pass
 
-        @dispatch(TurtleInterpreterClass.Repeat)
-        def visit(self, object):
-            """
-            This is the visit def of the visitor if it classifies the object to be a type 'End'
-            from the Turtle Interpreter.
-            :param object: the object in which the visitor will be interacting with.
-            :return:
-            """
-            pass
-
-
         @dispatch(TurtleInterpreterClass.GetVariable)
         def visit(self, object):
             """

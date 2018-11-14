@@ -28,7 +28,7 @@ class TurtleInterpreter:
         """
 
         if self.repeat_command_mode_on:
-            end_class = self.end_and_repeat_command_identifier(expression_list)
+            end_class = self.end_and_repeat_command_identifier(expression_list, *turtle)
             if end_class:
                 return end_class
             elif expression_list[0] == "repeat":
@@ -36,15 +36,14 @@ class TurtleInterpreter:
             new_command = self.string_to_class_loader(expression_list, *turtle)
             self.repeat_class.interpret_expression(new_command)
         else:
-            end_class = self.end_and_repeat_command_identifier(expression_list)
+            end_class = self.end_and_repeat_command_identifier(expression_list, *turtle)
             if end_class:
                 return end_class
             elif expression_list[0] == "repeat":
                 return
             return self.string_to_class_loader(expression_list, *turtle)
 
-
-    def end_and_repeat_command_identifier(self, expression_list):
+    def end_and_repeat_command_identifier(self, expression_list, *turtle):
         """
         This checks to see if a repeat or end command have been initiated. If we detect
         a 'repeat' command we must create a separate list of commands and store them
@@ -79,7 +78,8 @@ class TurtleInterpreter:
             if expression_list[0] == 'end':
                 self.repeat_command_mode_on = False
                 end_class = ExpressionLoader(module_name, turtle_interpreter,
-                                                       "End", self.repeat_class.class_object)
+                                                       "End", [self.repeat_class.class_object,
+                                                               turtle[0]])
                 return [end_class]
 
     def string_to_class_loader(self, expression_list, *turtle):
@@ -181,7 +181,8 @@ class End(AbstractInterpreter):
         Turtle Interpreter.
         :param repeat_class: the Repeat subclass to be interpreted upon
         """
-        self.repeat_class = repeat_class
+        self.repeat_class = repeat_class[0]
+        self.expression = repeat_class[1]
         self.distance = 0
 
     def interpretation_of_expression(self):

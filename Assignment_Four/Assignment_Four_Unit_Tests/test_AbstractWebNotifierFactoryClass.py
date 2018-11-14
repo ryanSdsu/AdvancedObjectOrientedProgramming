@@ -1,13 +1,10 @@
 import unittest
-import io
-from contextlib import redirect_stdout
 from Assignment_Four import FileReadClass
 from Assignment_Four.AbstractWebNotifierFactoryClass import AbstractWebNotifierFactory
 from Assignment_Four.ConsoleObserverClass import ConsoleObserver
 from Assignment_Four.MailObserverClass import MailObserver
 from Assignment_Four.SMSObserverClass import SMSObserver
 from Assignment_Four.WebsiteSubjectClass import WebsiteSubject
-from mock import patch
 
 class TestAbstractWebNotifierFactoryClass(unittest.TestCase):
     """This is the base class for the unit tests involving the Abstract Web Notifier Factory Class"""

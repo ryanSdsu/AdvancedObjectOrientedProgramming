@@ -56,8 +56,8 @@ class TestStudentClass(unittest.TestCase):
         """
         newDesiredNumberOfUnitsTaken = 130
         studentOne = StudentClass.Student("Nathan", "777777777", "Nate@aol.com", "134 Home St", 4.0, 150)
-        studentOne.numberOfUnitsTaken = newDesiredNumberOfUnitsTaken
-        self.assertEquals(studentOne.numberOfUnitsTaken, newDesiredNumberOfUnitsTaken)
+        studentOne.number_of_units_taken = newDesiredNumberOfUnitsTaken
+        self.assertEquals(studentOne.number_of_units_taken, newDesiredNumberOfUnitsTaken)
 
     def test_ChangeRedId(self):
         """

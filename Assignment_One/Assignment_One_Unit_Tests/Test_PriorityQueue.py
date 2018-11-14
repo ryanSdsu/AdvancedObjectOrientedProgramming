@@ -117,7 +117,7 @@ class TestPriorityQueueClass(unittest.TestCase):
         namesAndRedIdsOfPrintStatement = lastPrintStatement.splitlines()
         namesAndRedIdsOfPriorityQueue = []
         for student in cs635PriorityQueue.priorityQueue[1:]:
-            namesAndRedIdsOfPriorityQueue.append("{} {}".format(student.name, student.redId))
+            namesAndRedIdsOfPriorityQueue.append("{} {}".format(student.name, student.red_id))
 
         self.assertListEqual(namesAndRedIdsOfPrintStatement, namesAndRedIdsOfPriorityQueue)
 
