@@ -7,12 +7,12 @@ from mock import patch
 import _thread
 import time
 
-class TestFileReadClass(unittest.TestCase):
+class TestWebsiteSubjectClass(unittest.TestCase):
     """This is the base class for the unit tests involving the Website Subject Class"""
 
     def setUp(self):
         """
-        This is the set up for the 'Website Subject' class. We are creating the 'FileRead' objects to be
+        This is the set up for the 'Website Subject' class.  We are creating the 'FileRead' objects to be
         set, added and tested later.
         :return:
         """

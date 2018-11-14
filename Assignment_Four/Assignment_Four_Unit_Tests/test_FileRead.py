@@ -2,11 +2,11 @@ import unittest
 from Assignment_Four import FileReadClass
 
 class TestFileReadClass(unittest.TestCase):
-    """This is the base class for the unit tests involving the FileRead Class"""
+    """This is the base class for the unit tests involving the File Read Class"""
 
     def setUp(self):
         """
-        This is the set up for the 'FileRead' class. We are creating the 'FileRead' objects to be
+        This is the set up for the 'FileRead' class.  We are creating the 'FileRead' objects to be
         set, added and tested later.
         :return:
         """

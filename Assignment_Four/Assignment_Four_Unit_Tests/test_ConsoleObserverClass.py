@@ -5,12 +5,12 @@ from Assignment_Four import FileReadClass
 from Assignment_Four.ConsoleObserverClass import ConsoleObserver
 from mock import patch
 
-class TestFileReadClass(unittest.TestCase):
+class TestConsoleObserverClass(unittest.TestCase):
     """This is the base class for the unit tests involving the Console Observer Class"""
 
     def setUp(self):
         """
-        This is the set up for the 'Console Observer' class. We are creating the 'FileRead' objects to be
+        This is the set up for the 'Console Observer' class.  We are creating the 'FileRead' objects to be
         set, added and tested later.
         :return:
         """

@@ -3,12 +3,12 @@ from Assignment_Four import FileReadClass
 from Assignment_Four.SMSObserverClass import SMSObserver
 from mock import patch
 
-class TestFileReadClass(unittest.TestCase):
+class TestSMSObserverClass(unittest.TestCase):
     """This is the base class for the unit tests involving the SMS Observer Class"""
 
     def setUp(self):
         """
-        This is the set up for the 'SMSObserver' class. We are creating the 'FileRead' objects to be
+        This is the set up for the 'SMSObserver' class.  We are creating the 'FileRead' objects to be
         set, added and tested later.
         :return:
         """

@@ -9,12 +9,12 @@ from Assignment_Four.SMSObserverClass import SMSObserver
 from Assignment_Four.WebsiteSubjectClass import WebsiteSubject
 from mock import patch
 
-class TestFileReadClass(unittest.TestCase):
+class TestNotifierFactoryClass(unittest.TestCase):
     """This is the base class for the unit tests involving the Notifier Factory Class"""
 
     def setUp(self):
         """
-        This is the set up for the 'Notifier Factory' class. We are creating the 'FileRead' objects to be
+        This is the set up for the 'Notifier Factory' class.  We are creating the 'FileRead' objects to be
         set, added and tested later.
         :return:
         """
