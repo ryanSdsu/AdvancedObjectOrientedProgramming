@@ -3,8 +3,8 @@ from Assignment_Four.AbstractWebNotifierFactoryClass import AbstractWebNotifierF
 class WebNotifierLoader:
     """
     This is the base class for the Web Notifier Loader.  It allows for one to build
-    a selection of observers and subjects.  For the observers, the main collection
-    includes a 'sms', 'console' and 'mail' objects while the subject includes
+    a selection of observers and subjects by means of list of strings.  For the observers,
+    the main collection includes a 'sms', 'console' and 'mail' objects while the subject includes
     'website'.
     """
 
