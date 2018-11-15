@@ -22,7 +22,6 @@ class TestFileReadClass(unittest.TestCase):
         :return:
         """
         self.assertIsInstance(self.test_file_read, FileReadClass.FileRead)
-        print(self.test_file_read.file_lines)
         self.assertListEqual(self.test_file_read.file_lines,
                              ['http://www.eli.sdsu.edu/courses/fall18/cs635/notes/index.html console\n',
                               'http://www.eli.sdsu.edu/index.html mail whitney@sdsu.edu\n',

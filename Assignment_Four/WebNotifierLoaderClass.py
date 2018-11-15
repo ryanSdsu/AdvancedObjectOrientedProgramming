@@ -1,4 +1,4 @@
-from Assignment_Four.AbstractWebNotifierFactoryClass import AbstractWebNotifierFactory
+from Assignment_Four.WebNotifierFactoryClass import WebNotifierFactory
 
 class WebNotifierLoader:
     """
@@ -15,10 +15,7 @@ class WebNotifierLoader:
         hold all of the website subjects while the 'observer_dictionary' will contain instructions for which
         observers are to be created.
         """
-        self.abstract_factory = AbstractWebNotifierFactory()
-        self.observer_dictionary = {"sms" : (lambda x : self.abstract_factory.create_sms_observer(x)),
-                                    "console": (lambda x : self.abstract_factory.create_console_observer(x)),
-                                    "mail" : (lambda x : self.abstract_factory.create_mail_observer(x))}
+        self.web_notifier_factory = WebNotifierFactory()
         self.subject_dictionary = {}
 
     def create_notifier(self, notifier_instruction_list):
@@ -33,11 +30,11 @@ class WebNotifierLoader:
 
         web_address = notifier_instruction_list[0]
         if web_address not in self.subject_dictionary:
-            self.subject_dictionary[web_address] = self.abstract_factory.create_website_subject(notifier_instruction_list)
+            self.subject_dictionary[web_address] = self.web_notifier_factory.create_subject(notifier_instruction_list)
         self.newly_built_website_subject = self.subject_dictionary[web_address]
 
         try:
-            observer_type = self.observer_dictionary[notifier_instruction_list[1]]
+            observer_type = self.web_notifier_factory.create_observer(notifier_instruction_list[1])
             observer_selection = observer_type(notifier_instruction_list)
             self.newly_built_website_subject.attach(observer_selection)
             self.subject_dictionary[web_address] = self.newly_built_website_subject

@@ -1,7 +1,8 @@
 import urllib.request
 from time import sleep
+from Assignment_Four.AbstractSubjectClass import AbstractSubject
 
-class WebsiteSubject:
+class WebsiteSubject(AbstractSubject):
     """
     This is the base class for the Website Subject.
     It essentially can 'attach/remove' observers of all types and initiate a call via 'update' i.e.
@@ -39,17 +40,18 @@ class WebsiteSubject:
                 for observer in self.currently_attached_observers:
                     observer.update()
             sleep(3)
+            # sleep(3600)
 
-    def attach(self, observer):
+    def attach(self, *observer):
         """
         This is where we attach an observer to the subject for which it will now be updated via the
         monitor def.
         :param observer: an observer that will be attached to the subject
         :return:
         """
-        self.currently_attached_observers.append(observer)
+        self.currently_attached_observers.append(observer[0])
 
-    def detach(self, observer):
+    def detach(self, *observer):
         """
         This is where we detach an observer from the subject, preventing it from being updated via the
         monitor def.
@@ -57,6 +59,6 @@ class WebsiteSubject:
         :return:
         """
         try:
-            self.currently_attached_observers.remove(observer)
+            self.currently_attached_observers.remove(observer[0])
         except:
             raise Exception("The observer could not be removed.")

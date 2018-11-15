@@ -1,6 +1,7 @@
 import smtplib
+from Assignment_Four.AbstractObserverClass import AbstractObserver
 
-class ConsoleObserver():
+class ConsoleObserver(AbstractObserver):
     """
     This is the base class for the Console Observer.
     It essentially prints a message whenever the subject tells

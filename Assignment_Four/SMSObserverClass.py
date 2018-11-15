@@ -1,6 +1,7 @@
 import smtplib
+from Assignment_Four.AbstractObserverClass import AbstractObserver
 
-class SMSObserver():
+class SMSObserver(AbstractObserver):
     """
     This is the base class for the SMS Observer.
     It essentially sends a text message whenever the subject tells

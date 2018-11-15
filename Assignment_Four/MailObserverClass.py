@@ -1,6 +1,7 @@
 import smtplib
+from Assignment_Four.AbstractObserverClass import AbstractObserver
 
-class MailObserver():
+class MailObserver(AbstractObserver):
     """
     This is the base class for the Mail Observer.
     It essentially sends an email message whenever the subject tells
