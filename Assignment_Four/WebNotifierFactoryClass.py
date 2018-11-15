@@ -3,6 +3,7 @@ from Assignment_Four.SMSObserverClass import SMSObserver
 from Assignment_Four.ConsoleObserverClass import ConsoleObserver
 from Assignment_Four.MailObserverClass import MailObserver
 from Assignment_Four.WebsiteSubjectClass import WebsiteSubject
+import urllib.request
 
 class WebNotifierFactory(AbstractNotifierFactory):
     """
@@ -33,4 +34,9 @@ class WebNotifierFactory(AbstractNotifierFactory):
         :param notifier_instruction: a list of string instructions
         :return: WebsiteSubject
         """
-        return WebsiteSubject(notifier_instruction[0])
+        try:
+            urllib.request.urlopen(notifier_instruction[0][0])
+        except:
+            raise ValueError("An invalid url has been given. No subject is created.")
+        else:
+            return WebsiteSubject(notifier_instruction[0])

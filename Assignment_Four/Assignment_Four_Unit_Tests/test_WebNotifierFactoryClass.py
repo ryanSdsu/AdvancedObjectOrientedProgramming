@@ -28,41 +28,36 @@ class TestAbstractWebNotifierFactoryClass(unittest.TestCase):
                               ['http://www.eli.sdsu.edu/index.html', 'console']
                               ])
 
-    def test_create_website_subject(self):
+    def test_create_subject(self):
         """
-        This unit test is testing the 'create_web_subject' def of the 'Web Notifier Factory' class.
+        This unit test is testing the 'create_subject' def of the 'Web Notifier Factory' class.
         It passes when upon passing in the instructions, a WebsiteSubject object is created and returned.
+        And it also passes when an invalid url is passed thus throwing a value error exception.
         :return:
         """
         self.test_website_subject = self.test_abstract_factory.create_subject(self.test_file_lines[0])
         self.assertIsInstance(self.test_website_subject, WebsiteSubject)
+        with self.assertRaises(ValueError):
+            self.test_abstract_factory.create_subject("Invalid Url")
 
-    def test_create_console_observer(self):
+    def test_create_observer(self):
         """
-        This unit test is testing the 'create_console_observer' def of the 'Web Notifier Factory' class.
+        This unit test is testing the 'create_observer' def of the 'Web Notifier Factory' class.
         It passes when upon passing in the instructions, a ConsoleObserver object is created and returned.
+        And it also passes when an invalid key is passed thus throwing a key error exception.
         :return:
         """
         self.test_console_observer = self.test_abstract_factory.create_observer(self.test_file_lines[0][1])
         self.assertIsInstance(self.test_console_observer(self.test_file_lines[0]), ConsoleObserver)
 
-    def test_create_sms_observer(self):
-        """
-        This unit test is testing the 'create_sms_observer' def of the 'Web Notifier Factory' class.
-        It passes when upon passing in the instructions, a SmsObserver object is created and returned.
-        :return:
-        """
         self.test_sms_observer = self.test_abstract_factory.create_observer(self.test_file_lines[2][1])
         self.assertIsInstance(self.test_sms_observer(self.test_file_lines[2]), SMSObserver)
 
-    def test_create_mail_observer(self):
-        """
-        This unit test is testing the 'create_mail_observer' def of the 'Web Notifier Factory' class.
-        It passes when upon passing in the instructions, a MailObserver object is created and returned.
-        :return:
-        """
         self.test_mail_observer = self.test_abstract_factory.create_observer(self.test_file_lines[1][1])
         self.assertIsInstance(self.test_mail_observer(self.test_file_lines[1]), MailObserver)
+
+        with self.assertRaises(KeyError):
+            self.test_abstract_factory.create_observer("Invalid Key")
 
 
 if __name__ == '__main__':
