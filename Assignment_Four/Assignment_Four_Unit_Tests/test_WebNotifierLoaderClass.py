@@ -1,12 +1,15 @@
 import unittest
 from mock import patch
 import time
+import io
+from contextlib import redirect_stdout
 from Assignment_Four import FileReadClass
 from Assignment_Four.WebNotifierLoaderClass import WebNotifierLoader
 from Assignment_Four.ConsoleObserverClass import ConsoleObserver
 from Assignment_Four.MailObserverClass import MailObserver
 from Assignment_Four.SMSObserverClass import SMSObserver
 from Assignment_Four.WebsiteSubjectClass import WebsiteSubject
+from Assignment_Four.WebNotifierFactoryClass import WebNotifierFactory
 
 class TestNotifierFactoryClass(unittest.TestCase):
     """This is the base class for the unit tests involving the Web Notifier Loader Class"""
@@ -33,12 +36,13 @@ class TestNotifierFactoryClass(unittest.TestCase):
         """
         This unit test is testing the __init__ def of the 'Web Notifier Loader' class.  It passes when a
         'Web Notifier Loader' class is successfully created along with its dictionary via 'subject_dictionary'
-        being instantiated.
+        being instantiated as well as a 'Web Notifier Factory'.
         :return:
         """
         self.test_loader = WebNotifierLoader()
         self.assertIsInstance(self.test_loader, WebNotifierLoader)
         self.assertEqual(self.test_loader.subject_dictionary, {})
+        self.assertIsInstance(self.test_loader.web_notifier_factory, WebNotifierFactory)
 
     def test_load_notifier_def(self):
         """
@@ -85,18 +89,26 @@ class TestNotifierFactoryClass(unittest.TestCase):
         """
         self.test_loader = WebNotifierLoader()
         self.test_loader.load_notifier(['https://www.nytimes.com', 'sms', '6195943535', 'verizon'])
+        self.test_loader.load_notifier(['https://www.nytimes.com', 'console'])
 
         with patch("smtplib.SMTP") as mock_smtp:
-            self.test_loader.execute_web_notifiers()
-            instance = mock_smtp.return_value
-            while instance.sendmail.called == False:
-                time.sleep(3)
+            with io.StringIO() as buffer, redirect_stdout(buffer):
+                self.test_loader.execute_web_notifiers()
                 instance = mock_smtp.return_value
-            instance.sendmail.assert_any_call(
-                "jakewhitney86@gmail.com", "6195943535@vzwpix.com",
-                "The website 'https://www.nytimes.com' you're monitoring has been updated")
-            self.assertTrue(instance.sendmail.called)
+                while instance.sendmail.called == False:
+                    time.sleep(3)
+                    instance = mock_smtp.return_value
+                instance.sendmail.assert_any_call(
+                    "jakewhitney86@gmail.com", "6195943535@vzwpix.com",
+                    "The website 'https://www.nytimes.com' you're monitoring has been updated")
+                self.assertTrue(instance.sendmail.called)
 
+                last_print_statement = ""
+                while "The website 'https://www.nytimes.com' you're monitoring has been updated" not in last_print_statement:
+                    last_print_statement = buffer.getvalue()
+                    last_print_statement = last_print_statement.strip('\n')
+                last_print_statement = "The website 'https://www.nytimes.com' you're monitoring has been updated"
+                self.assertEqual("The website 'https://www.nytimes.com' you're monitoring has been updated", last_print_statement)
 
 if __name__ == '__main__':
     unittest.main()

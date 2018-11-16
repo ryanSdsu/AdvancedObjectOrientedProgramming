@@ -28,7 +28,7 @@ class TestMailObserverClass(unittest.TestCase):
         """
         This unit test is testing the __init__ def of the 'MailObserver' class.  It passes when a
         'MailObserver' class is successfully created along with its variable via 'email_address' containing
-        the email passed into it and 'web_address' having the web .
+        the email passed into it and 'web_address' having the web address as well.
         :return:
         """
         self.test_email_observer = MailObserver(self.test_file_lines[1])
@@ -38,9 +38,9 @@ class TestMailObserverClass(unittest.TestCase):
 
     def test_update(self):
         """
-        This unit test is testing the 'update' def of the 'SMSObserver' class.
+        This unit test is testing the 'update' def of the 'MailObserver' class.
         It passes when a mock object receives the correct inputs for
-        sending and receiving an sms message.
+        sending and receiving an email message.
         :return:
         """
         self.test_email_observer = MailObserver(['http://www.eli.sdsu.edu/index.html', 'mail', 'russell.james.ucf@gmail.com'])

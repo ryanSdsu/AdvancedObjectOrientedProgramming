@@ -12,7 +12,6 @@ class TestAbstractSubjectClass(unittest.TestCase):
         """
         self.test_abstract_subject = AbstractSubject()
 
-
     def test_monitor_def(self):
         """
         This unit test is testing the monitor def of the 'Abstract Subject' class.  It passes when

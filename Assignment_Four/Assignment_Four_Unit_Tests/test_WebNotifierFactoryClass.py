@@ -43,8 +43,9 @@ class TestAbstractWebNotifierFactoryClass(unittest.TestCase):
     def test_create_observer(self):
         """
         This unit test is testing the 'create_observer' def of the 'Web Notifier Factory' class.
-        It passes when upon passing in the instructions, a ConsoleObserver object is created and returned.
-        And it also passes when an invalid key is passed thus throwing a key error exception.
+        It passes when upon passing in the instructions, a ConsoleObserver, SMSObserver and MailObserver
+        object are created and returned.  It also passes when an invalid key is passed thus throwing
+        a key error exception.
         :return:
         """
         self.test_console_observer = self.test_abstract_factory.create_observer(self.test_file_lines[0][1])

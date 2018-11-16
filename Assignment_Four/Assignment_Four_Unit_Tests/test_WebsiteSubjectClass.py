@@ -31,12 +31,15 @@ class TestWebsiteSubjectClass(unittest.TestCase):
         """
         This unit test is testing the __init__ def of the 'Website Subject' class.  It passes when a
         'Website Subject' class is successfully created along with its variable via 'currently_attached_observers'
-        containing a list of observers for which to be added.
+        containing a list of observers for which to be added and the website address/last modification date being
+        instantiated as well.
         :return:
         """
         self.test_website_subject = WebsiteSubject(self.test_file_lines[0])
         self.assertIsInstance(self.test_website_subject, WebsiteSubject)
         self.assertListEqual(self.test_website_subject.currently_attached_observers, [])
+        self.assertIsNotNone(self.test_website_subject.web_address)
+        self.assertIsNotNone(self.test_website_subject.last_reported_web_address_modified_time)
 
     def test_attach_def(self):
         """

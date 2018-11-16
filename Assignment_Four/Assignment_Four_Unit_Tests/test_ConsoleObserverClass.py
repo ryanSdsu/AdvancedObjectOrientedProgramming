@@ -47,10 +47,10 @@ class TestConsoleObserverClass(unittest.TestCase):
         self.assertEqual(self.test_console_observer.web_address, 'http://www.eli.sdsu.edu/courses/fall18/cs635/notes/index.html')
         with io.StringIO() as buffer, redirect_stdout(buffer):
             self.test_console_observer.update()
-            lastPrintStatement = buffer.getvalue()
-            lastPrintStatement = lastPrintStatement.strip('\n')
+            last_print_statement = buffer.getvalue()
+            last_print_statement = last_print_statement.strip('\n')
         self.assertEqual("The website '" + self.test_console_observer.web_address + "' you're monitoring has been updated",
-                         lastPrintStatement)
+                         last_print_statement)
 
     def test_str_def(self):
         """
