@@ -4,7 +4,6 @@ from Assignment_Four.WebsiteSubjectClass import WebsiteSubject
 from Assignment_Four.ConsoleObserverClass import ConsoleObserver
 from Assignment_Four.SMSObserverClass import SMSObserver
 from mock import patch
-import _thread
 import time
 
 class TestWebsiteSubjectClass(unittest.TestCase):
@@ -65,9 +64,9 @@ class TestWebsiteSubjectClass(unittest.TestCase):
         self.test_website_subject.attach(self.test_sms_observer)
 
         with patch("smtplib.SMTP") as mock_smtp:
-            _thread.start_new_thread(self.test_website_subject.monitor, ())
             instance = mock_smtp.return_value
             while instance.sendmail.called == False:
+                self.test_website_subject.monitor()
                 time.sleep(3)
                 instance = mock_smtp.return_value
             instance.sendmail.assert_any_call(

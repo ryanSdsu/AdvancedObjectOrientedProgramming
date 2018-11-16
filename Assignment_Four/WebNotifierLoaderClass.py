@@ -1,3 +1,9 @@
+import multiprocessing
+from datetime import datetime
+from threading import current_thread
+from rx.subjects import Subject
+from rx.concurrency import ThreadPoolScheduler
+import threading
 from Assignment_Four.WebNotifierFactoryClass import WebNotifierFactory
 
 class WebNotifierLoader:
@@ -18,7 +24,7 @@ class WebNotifierLoader:
         self.web_notifier_factory = WebNotifierFactory()
         self.subject_dictionary = {}
 
-    def create_notifier(self, notifier_instruction_list):
+    def load_notifier(self, notifier_instruction_list):
         """
         This is where we create a notifier and update the subject dictionary based on the instructions that
         are given via a list of strings. The website url acts as a key and the creation of a website subject
@@ -41,3 +47,17 @@ class WebNotifierLoader:
             return list(self.subject_dictionary.values())
         except:
             raise KeyError("There is no such key in dictionary.")
+
+    def execute_web_notifiers(self, wait_interval=5000):
+        """
+        This is where we create the linkage between the subjects and the observers via RxPy. We create a
+        separate thread per subject and in certain 'wait_intervals' check on whether or not the observers
+        need to be updated.
+        :return:
+        """
+        subject_list = list(self.subject_dictionary.values())
+        optimal_thread_count = multiprocessing.cpu_count()
+        pool_scheduler = ThreadPoolScheduler(optimal_thread_count)
+
+        for web_subject in subject_list:
+            Subject.interval(wait_interval).observe_on(pool_scheduler).subscribe(on_next=lambda s: web_subject.monitor())

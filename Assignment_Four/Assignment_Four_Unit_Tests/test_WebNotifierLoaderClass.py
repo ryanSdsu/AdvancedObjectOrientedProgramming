@@ -1,4 +1,6 @@
 import unittest
+from mock import patch
+import time
 from Assignment_Four import FileReadClass
 from Assignment_Four.WebNotifierLoaderClass import WebNotifierLoader
 from Assignment_Four.ConsoleObserverClass import ConsoleObserver
@@ -34,19 +36,20 @@ class TestNotifierFactoryClass(unittest.TestCase):
         being instantiated.
         :return:
         """
-        self.test_factory = WebNotifierLoader()
-        self.assertIsInstance(self.test_factory, WebNotifierLoader)
-        self.assertEqual(self.test_factory.subject_dictionary, {})
+        self.test_loader = WebNotifierLoader()
+        self.assertIsInstance(self.test_loader, WebNotifierLoader)
+        self.assertEqual(self.test_loader.subject_dictionary, {})
 
-    def test_create_notifier_def(self):
+    def test_load_notifier_def(self):
         """
-        This unit test is testing the 'update' def of the 'Console Observer' class.
-        It passes when a message stating that the website has been updated appears on the console.
+        This unit test is testing the 'load_notifier' def of the 'Web Notifier Loader' class.
+        It passes when various subjects and observers get loaded correctly via a list of string
+        instructions.
         :return:
         """
-        self.test_factory = WebNotifierLoader()
+        self.test_loader = WebNotifierLoader()
         for instructions in self.test_file_lines:
-            self.website_subjects_list = self.test_factory.create_notifier(instructions)
+            self.website_subjects_list = self.test_loader.load_notifier(instructions)
 
         self.assertIsInstance(self.website_subjects_list[0], WebsiteSubject)
         self.assertEqual(self.website_subjects_list[0].web_address,
@@ -71,6 +74,29 @@ class TestNotifierFactoryClass(unittest.TestCase):
         self.assertIsInstance(self.website_subjects_list[1].currently_attached_observers[1], ConsoleObserver)
         self.assertEqual(self.website_subjects_list[1].currently_attached_observers[1].web_address,
                          'http://www.eli.sdsu.edu/index.html')
+
+    def test_execute_web_notifiers_def(self):
+        """
+        This unit test is testing the 'execute_web_notifiers' def of the 'Web Notifier Loader' class.
+        It passes when a loaded 'subject_list' gets linked via RxPy and there is now a separate thread
+        for each subject monitoring a website and updating the observers whenever there is a change within
+        a certain time interval.
+        :return:
+        """
+        self.test_loader = WebNotifierLoader()
+        self.test_loader.load_notifier(['https://www.nytimes.com', 'sms', '6195943535', 'verizon'])
+
+        with patch("smtplib.SMTP") as mock_smtp:
+            self.test_loader.execute_web_notifiers()
+            instance = mock_smtp.return_value
+            while instance.sendmail.called == False:
+                time.sleep(3)
+                instance = mock_smtp.return_value
+            instance.sendmail.assert_any_call(
+                "jakewhitney86@gmail.com", "6195943535@vzwpix.com",
+                "The website 'https://www.nytimes.com' you're monitoring has been updated")
+            self.assertTrue(instance.sendmail.called)
+
 
 if __name__ == '__main__':
     unittest.main()

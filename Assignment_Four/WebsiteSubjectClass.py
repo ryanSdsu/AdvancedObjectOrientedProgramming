@@ -15,32 +15,25 @@ class WebsiteSubject(AbstractSubject):
         'email_address' and 'web_address'.
         :param notifier_instruction_list: the string instructions that were given in a line via the .txt file
         """
-        self.last_reported_web_address_modified_time = None
         self.currently_attached_observers = []
-        try:
-            self.web_address = str(notifier_instruction_list[0])
-        except:
-            raise Exception("The URL could not be converted via type: str.")
-
-    def monitor(self):
-        """
-        This is where we monitor the website once every hour in order to inform the
-        observers of whenever a change happens during that time frame.
-        :return:
-        """
+        self.web_address = str(notifier_instruction_list[0])
         web_address_response = urllib.request.urlopen(self.web_address)
         web_address_modified_time = str(web_address_response.info().get('Last-Modified'))
         self.last_reported_web_address_modified_time = web_address_modified_time
 
-        while True:
-            web_address_response = urllib.request.urlopen(self.web_address)
-            web_address_modified_time = str(web_address_response.info().get('Last-Modified'))
-            if web_address_modified_time != self.last_reported_web_address_modified_time:
-                self.last_reported_web_address_modified_time = web_address_modified_time
-                for observer in self.currently_attached_observers:
-                    observer.update()
-            sleep(3)
-            # sleep(3600)
+    def monitor(self):
+        """
+        This is where we monitor the website and check when it was last modified.  If it was
+        we to inform the observers that a change happened during that time frame.
+        :return:
+        """
+        web_address_response = urllib.request.urlopen(self.web_address)
+        web_address_modified_time = str(web_address_response.info().get('Last-Modified'))
+
+        if web_address_modified_time != self.last_reported_web_address_modified_time:
+            for observer in self.currently_attached_observers:
+                observer.update()
+            self.last_reported_web_address_modified_time = web_address_modified_time
 
     def attach(self, *observer):
         """
